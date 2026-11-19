@@ -159,6 +159,7 @@ const IC={
  stop:'<rect x="6" y="6" width="12" height="12" rx="2.5"/>',
  reset:'<path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v4.5h4.5"/>',
  skip:'<path d="M6 5l9 7-9 7z"/><path d="M18 5v14"/>',
+ search:'<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
  gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'
 };
 const ic=(n,s=22,w=1.6,f="none")=>`<svg aria-hidden="true" width="${s}" height="${s}" viewBox="0 0 24 24" fill="${f}" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
@@ -167,6 +168,7 @@ const icFill=(n,s)=>`<svg aria-hidden="true" width="${s}" height="${s}" viewBox=
 /* ---------- stato ---------- */
 const S={view:"home",tab:"home",chapters:[],loaded:false,loadNote:"",draft:"",partial:"",listening:false,micErr:"",
  pending:null,err:"",rev:null,openId:null,confirmDel:false,banner:false,ctl:null};
+S.ask={q:"",a:"",busy:false,err:""};
 const F={mode:"25",presets:{"25":[25,5],"50":[50,10],"90":[90,15]},phase:"work",total:1500,rem:1500,running:false,endAt:0,sessions:0};
 let dict=null;S.trans=false;
 
@@ -181,20 +183,28 @@ const Store={
 /* ---------- AI: chiamata diretta all'API Anthropic con la chiave salvata sul telefono ---------- */
 const MODEL_MAIN="claude-sonnet-5-5",MODEL_FAST="claude-haiku-5-5";
 function getKey(){try{return localStorage.getItem("rc_key")||""}catch(e){return ""}}
-async function askJSON(prompt,opt){
+async function askRaw(prompt,opt){
  opt=opt||{};const key=getKey();if(!key)throw{code:"no_key"};
+ const content=opt.image?[{type:"image",source:{type:"base64",media_type:opt.image.type,data:opt.image.data}},{type:"text",text:prompt}]:prompt;
  let r;
  try{r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",signal:opt.signal,
   headers:{"content-type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
-  body:JSON.stringify({model:opt.model||MODEL_MAIN,max_tokens:8000,messages:[{role:"user",content:prompt}]})})}
+  body:JSON.stringify({model:opt.model||MODEL_MAIN,max_tokens:8000,messages:[{role:"user",content}]})})}
  catch(e){if(e&&e.name==="AbortError")throw{code:"cancelled"};throw{code:"network"}}
  if(r.status===401||r.status===403)throw{code:"auth"};
  if(r.status===429)throw{code:"rate_limited"};
  if(!r.ok){let m="";try{m=JSON.stringify(await r.json())}catch(e){}throw{code:/credit/i.test(m)?"credit":"upstream_error"}}
- const j=await r.json();const text=(j.content||[]).map(b=>b.text||"").join("");
- const i=text.indexOf("{"),k=text.lastIndexOf("}");
+ const j=await r.json();return (j.content||[]).map(b=>b.text||"").join("");
+}
+async function askText(p,o){return (await askRaw(p,o)).trim()}
+async function askJSON(p,o){
+ const text=await askRaw(p,o);const i=text.indexOf("{"),k=text.lastIndexOf("}");
  try{return JSON.parse(text.slice(i,k+1))}catch(e){throw{code:"invalid_json"}}
 }
+
+/* ---------- misure dell'alpha: registro eventi sul telefono ---------- */
+function getLog(){try{return JSON.parse(localStorage.getItem("rc_log")||"[]")}catch(e){return[]}}
+function logEv(t,x){try{const a=getLog();a.push(Object.assign({t,at:Date.now()},x||{}));localStorage.setItem("rc_log",JSON.stringify(a.slice(-800)))}catch(e){}}
 
 /* ---------- registratore audio + trascrizione (OpenAI) ---------- */
 function getOKey(){try{return localStorage.getItem("rc_okey")||""}catch(e){return ""}}
@@ -262,8 +272,9 @@ function bookList(){const m=new Map();S.chapters.forEach(c=>{const key=(c.book||
 const fmtDay=t=>new Date(t).toLocaleDateString("it-IT",{day:"numeric",month:"short"});
 
 /* ---------- navigazione ---------- */
-const TABVIEW={home:"home",library:"library",focus:"focus",chapter:"library"};
-function go(v,opts){S.view=v;if(TABVIEW[v])S.tab=TABVIEW[v];S.err="";render();if(!(opts&&opts.keepScroll))window.scrollTo(0,0)}
+const TABVIEW={home:"home",library:"library",focus:"focus",chapter:"library",ask:"ask",stats:"home"};
+function go(v,opts){if(v==="record"&&!["record","confirm","processing"].includes(S.view)){S.recOpenAt=Date.now();S.recStartLogged=false;logEv("rec_open")}
+ S.view=v;if(TABVIEW[v])S.tab=TABVIEW[v];S.err="";render();if(!(opts&&opts.keepScroll))window.scrollTo(0,0)}
 function softRender(){if(["home","library","focus","chapter"].includes(S.view))render()}
 function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>{el.hidden=true},2600)}
 function setErr(t){const e=$("#err");if(e)e.textContent=t||""}
@@ -285,8 +296,10 @@ V.home=()=>{
  <div class="orbwrap"><div class="ring1"><div class="ring2"><button class="orb" data-act="rec" aria-label="Ripeti il capitolo">${ic("mic",56,1.3)}</button></div></div>
   <div class="orblabel">Ripeti il capitolo</div><div class="orbhint">Premi e parla</div></div>
  ${rev}
+ ${expBanner()}
  <div class="tiles"><div class="card tile"><b>${streak()}</b><span>giorni di fila</span></div><div class="card tile"><b>${week}</b><span>capitoli in 7 giorni</span></div><div class="card tile"><b>${bookList().length}</b><span>libri</span></div></div>
  <button class="item" data-act="tab" data-v="focus"><span class="tag" style="padding:10px">${ic("timer",22)}</span><span class="grow"><b>Focus</b><span class="muted">Pomodoro e sessioni lunghe</span></span>${ic("chev",18)}</button>
+ <button class="item" data-act="stats"><span class="tag" style="padding:10px">${ic("book",22)}</span><span class="grow"><b>Misure dell'alpha</b><span class="muted">Abitudine e memoria in numeri</span></span>${ic("chev",18)}</button>
  ${S.loadNote?`<div class="muted" style="text-align:center">${esc(S.loadNote)}</div>`:""}
  </div>`};
 
@@ -308,6 +321,7 @@ V.chapter=()=>{
  ${list("Citazioni",c.quotes,x=>`<div class="note quote">${esc(x)}</div>`)}
  ${list("Dati",c.data,x=>`<div class="note">${esc(x)}</div>`)}
  ${c.unclear&&c.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${c.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
+ <label class="link" style="cursor:pointer;display:inline-flex;align-items:center">Aggiungi foto di una pagina<input type="file" accept="image/*" data-photo="c:${esc(c.id)}" hidden></label>
  <details><summary>Cosa hai detto</summary><p>${esc(c.transcript)}</p></details>
  ${S.confirmDel?`<div class="row"><button class="pill sm ghost grow" data-act="deltoggle">Annulla</button><button class="pill sm grow" style="background:var(--bad)" data-act="delete" data-id="${esc(c.id)}">Elimina davvero</button></div>`:`<button class="link" style="color:var(--bad)" data-act="deltoggle">Elimina capitolo</button>`}
  </div>`};
@@ -341,6 +355,7 @@ V.confirm=()=>{
    ${known.length||alts.length?`<div class="chips">${known.map(b=>`<button class="chip" data-act="pick" data-i="${i}" data-book="${esc(b.book)}" data-author="${esc(b.author||"")}">${esc(b.book)}</button>`).join("")}${alts.map(b=>`<button class="chip" data-act="pick" data-i="${i}" data-book="${esc(b)}" data-author="">${esc(b)}</button>`).join("")}</div>`:""}
    ${ai.book&&conf!==null&&conf<80?`<div class="muted">Non sono sicuro: controlla titolo e capitolo.</div>`:""}
   </div>
+  <label class="link" style="cursor:pointer;display:inline-flex;align-items:center">Aggiungi foto di una pagina<input type="file" accept="image/*" data-photo="${i}" hidden></label>
   ${ai.summary?`<div class="card">${esc(ai.summary)}</div>`:""}
   ${sec("Concetti",ai.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
   ${sec("Citazioni",ai.quotes,x=>`<div class="note quote">${esc(x)}</div>`)}
@@ -390,6 +405,46 @@ V.focus=()=>{
  <div class="ctl"><button class="round" data-act="freset" aria-label="Ricomincia">${ic("reset",22)}</button><button class="round main" data-act="ftoggle" aria-label="${F.running?"Pausa":"Avvia"}">${icFill(F.running?"pause":"play",30)}</button><button class="round" data-act="fskip" aria-label="Salta">${ic("skip",22)}</button></div>
  <div class="card muted" style="text-align:center">A fine sessione ti invito a ripetere il capitolo.</div></div>`};
 
+function expBanner(){
+ if(!S.chapters.length)return "";
+ let last=0;try{last=+localStorage.getItem("rc_lastexp")||0}catch(e){}
+ const oldest=Math.min(...S.chapters.map(c=>c.createdAt));
+ if(Date.now()-Math.max(last,oldest)<=7*DAY)return "";
+ return `<div class="card"><div class="row"><div class="grow"><b style="font-weight:600">Fai una copia dei capitoli</b><div class="muted">Sono solo su questo telefono. Salvala in File o su iCloud.</div></div><button class="pill sm ghost" data-act="export">Esporta</button></div></div>`}
+
+V.ask=()=>{const A=S.ask,n=S.chapters.length;
+ return `<div class="top"><div><h1>Chiedi</h1><div class="sub nocap">Rispondo solo con ciò che hai registrato</div></div></div>
+ <div class="stack">
+ ${n?"":`<div class="card muted">La libreria è vuota. Registra un capitolo, poi potrai farle delle domande.</div>`}
+ <textarea id="tx" style="min-height:110px" aria-label="La tua domanda" placeholder="Cosa ho letto sull'attenzione?">${esc(S.draft)}</textarea>
+ <div class="partial" id="partial">${esc(S.partial)}</div>
+ ${dict?`<div class="center" style="margin:0"><button class="mic${S.listening?" on":""}" id="micbtn" data-act="mic" style="width:72px;height:72px" aria-label="Parla">${ic("mic",30,1.4)}</button><div class="muted" id="mstat">${S.trans?"Trascrivo…":S.listening?"Sto registrando… tocca per fermare":"Fai la domanda a voce"}</div><div class="muted" id="micerr">${esc(S.micErr)}</div></div>`:""}
+ <div class="err" id="err">${esc(A.err)}</div>
+ <button class="pill" data-act="askgo" ${A.busy?"disabled":""}>${A.busy?"Cerco nella libreria…":"Chiedi"}</button>
+ ${A.a?`<div class="card stack" style="gap:8px"><h2>Risposta</h2><div style="white-space:pre-wrap">${esc(A.a)}</div></div>`:""}
+ </div>`};
+
+V.stats=()=>{
+ const L=getLog(),pct=(a,b)=>b?Math.round(100*a/b)+"%":"–";
+ const saved=L.filter(e=>e.t==="saved").reduce((a,e)=>a+(e.n||1),0);
+ const skipped=L.filter(e=>e.t==="skipped").length;
+ const ms=L.filter(e=>e.t==="rec_start").map(e=>e.ms).sort((a,b)=>a-b);
+ const med=ms.length?Math.round(ms[Math.floor(ms.length/2)]/1000)+" s":"–";
+ const rates=L.filter(e=>e.t==="rate"),ok=rates.filter(e=>e.r==="ok").length;
+ const late=rates.filter(e=>e.step>=2),okLate=late.filter(e=>e.r==="ok").length;
+ const week=S.chapters.filter(c=>c.createdAt>Date.now()-7*DAY).length;
+ const tile=(v,l)=>`<div class="card tile"><b>${v}</b><span>${l}</span></div>`;
+ return `<div class="top"><button class="iconbtn" data-act="tab" data-v="home" aria-label="Indietro">${ic("back",20)}</button><div style="font-weight:500">Misure dell'alpha</div><span style="width:44px"></span></div>
+ <div class="stack">
+ <div class="muted" style="margin:0 4px">Contano solo i dati da quando hai installato questa versione. Servono a capire se l'abitudine regge e se ricordi davvero.</div>
+ <div class="h2row"><h2 style="margin:0 4px">Abitudine</h2></div>
+ <div class="tiles" style="grid-template-columns:1fr 1fr">${tile(S.chapters.length,"capitoli salvati")}${tile(week,"negli ultimi 7 giorni")}${tile(pct(saved,saved+skipped),"letti e poi registrati")}${tile(med,"dall'apertura al microfono")}</div>
+ <div class="card stack" style="gap:8px"><div class="muted">Se leggi un capitolo e non lo registri, segnalo qui: serve a misurare quanto spesso salti il gesto.</div><button class="pill ghost sm" data-act="skipped" style="align-self:flex-start">Ho letto senza registrare (${skipped})</button></div>
+ <h2 style="margin:6px 4px 0">Memoria</h2>
+ <div class="tiles" style="grid-template-columns:1fr 1fr">${tile(rates.length,"domande ripassate")}${tile(pct(ok,rates.length),"\"Lo sapevo\" in tutto")}${tile(pct(okLate,late.length),"\"Lo sapevo\" dopo 7+ giorni")}${tile(late.length,"ripassi dopo 7+ giorni")}</div>
+ <div class="muted" style="margin:0 4px">Obiettivo dell'alpha: registrare almeno 7 capitoli su 10 letti, e ricordare bene la maggior parte delle domande anche dopo una settimana. "Lo sapevo" è il tuo voto onesto, non quello dell'AI.</div>
+ </div>`};
+
 V.settings=()=>{const ha=!!getKey(),ho=!!getOKey();
  const card=(k,title,has,on,off,ph)=>`<div class="card stack" style="gap:10px"><b style="font-weight:600">${title}</b>
  <div class="muted">${has?"Chiave salvata su questo telefono.":on}</div>
@@ -401,16 +456,17 @@ V.settings=()=>{const ha=!!getKey(),ho=!!getOKey();
 ${card("o","Chiave di trascrizione (OpenAI)",ho,"Serve a trasformare la tua voce in testo. L'audio viene inviato a OpenAI solo mentre registri. Costa circa mezzo centesimo al minuto.","", "sk-…")}
 ${card("a","Chiave AI (Anthropic)",ha,"Serve a riconoscere il libro, estrarre i concetti e valutare le risposte.","", "sk-ant-…")}
 <div class="row"><button class="link" data-act="skipkey">Continua</button></div>
-<div class="card stack" style="gap:10px"><b style="font-weight:600">Copia dei dati</b><div class="muted">I capitoli stanno solo su questo telefono. Se cancelli i dati del sito o cambi telefono si perdono. Esporta una copia ogni tanto.</div><button class="pill ghost" data-act="export">Esporta copia</button></div></div>`};
+<div class="card stack" style="gap:10px"><b style="font-weight:600">Promemoria serale</b><div class="muted">Un evento ripetuto nel Calendario, con il link che apre la registrazione. L'iPhone ti chiede di confermarlo.</div><input type="time" id="rm-time" value="21:30" aria-label="Orario del promemoria" style="width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;padding:12px 16px"><button class="pill ghost" data-act="reminder">Aggiungi al Calendario</button></div>
+<div class="card stack" style="gap:10px"><b style="font-weight:600">Copia dei dati</b><div class="muted">I capitoli stanno solo su questo telefono. Se cancelli i dati del sito o cambi telefono si perdono. Esporta una copia ogni tanto e salvala in File.</div><div class="row"><button class="pill ghost grow" data-act="export">Esporta copia</button><label class="pill ghost grow" style="display:flex;align-items:center;justify-content:center;cursor:pointer">Importa copia<input type="file" id="imp" accept="application/json,.json" hidden></label></div></div></div>`};
 
 const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
 
 /* ---------- render ---------- */
 function render(){
  const app=$("#app");app.innerHTML=(V[S.view]||V.home)();
- const showTabs=["home","library","focus","chapter"].includes(S.view);
+ const showTabs=["home","library","focus","chapter","ask","stats"].includes(S.view);
  const tabs=$("#tabs");tabs.hidden=!showTabs;
- tabs.innerHTML=[["home","Oggi","sun"],["library","Libri","book"],["focus","Focus","timer"]].map(([k,l,i])=>`<button class="${S.tab===k?"on":""}" data-act="tab" data-v="${k}">${ic(i,22)}${l}</button>`).join("");
+ tabs.innerHTML=[["home","Oggi","sun"],["library","Libri","book"],["ask","Chiedi","search"],["focus","Focus","timer"]].map(([k,l,i])=>`<button class="${S.tab===k?"on":""}" data-act="tab" data-v="${k}">${ic(i,22)}${l}</button>`).join("");
 }
 function paintRec(){
  const b=$("#micbtn");if(b)b.classList.toggle("on",S.listening);
@@ -495,6 +551,7 @@ Valuta il significato, non le parole. Non aggiungere informazioni esterne.`;
 }
 async function rate(r){
  const R=S.rev,{c,q}=R.items[R.i];
+ logEv("rate",{r,step:q.step||0});
  let step=q.step||0;
  if(r==="ok")step=Math.min(step+1,INT.length-1);else if(r==="no")step=0;
  const days=r==="part"?Math.max(1,Math.round(INT[step]/2)):INT[step];
@@ -519,6 +576,7 @@ async function save(){
  const b=document.querySelector('[data-act="save"]');if(b)b.disabled=true;
  try{for(const d of docs)await Store.put(d)}catch(e){if(b)b.disabled=false;setErr("Non sono riuscito a salvare. Riprova.");return}
  S.pending=null;S.draft="";S.partial="";
+ logEv("saved",{n:docs.length});
  toast(docs.length>1?docs.length+" capitoli salvati":"Capitolo salvato");go("home");
 }
 
@@ -542,8 +600,12 @@ document.addEventListener("click",ev=>{
   S.micErr="";dict.start().catch(e=>{S.micErr=micMsg(e&&e.code);paintRec()});
   return}
  switch(a){
-  case "tab":go(el.dataset.v);break;
+  case "tab":if(el.dataset.v==="ask")S.draft=S.ask.q||"";go(el.dataset.v);break;
   case "settings":go("settings");break;
+  case "stats":go("stats");break;
+  case "skipped":logEv("skipped");toast("Segnato");render();break;
+  case "askgo":askLibrary();break;
+  case "reminder":addReminder();break;
   case "savekey":{const k=el.dataset.k,v=(($("#k-"+k)||{}).value||"").trim(),e=$("#err-"+k);
    const ok=k==="a"?/^sk-ant-/.test(v)&&v.length>30:/^sk-/.test(v)&&!/^sk-ant-/.test(v)&&v.length>30;
    if(!ok){if(e)e.textContent=k==="a"?"Non sembra una chiave Anthropic: deve iniziare con sk-ant- ed essere lunga.":"Non sembra una chiave OpenAI: deve iniziare con sk- ed essere lunga.";break}
@@ -581,8 +643,73 @@ document.addEventListener("click",ev=>{
  }
 });
 document.addEventListener("input",ev=>{if(ev.target.id==="tx")S.draft=ev.target.value});
+document.addEventListener("change",ev=>{const t=ev.target;
+ if(t.dataset&&t.dataset.photo!==undefined)handlePhoto(t);
+ else if(t.id==="imp"&&t.files[0]){importData(t.files[0]).then(()=>{t.value="";render()})}});
 
+async function askLibrary(){
+ if(dict&&dict.active())await dict.stop().catch(()=>{});
+ const A=S.ask,q=(($("#tx")||{}).value||"").trim();
+ if(q.length<3){setErr("Scrivi o detta una domanda.");return}
+ if(!getKey()){setErr(errCopy("no_key"));return}
+ if(!S.chapters.length){setErr("La libreria è vuota.");return}
+ A.q=q;S.draft=q;A.busy=true;A.a="";A.err="";render();
+ const lib=S.chapters.map(c=>`[${c.book}${c.author?" · "+c.author:""} · capitolo ${c.chapter} · ${fmtDay(c.createdAt)}]\nSintesi: ${c.summary||""}\nConcetti: ${(c.concepts||[]).map(x=>x.title+": "+x.text).join(" | ")}\nCitazioni: ${(c.quotes||[]).join(" | ")}\nDati: ${(c.data||[]).join(" | ")}`).join("\n\n").slice(0,150000);
+ const prompt=`Sei l'assistente della libreria personale di Luigi. Sotto ci sono gli appunti che ha registrato dopo aver letto dei capitoli, nelle sue parole (non il testo dei libri).
+Rispondi alla domanda usando SOLO questi appunti. Cita sempre libro e capitolo tra parentesi, per esempio (L'arte dell'attenzione, cap. 5). Se negli appunti non c'è la risposta, dillo chiaramente e non inventare. Se gli appunti si contraddicono, segnalalo. Rispondi in italiano, in modo diretto, in massimo 150 parole.
+
+APPUNTI:
+${lib}
+
+DOMANDA: ${q}`;
+ try{A.a=await askText(prompt,{model:MODEL_MAIN})}catch(e){A.err=errCopy(e&&e.code)}
+ A.busy=false;if(S.view==="ask")render();
+}
+function imgToB64(file,max){max=max||1600;return new Promise((res,rej)=>{const url=URL.createObjectURL(file),im=new Image();
+ im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(url);res({type:"image/jpeg",data:c.toDataURL("image/jpeg",.82).split(",")[1]})};
+ im.onerror=()=>{URL.revokeObjectURL(url);rej({code:"image"})};im.src=url})}
+function syncItems(){if(!S.pending)return;S.pending.items.forEach((ai,i)=>{const g=id=>($("#"+id+"-"+i)||{}).value;if(g("f-book")!==undefined){ai.book=g("f-book");ai.author=g("f-author");ai.chapter=g("f-chap")}})}
+async function handlePhoto(inp){
+ const file=inp.files&&inp.files[0],key=inp.dataset.photo;if(!file)return;
+ if(!getKey()){toast(errCopy("no_key"));return}
+ let target,chap=null;
+ if(key.startsWith("c:")){chap=S.chapters.find(x=>x.id===key.slice(2));target=chap}
+ else{syncItems();target=S.pending&&S.pending.items[+key]}
+ if(!target)return;
+ toast("Leggo la pagina…");
+ try{
+  const img=await imgToB64(file);
+  const notes=(target.concepts||[]).map(c=>c.title+": "+c.text).join("\n");
+  const prompt=`La foto mostra una pagina di un libro. Questi sono gli appunti che Luigi ha preso a voce su questo capitolo:
+${notes||"(nessun appunto)"}
+Rispondi SOLO con JSON: {"quotes": [fino a 3 frasi della pagina che meritano di essere citate, trascritte alla lettera], "check": [fino a 3 punti in cui gli appunti di Luigi sembrano in contrasto con il testo della pagina o ne cambiano il senso, ognuno in una frase]}
+Se la pagina non è leggibile o non c'entra con gli appunti, usa liste vuote. Non inventare testo.`;
+  const j=await askJSON(prompt,{model:MODEL_MAIN,image:img});
+  const qs=arr(j.quotes).map(x=>String(x)+" (dalla foto)").slice(0,3),ck=arr(j.check).map(x=>"Dalla pagina: "+String(x)).slice(0,3);
+  target.quotes=(target.quotes||[]).concat(qs);target.unclear=(target.unclear||[]).concat(ck);
+  if(chap)await Store.patch(chap.id,{quotes:chap.quotes,unclear:chap.unclear});
+  toast(qs.length+ck.length?"Pagina aggiunta":"Nessuna citazione trovata");
+  render();
+ }catch(e){toast(e&&e.code==="image"?"Non riesco a leggere questa foto.":errCopy(e&&e.code))}
+ inp.value="";
+}
+async function addReminder(){
+ const t=($("#rm-time")||{}).value||"21:30",hm=t.split(":"),d=new Date();d.setHours(+hm[0],+hm[1],0,0);if(d<new Date())d.setDate(d.getDate()+1);
+ const p=n=>String(n).padStart(2,"0"),dt=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+"T"+p(d.getHours())+p(d.getMinutes())+"00";
+ const url=location.origin+location.pathname+"#registra";
+ const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Ripeti il capitolo//IT","BEGIN:VEVENT","UID:ripeti-"+Date.now()+"@ripeti","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z","DTSTART:"+dt,"DURATION:PT10M","RRULE:FREQ=DAILY","SUMMARY:Ripeti il capitolo","DESCRIPTION:Hai letto oggi? Racconta il capitolo a voce.","URL:"+url,"BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:Ripeti il capitolo","TRIGGER:PT0M","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+ try{const f=new File([ics],"promemoria.ics",{type:"text/calendar"});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return}}catch(e){if(e&&e.name==="AbortError")return}
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="promemoria.ics";document.body.appendChild(a);a.click();a.remove();
+}
+async function importData(file){
+ try{const j=JSON.parse(await file.text()),list=Array.isArray(j)?j:j.chapters;
+  if(!Array.isArray(list))throw 0;let n=0;
+  for(const c of list){if(c&&c.id&&c.book&&!S.chapters.find(x=>x.id===c.id)){S.chapters.push(c);n++}}
+  S.chapters.sort((a,b)=>b.createdAt-a.createdAt);Store._persist();toast(n?n+" capitoli importati":"Nessun capitolo nuovo");
+ }catch(e){toast("Il file non sembra una copia valida.")}
+}
 async function exportData(){
+ try{localStorage.setItem("rc_lastexp",String(Date.now()))}catch(e){}
  const data=JSON.stringify({exportedAt:new Date().toISOString(),chapters:S.chapters},null,1);
  const name="ripeti-il-capitolo-"+new Date().toISOString().slice(0,10)+".json";
  try{const f=new File([data],name,{type:"application/json"});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return}}catch(e){if(e&&e.name==="AbortError")return}
@@ -612,6 +739,7 @@ window.addEventListener("hashchange",route);
   dict.onFinal(({text})=>{const t=$("#tx");if(!t)return;t.value=t.value?t.value+text:text.trimStart();S.draft=t.value});
   dict.onPartial(({text})=>{S.partial=text;paintRec()});
   dict.onState(({state,reason})=>{S.listening=state==="listening";S.trans=state==="transcribing";
+   if(state==="listening"&&S.view==="record"&&!S.recStartLogged){S.recStartLogged=true;logEv("rec_start",{ms:Date.now()-(S.recOpenAt||Date.now())})}
    S.micErr=(state==="idle"&&reason)?micMsg(reason):"";paintRec()});
 
  }
