@@ -186,7 +186,7 @@ async function askJSON(prompt,opt){
  let r;
  try{r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",signal:opt.signal,
   headers:{"content-type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
-  body:JSON.stringify({model:opt.model||MODEL_MAIN,max_tokens:4000,messages:[{role:"user",content:prompt}]})})}
+  body:JSON.stringify({model:opt.model||MODEL_MAIN,max_tokens:8000,messages:[{role:"user",content:prompt}]})})}
  catch(e){if(e&&e.name==="AbortError")throw{code:"cancelled"};throw{code:"network"}}
  if(r.status===401||r.status===403)throw{code:"auth"};
  if(r.status===429)throw{code:"rate_limited"};
@@ -328,30 +328,34 @@ V.processing=()=>`<div class="top"><span style="width:44px"></span><span></span>
  <button class="link" data-act="stopproc">Annulla</button></div>`;
 
 V.confirm=()=>{
- const p=S.pending,ai=p.ai||{};
- const known=bookList();
- const conf=typeof ai.confidence==="number"?Math.round(ai.confidence*100):null;
- const alts=(ai.alternatives||[]).filter(Boolean);
- const sec=(t,arr,fn,cls)=>arr&&arr.length?`<div class="sec"><h2>${t}</h2><div class="stack" style="gap:8px">${arr.map(fn).join("")}</div></div>`:"";
+ const p=S.pending,known=bookList(),n=p.items.length;
+ const sec=(t,arr,fn)=>arr&&arr.length?`<div class="sec"><h2>${t}</h2><div class="stack" style="gap:8px">${arr.map(fn).join("")}</div></div>`:"";
+ const one=(ai,i)=>{
+  const conf=typeof ai.confidence==="number"?Math.round(ai.confidence*100):null;
+  const alts=(ai.alternatives||[]).filter(Boolean);
+  return `<div class="stack" data-item="${i}">
+  <div class="card stack" style="gap:12px"><div class="row"><b style="font-size:17px;font-weight:600" class="grow">${n>1?"Capitolo "+(i+1)+" di "+n:(ai.book?"È questo il libro?":"Di che libro parli?")}</b>${conf!==null?`<span class="tag">${conf}% sicuro</span>`:""}${n>1?`<button class="link" data-act="dropitem" data-i="${i}" style="color:var(--bad)">Togli</button>`:""}</div>
+   <div><label for="f-book-${i}">Titolo</label><input type="text" id="f-book-${i}" value="${esc(ai.book||"")}" autocomplete="off"></div>
+   <div><label for="f-author-${i}">Autore</label><input type="text" id="f-author-${i}" value="${esc(ai.author||"")}" autocomplete="off"></div>
+   <div><label for="f-chap-${i}">Capitolo</label><input type="text" id="f-chap-${i}" value="${esc(ai.chapter||"")}" autocomplete="off"></div>
+   ${known.length||alts.length?`<div class="chips">${known.map(b=>`<button class="chip" data-act="pick" data-i="${i}" data-book="${esc(b.book)}" data-author="${esc(b.author||"")}">${esc(b.book)}</button>`).join("")}${alts.map(b=>`<button class="chip" data-act="pick" data-i="${i}" data-book="${esc(b)}" data-author="">${esc(b)}</button>`).join("")}</div>`:""}
+   ${ai.book&&conf!==null&&conf<80?`<div class="muted">Non sono sicuro: controlla titolo e capitolo.</div>`:""}
+  </div>
+  ${ai.summary?`<div class="card">${esc(ai.summary)}</div>`:""}
+  ${sec("Concetti",ai.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
+  ${sec("Citazioni",ai.quotes,x=>`<div class="note quote">${esc(x)}</div>`)}
+  ${sec("Dati",ai.data,x=>`<div class="note">${esc(x)}</div>`)}
+  ${ai.unclear&&ai.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${ai.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
+  ${ai.questions&&ai.questions.length?`<div class="muted" style="margin:0 4px">${ai.questions.length} domande pronte per il ripasso, la prima domani.</div>`:""}
+  </div>`};
  return `<div class="top"><button class="iconbtn" data-act="backrec" aria-label="Torna alla registrazione">${ic("back",20)}</button><div style="font-weight:500">Conferma</div><span style="width:44px"></span></div>
- <div class="stack">
+ <div class="stack" style="gap:22px">
  ${p.fail?`<div class="card sand"><div class="row"><div class="grow" style="font-size:14px">${esc(p.fail)}</div><button class="pill sm ghost" data-act="retry">Riprova</button></div></div>`:""}
- <div class="card stack" style="gap:12px"><div class="row"><b style="font-size:17px;font-weight:600" class="grow">${ai.book?"È questo il libro?":"Di che libro parli?"}</b>${conf!==null?`<span class="tag">${conf}% sicuro</span>`:""}</div>
-  <div><label for="f-book">Titolo</label><input type="text" id="f-book" value="${esc(ai.book||"")}" autocomplete="off"></div>
-  <div><label for="f-author">Autore</label><input type="text" id="f-author" value="${esc(ai.author||"")}" autocomplete="off"></div>
-  <div><label for="f-chap">Capitolo</label><input type="text" id="f-chap" value="${esc(ai.chapter||"")}" autocomplete="off"></div>
-  ${known.length||alts.length?`<div class="chips">${known.map(b=>`<button class="chip" data-act="pick" data-book="${esc(b.book)}" data-author="${esc(b.author||"")}">${esc(b.book)}</button>`).join("")}${alts.map(b=>`<button class="chip" data-act="pick" data-book="${esc(b)}" data-author="">${esc(b)}</button>`).join("")}</div>`:""}
-  ${ai.book&&conf!==null&&conf<80?`<div class="muted">Non sono sicuro: controlla titolo e capitolo.</div>`:""}
- </div>
- ${ai.summary?`<div class="card">${esc(ai.summary)}</div>`:""}
- ${sec("Concetti",ai.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
- ${sec("Citazioni",ai.quotes,x=>`<div class="note quote">${esc(x)}</div>`)}
- ${sec("Dati",ai.data,x=>`<div class="note">${esc(x)}</div>`)}
- ${ai.unclear&&ai.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${ai.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
- ${ai.questions&&ai.questions.length?`<div class="muted" style="margin:0 4px">${ai.questions.length} domande pronte per il ripasso, la prima domani.</div>`:""}
+ ${n>1?`<div class="card" style="font-size:14px">Ho trovato ${n} capitoli nella registrazione. Controlla ogni scheda: puoi correggere titolo e capitolo o toglierne una.</div>`:""}
+ ${p.items.map(one).join("")}
  <div class="muted" style="margin:0 4px">L'AI lavora solo su ciò che hai detto, non sul testo del libro: se hai sbagliato qualcosa, resta sbagliato.</div>
  <div class="err" id="err"></div>
- <button class="pill" data-act="save">Salva nella libreria</button></div>`};
+ <button class="pill" data-act="save">${n>1?"Salva "+n+" capitoli":"Salva nella libreria"}</button></div>`};
 
 V.review=()=>{
  const R=S.rev;
@@ -442,25 +446,30 @@ function normalize(a){
 }
 async function process(text){
  S.draft=text;S.err="";go("processing");
- let ai=null,fail="";
+ let items=null,fail="";
  if(!getKey())fail=errCopy("no_key");
  else{
   S.ctl=new AbortController();
   const known=bookList().map(b=>b.book).join(" | ")||"nessuno";
-  const prompt=`Sei l'assistente di un'app di studio. Luigi ha appena letto un capitolo di un libro e lo ha spiegato a voce. Sotto c'è la trascrizione, che può contenere errori di riconoscimento vocale.
+  const prompt=`Sei l'assistente di un'app di studio. Luigi ha appena letto uno o più capitoli e li ha spiegati a voce in un'unica registrazione. Sotto c'è la trascrizione, che può contenere errori di riconoscimento vocale.
 Libri già in libreria: ${known}.
+Se nella registrazione parla di più capitoli, o di più libri, dividila in un elemento per capitolo, nell'ordine in cui li ha detti. Ogni elemento contiene solo ciò che riguarda quel capitolo. Se parla di un solo capitolo, restituisci un solo elemento. Non creare più elementi per lo stesso capitolo.
 Rispondi SOLO con un oggetto JSON di questa forma:
-{"book": titolo o null, "author": autore o null, "chapter": numero o titolo del capitolo come stringa, o null, "confidence": numero da 0 a 1 su quanto sei sicuro di libro e capitolo, "alternatives": [fino a 2 titoli alternativi plausibili], "summary": "una frase", "concepts": [{"title": "...", "text": "..."}] (da 3 a 6), "quotes": ["..."] (solo frasi che Luigi ha pronunciato come citazioni), "data": ["..."] (numeri, date, nomi propri citati), "unclear": ["..."] (passaggi vaghi o possibilmente imprecisi, che non si possono controllare senza il libro), "questions": [{"q": "domanda di richiamo attivo, che richiede di spiegare", "ideal": "risposta corretta basata SOLO su ciò che Luigi ha detto"}] (da 3 a 5)}
-Regole: non aggiungere informazioni che non sono nella trascrizione. Se libro o capitolo non emergono chiaramente dal testo, usa null e una confidence bassa: non indovinare. Scrivi in italiano.
+{"chapters": [ {"book": titolo o null, "author": autore o null, "chapter": numero o titolo del capitolo come stringa, o null, "confidence": numero da 0 a 1 su quanto sei sicuro di libro e capitolo, "alternatives": [fino a 2 titoli alternativi plausibili], "summary": "una frase", "concepts": [{"title": "...", "text": "..."}] (da 3 a 6), "quotes": ["..."] (solo frasi che Luigi ha pronunciato come citazioni), "data": ["..."] (numeri, date, nomi propri citati), "unclear": ["..."] (passaggi vaghi o possibilmente imprecisi, che non si possono controllare senza il libro), "questions": [{"q": "domanda di richiamo attivo, che richiede di spiegare", "ideal": "risposta corretta basata SOLO su ciò che Luigi ha detto"}] (da 3 a 5)} ]}
+Regole: non aggiungere informazioni che non sono nella trascrizione. Se libro o capitolo non emergono chiaramente dal testo, usa null e una confidence bassa: non indovinare. Se il libro è lo stesso dell'elemento precedente e non viene ripetuto, usa lo stesso titolo. Scrivi in italiano.
 
 Trascrizione:
 """
 ${text.slice(0,30000)}
 """`;
-  try{ai=normalize(await askJSON(prompt,{signal:S.ctl.signal,model:MODEL_MAIN}));if(!ai)fail=errCopy("invalid_json")}
-  catch(e){if(e&&e.code==="cancelled"){go("record");return}fail=errCopy(e&&e.code)}
+  try{
+   const j=await askJSON(prompt,{signal:S.ctl.signal,model:MODEL_MAIN});
+   const list=Array.isArray(j.chapters)?j.chapters:(j&&typeof j==="object"&&(j.book!==undefined||j.concepts)?[j]:[]);
+   items=list.map(normalize).filter(Boolean).slice(0,8);
+   if(!items.length){items=null;fail=errCopy("invalid_json")}
+  }catch(e){if(e&&e.code==="cancelled"){go("record");return}fail=errCopy(e&&e.code)}
  }
- S.pending={transcript:text,ai:ai||{concepts:[],quotes:[],data:[],unclear:[],questions:[],alternatives:[]},fail};
+ S.pending={transcript:text,items:items||[normalize({})],fail};
  go("confirm");
 }
 async function grade(){
@@ -495,18 +504,22 @@ async function rate(r){
  try{await Store.patch(c.id,{questions:nq})}catch(e){toast("Non sono riuscito a salvare l'ultimo voto")}
 }
 async function save(){
- const p=S.pending,ai=p.ai;
- const book=$("#f-book").value.trim(),author=$("#f-author").value.trim(),chapter=$("#f-chap").value.trim();
- if(!book){setErr("Scrivi il titolo del libro.");return}
- if(!chapter){setErr("Scrivi il numero o il titolo del capitolo.");return}
- const now=Date.now(),id="c"+now.toString(36);
- const doc={id,book,author,chapter,confidence:ai.confidence==null?0:ai.confidence,transcript:p.transcript,summary:ai.summary||"",
-  concepts:ai.concepts||[],quotes:ai.quotes||[],data:ai.data||[],unclear:ai.unclear||[],
-  questions:(ai.questions||[]).map((x,i)=>({id:"q"+i,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0})),createdAt:now};
+ const p=S.pending,docs=[],now=Date.now();
+ for(let i=0;i<p.items.length;i++){
+  const ai=p.items[i];
+  const book=($("#f-book-"+i)||{}).value.trim(),author=($("#f-author-"+i)||{}).value.trim(),chapter=($("#f-chap-"+i)||{}).value.trim();
+  const tag=p.items.length>1?"Capitolo "+(i+1)+": ":"";
+  if(!book){setErr(tag+"scrivi il titolo del libro.");return}
+  if(!chapter){setErr(tag+"scrivi il numero o il titolo del capitolo.");return}
+  const id="c"+(now+i).toString(36);
+  docs.push({id,book,author,chapter,confidence:ai.confidence==null?0:ai.confidence,transcript:p.transcript,summary:ai.summary||"",
+   concepts:ai.concepts||[],quotes:ai.quotes||[],data:ai.data||[],unclear:ai.unclear||[],
+   questions:(ai.questions||[]).map((x,k)=>({id:"q"+k,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0})),createdAt:now+i});
+ }
  const b=document.querySelector('[data-act="save"]');if(b)b.disabled=true;
- try{await Store.put(doc)}catch(e){if(b)b.disabled=false;setErr("Non sono riuscito a salvare. Riprova.");return}
+ try{for(const d of docs)await Store.put(d)}catch(e){if(b)b.disabled=false;setErr("Non sono riuscito a salvare. Riprova.");return}
  S.pending=null;S.draft="";S.partial="";
- toast("Capitolo salvato");go("home");
+ toast(docs.length>1?docs.length+" capitoli salvati":"Capitolo salvato");go("home");
 }
 
 /* ---------- timer ---------- */
@@ -549,7 +562,9 @@ document.addEventListener("click",ev=>{
   case "stopproc":if(S.ctl)S.ctl.abort();break;
   case "backrec":go("record");break;
   case "retry":process(S.pending.transcript);break;
-  case "pick":$("#f-book").value=el.dataset.book;if(el.dataset.author)$("#f-author").value=el.dataset.author;break;
+  case "pick":{const i=el.dataset.i;$("#f-book-"+i).value=el.dataset.book;if(el.dataset.author)$("#f-author-"+i).value=el.dataset.author;break}
+  case "dropitem":{const keep=S.pending.items.map((ai,i)=>{const g=id=>($("#"+id+"-"+i)||{}).value;ai.book=g("f-book");ai.author=g("f-author");ai.chapter=g("f-chap");return ai});
+   keep.splice(+el.dataset.i,1);S.pending.items=keep;render();break}
   case "save":save();break;
   case "open":S.openId=el.dataset.id;S.confirmDel=false;go("chapter");break;
   case "deltoggle":S.confirmDel=!S.confirmDel;render();break;
