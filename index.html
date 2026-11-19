@@ -591,6 +591,7 @@ window.addEventListener("hashchange",route);
 /* ---------- avvio ---------- */
 (function(){
  Store.init();
+ try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
  dict=makeDict();
  if(dict){
   dict.onFinal(({text})=>{const t=$("#tx");if(!t)return;t.value=t.value?t.value+text:text.trimStart();S.draft=t.value});
