@@ -168,7 +168,7 @@ const icFill=(n,s)=>`<svg aria-hidden="true" width="${s}" height="${s}" viewBox=
 const S={view:"home",tab:"home",chapters:[],loaded:false,loadNote:"",draft:"",partial:"",listening:false,micErr:"",
  pending:null,err:"",rev:null,openId:null,confirmDel:false,banner:false,ctl:null};
 const F={mode:"25",presets:{"25":[25,5],"50":[50,10],"90":[90,15]},phase:"work",total:1500,rem:1500,running:false,endAt:0,sessions:0};
-let dict=null;
+let dict=null;S.trans=false;
 
 /* ---------- archivio: solo su questo telefono ---------- */
 const Store={
@@ -196,29 +196,60 @@ async function askJSON(prompt,opt){
  try{return JSON.parse(text.slice(i,k+1))}catch(e){throw{code:"invalid_json"}}
 }
 
-/* ---------- riconoscimento vocale del telefono ---------- */
+/* ---------- registratore audio + trascrizione (OpenAI) ---------- */
+function getOKey(){try{return localStorage.getItem("rc_okey")||""}catch(e){return ""}}
+async function transcribe(blob,type){
+ const ext=type.includes("mp4")?"m4a":type.includes("ogg")?"ogg":"webm";
+ const fd=new FormData();fd.append("file",blob,"audio."+ext);fd.append("model","gpt-4o-mini-transcribe");fd.append("language","it");
+ let r;try{r=await fetch("https://api.openai.com/v1/audio/transcriptions",{method:"POST",headers:{Authorization:"Bearer "+getOKey()},body:fd})}catch(e){throw{code:"network"}}
+ if(r.status===401)throw{code:"auth_o"};
+ if(r.status===429)throw{code:"credit_o"};
+ if(!r.ok)throw{code:"upstream_error"};
+ const j=await r.json();return j.text||"";
+}
 function makeDict(){
- const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return null;
- let rec=null,want=false,H={};
+ if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder))return null;
+ let rec=null,stream=null,chunks=[],want=false,busy=false,H={},waiters=[];
  const emit=(k,v)=>{try{H[k]&&H[k](v)}catch(e){}};
+ const pick=()=>{for(const m of ["audio/mp4","audio/webm;codecs=opus","audio/webm","audio/ogg"]){try{if(MediaRecorder.isTypeSupported(m))return m}catch(e){}}return ""};
+ const release=()=>{busy=false;const w=waiters;waiters=[];w.forEach(f=>f())};
  return {
-  active:()=>want,
+  active:()=>want||busy,
   start(){return new Promise((res,rej)=>{
-   want=true;let started=false,err=null;rec=new SR();rec.lang="it-IT";rec.continuous=true;rec.interimResults=true;
-   rec.onstart=()=>{if(!started){started=true;res()}emit("state",{state:"listening"})};
-   rec.onresult=e=>{let interim="";for(let i=e.resultIndex;i<e.results.length;i++){const r=e.results[i];
-    if(r.isFinal)emit("final",{text:" "+r[0].transcript.trim()});else interim+=r[0].transcript}
-    emit("partial",{text:interim})};
-   rec.onerror=e=>{const c=e.error;
-    if(["not-allowed","service-not-allowed","audio-capture","network","language-not-supported"].includes(c)){err=(c==="not-allowed"||c==="service-not-allowed")?"not_granted":"upstream_error";want=false;if(!started){started=true;rej({code:err})}}};
-   rec.onend=()=>{if(want&&!err){try{rec.start();return}catch(x){}}want=false;emit("partial",{text:""});emit("state",{state:"idle",reason:err})};
-   try{rec.start()}catch(e){want=false;rej({code:"upstream_error"})}
+   if(!getOKey()){rej({code:"no_okey"});return}
+   want=true;
+   navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
+    stream=s;chunks=[];const mime=pick();
+    rec=mime?new MediaRecorder(s,{mimeType:mime}):new MediaRecorder(s);
+    rec.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+    rec.onstop=async()=>{
+     try{stream.getTracks().forEach(t=>t.stop())}catch(e){}
+     const type=rec.mimeType||mime||"audio/mp4";const blob=new Blob(chunks,{type});chunks=[];
+     want=false;busy=true;
+     if(blob.size<3000){emit("state",{state:"idle",reason:"empty"});release();return}
+     emit("state",{state:"transcribing"});
+     try{const t=await transcribe(blob,type);if(t.trim())emit("final",{text:" "+t.trim()});emit("state",{state:"idle",reason:t.trim()?undefined:"empty"})}
+     catch(e){emit("state",{state:"idle",reason:(e&&e.code)||"upstream_error"})}
+     release();
+    };
+    rec.start();res();emit("state",{state:"listening"});
+   }).catch(e=>{want=false;rej({code:(e&&(e.name==="NotAllowedError"||e.name==="SecurityError"))?"not_granted":"upstream_error"})});
   })},
-  stop(){want=false;try{rec&&rec.stop()}catch(e){}return Promise.resolve()},
+  stop(){
+   if(want&&rec){return new Promise(r=>{waiters.push(r);try{rec.stop()}catch(e){want=false;release()}})}
+   if(busy)return new Promise(r=>waiters.push(r));
+   return Promise.resolve();
+  },
   onFinal:f=>{H.final=f},onPartial:f=>{H.partial=f},onState:f=>{H.state=f}
  };
 }
 
+function micMsg(c){return {not_granted:"Microfono non consentito. Abilitalo per questo sito nelle impostazioni del browser.",
+ no_okey:"Manca la chiave di trascrizione. Aggiungila nelle impostazioni (ingranaggio in alto).",
+ auth_o:"La chiave di trascrizione non è valida. Controllala nelle impostazioni.",
+ credit_o:"Credito OpenAI finito o troppe richieste. Controlla il tuo account OpenAI.",
+ network:"Nessuna connessione. Riprova quando sei online.",
+ empty:"Non ho sentito niente. Riprova più vicino al microfono."}[c]||"Registrazione non riuscita. Riprova o scrivi nel riquadro."}
 /* ---------- calcoli ---------- */
 function allQ(){const a=[];S.chapters.forEach(c=>(c.questions||[]).forEach(q=>a.push({c,q})));return a}
 function dueList(){const n=Date.now();return allQ().filter(x=>x.q.due<=n).sort((a,b)=>a.q.due-b.q.due)}
@@ -286,7 +317,7 @@ V.record=()=>`<div class="top"><button class="iconbtn" data-act="cancelrec" aria
  <div class="muted" style="margin:0 4px">Racconta come a un amico: titolo del libro, capitolo, cosa dice. Più dici, meglio funziona.</div>
  <textarea id="tx" aria-label="La tua spiegazione" placeholder="Nel capitolo 5 de L'arte dell'attenzione l'autore spiega che…">${esc(S.draft)}</textarea>
  <div class="partial" id="partial">${esc(S.partial)}</div>
- <div class="center">${dict?`<button class="mic${S.listening?" on":""}" id="micbtn" data-act="mic" aria-label="Parla">${ic("mic",38,1.4)}</button><div class="muted" id="mstat">${S.listening?"Sto ascoltando…":"Tocca per parlare"}</div>`:`<div class="muted" style="text-align:center">Il riconoscimento vocale non è disponibile su questo browser. Usa il microfono della tastiera.</div>`}
+ <div class="center">${dict?`<button class="mic${S.listening?" on":""}" id="micbtn" data-act="mic" aria-label="Parla">${ic("mic",38,1.4)}</button><div class="muted" id="mstat">${S.listening?"Sto registrando… tocca per fermare":"Tocca per parlare"}</div>`:`<div class="muted" style="text-align:center">La registrazione audio non è disponibile su questo browser. Usa il microfono della tastiera.</div>`}
  <div class="muted" id="micerr">${esc(S.micErr)}</div></div>
  <div class="err" id="err">${esc(S.err)}</div>
  <button class="pill" data-act="process">Ho finito</button></div>`;
@@ -334,7 +365,7 @@ V.review=()=>{
  if(R.stage==="answer")return head+`<div class="stack">${card}
   <textarea id="tx" style="min-height:130px" aria-label="La tua risposta" placeholder="Rispondi senza guardare gli appunti">${esc(S.draft)}</textarea>
   <div class="partial" id="partial">${esc(S.partial)}</div>
-  <div class="center" style="margin:6px 0">${dict?`<button class="mic${S.listening?" on":""}" id="micbtn" data-act="mic" aria-label="Rispondi a voce">${ic("mic",38,1.4)}</button><div class="muted" id="mstat">${S.listening?"Sto ascoltando…":"Rispondi a voce"}</div>`:""}<div class="muted" id="micerr">${esc(S.micErr)}</div></div>
+  <div class="center" style="margin:6px 0">${dict?`<button class="mic${S.listening?" on":""}" id="micbtn" data-act="mic" aria-label="Rispondi a voce">${ic("mic",38,1.4)}</button><div class="muted" id="mstat">${S.listening?"Sto registrando… tocca per fermare":"Rispondi a voce"}</div>`:""}<div class="muted" id="micerr">${esc(S.micErr)}</div></div>
   <div class="err" id="err"></div>
   <div class="row"><button class="pill grow" data-act="grade">Valuta la risposta</button><button class="link" data-act="reveal">Mostra la risposta</button></div></div>`;
  if(R.stage==="grading")return head+`<div class="stack">${card}<div class="stack" style="text-align:center;gap:12px;margin-top:20px"><div class="spin"></div><div class="muted">Confronto con la tua spiegazione di allora…</div></div></div>`;
@@ -355,12 +386,17 @@ V.focus=()=>{
  <div class="ctl"><button class="round" data-act="freset" aria-label="Ricomincia">${ic("reset",22)}</button><button class="round main" data-act="ftoggle" aria-label="${F.running?"Pausa":"Avvia"}">${icFill(F.running?"pause":"play",30)}</button><button class="round" data-act="fskip" aria-label="Salta">${ic("skip",22)}</button></div>
  <div class="card muted" style="text-align:center">A fine sessione ti invito a ripetere il capitolo.</div></div>`};
 
-V.settings=()=>{const has=!!getKey();return `<div class="top"><button class="iconbtn" data-act="tab" data-v="home" aria-label="Indietro">${ic("back",20)}</button><div style="font-weight:500">Impostazioni</div><span style="width:44px"></span></div>
-<div class="stack"><div class="card stack" style="gap:10px"><b style="font-weight:600">Chiave AI</b>
-<div class="muted">${has?"Chiave salvata su questo telefono.":"Incolla la chiave Anthropic. Resta solo su questo telefono e serve a riconoscere il libro e valutare le risposte."}</div>
-<input type="password" id="k-key" placeholder="sk-ant-…" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Chiave AI">
-<div class="err" id="err"></div>
-<div class="row"><button class="pill grow" data-act="savekey">${has?"Sostituisci":"Salva chiave"}</button>${has?'<button class="link" data-act="clearkey" style="color:var(--bad)">Rimuovi</button>':'<button class="link" data-act="skipkey">Per ora salta</button>'}</div></div>
+V.settings=()=>{const ha=!!getKey(),ho=!!getOKey();
+ const card=(k,title,has,on,off,ph)=>`<div class="card stack" style="gap:10px"><b style="font-weight:600">${title}</b>
+ <div class="muted">${has?"Chiave salvata su questo telefono.":on}</div>
+ <input type="password" id="k-${k}" placeholder="${ph}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="${title}">
+ <div class="err" id="err-${k}"></div>
+ <div class="row"><button class="pill grow" data-act="savekey" data-k="${k}">${has?"Sostituisci":"Salva chiave"}</button>${has?`<button class="link" data-act="clearkey" data-k="${k}" style="color:var(--bad)">Rimuovi</button>`:""}</div></div>`;
+ return `<div class="top"><button class="iconbtn" data-act="tab" data-v="home" aria-label="Indietro">${ic("back",20)}</button><div style="font-weight:500">Impostazioni</div><span style="width:44px"></span></div>
+<div class="stack">
+${card("o","Chiave di trascrizione (OpenAI)",ho,"Serve a trasformare la tua voce in testo. L'audio viene inviato a OpenAI solo mentre registri. Costa circa mezzo centesimo al minuto.","", "sk-…")}
+${card("a","Chiave AI (Anthropic)",ha,"Serve a riconoscere il libro, estrarre i concetti e valutare le risposte.","", "sk-ant-…")}
+<div class="row"><button class="link" data-act="skipkey">Continua</button></div>
 <div class="card stack" style="gap:10px"><b style="font-weight:600">Copia dei dati</b><div class="muted">I capitoli stanno solo su questo telefono. Se cancelli i dati del sito o cambi telefono si perdono. Esporta una copia ogni tanto.</div><button class="pill ghost" data-act="export">Esporta copia</button></div></div>`};
 
 const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
@@ -374,7 +410,7 @@ function render(){
 }
 function paintRec(){
  const b=$("#micbtn");if(b)b.classList.toggle("on",S.listening);
- const s=$("#mstat");if(s)s.textContent=S.listening?"Sto ascoltando…":(S.view==="review"?"Rispondi a voce":"Tocca per parlare");
+ const s=$("#mstat");if(s)s.textContent=S.trans?"Trascrivo…":S.listening?"Sto registrando… tocca per fermare":(S.view==="review"?"Rispondi a voce":"Tocca per parlare");
  const p=$("#partial");if(p)p.textContent=S.partial;
  const e=$("#micerr");if(e)e.textContent=S.micErr;
 }
@@ -490,14 +526,17 @@ document.addEventListener("click",ev=>{
  if(a==="mic"){ // deve partire subito dal clic
   if(!dict)return;
   if(dict.active()){dict.stop().catch(()=>{});return}
-  S.micErr="";dict.start().catch(e=>{S.micErr=e&&e.code==="not_granted"?"Microfono non consentito. Scrivi nel riquadro.":"Dettatura non partita. Riprova o scrivi.";paintRec()});
+  S.micErr="";dict.start().catch(e=>{S.micErr=micMsg(e&&e.code);paintRec()});
   return}
  switch(a){
   case "tab":go(el.dataset.v);break;
   case "settings":go("settings");break;
-  case "savekey":{const v=($("#k-key")||{}).value.trim();if(!/^sk-ant-/.test(v)||v.length<30){setErr("Non sembra una chiave Anthropic: deve iniziare con sk-ant- ed essere lunga.");break}
-   try{localStorage.setItem("rc_key",v)}catch(e){setErr("Non riesco a salvarla su questo browser.");break}toast("Chiave salvata");go("home");break}
-  case "clearkey":try{localStorage.removeItem("rc_key")}catch(e){}toast("Chiave rimossa");go("settings");break;
+  case "savekey":{const k=el.dataset.k,v=(($("#k-"+k)||{}).value||"").trim(),e=$("#err-"+k);
+   const ok=k==="a"?/^sk-ant-/.test(v)&&v.length>30:/^sk-/.test(v)&&!/^sk-ant-/.test(v)&&v.length>30;
+   if(!ok){if(e)e.textContent=k==="a"?"Non sembra una chiave Anthropic: deve iniziare con sk-ant- ed essere lunga.":"Non sembra una chiave OpenAI: deve iniziare con sk- ed essere lunga.";break}
+   try{localStorage.setItem(k==="a"?"rc_key":"rc_okey",v)}catch(x){if(e)e.textContent="Non riesco a salvarla su questo browser.";break}
+   toast("Chiave salvata");render();break}
+  case "clearkey":try{localStorage.removeItem(el.dataset.k==="a"?"rc_key":"rc_okey")}catch(x){}toast("Chiave rimossa");render();break;
   case "skipkey":try{localStorage.setItem("rc_skip","1")}catch(e){}go("home");break;
   case "export":exportData();break;
   case "rec":S.draft="";S.partial="";S.micErr="";go("record");break;
@@ -543,7 +582,7 @@ function startReview(early){
 function route(){
  const h=location.hash.replace("#","");
  let skip="";try{skip=localStorage.getItem("rc_skip")||""}catch(e){}
- if(!getKey()&&!skip&&S.view==="home"){go("settings");return}
+ if((!getKey()||!getOKey())&&!skip&&S.view==="home"){go("settings");return}
  if(h==="registra"&&S.view!=="record"){S.draft="";S.partial="";S.micErr="";go("record");const t=$("#tx");if(t)try{t.focus()}catch(e){}}
  else if(h==="ripasso"&&S.view!=="review"){if(dueList().length)startReview(false);else go("home")}
 }
@@ -556,9 +595,9 @@ window.addEventListener("hashchange",route);
  if(dict){
   dict.onFinal(({text})=>{const t=$("#tx");if(!t)return;t.value=t.value?t.value+text:text.trimStart();S.draft=t.value});
   dict.onPartial(({text})=>{S.partial=text;paintRec()});
-  dict.onState(({state,reason})=>{S.listening=state!=="idle";if(!S.listening)S.partial="";
-   if(reason==="not_granted")S.micErr="Microfono non consentito. Abilitalo nelle impostazioni del telefono per questo sito.";
-   else if(reason)S.micErr="Il riconoscimento vocale si è interrotto. Riprova o scrivi.";paintRec()});
+  dict.onState(({state,reason})=>{S.listening=state==="listening";S.trans=state==="transcribing";
+   S.micErr=(state==="idle"&&reason)?micMsg(reason):"";paintRec()});
+
  }
  render();route();
  if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
