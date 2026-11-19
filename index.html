@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1F6F5C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ripeti">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Ripeti il capitolo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap">
+<style>
+/* Layout: una colonna da telefono, vetro chiaro su sfondo sfumato, barra di tab fluttuante */
+:root{
+  --bg1:#F5F7F6;--bg2:#EAF0EE;--bg3:#E5EAF3;
+  --blob1:#BFE3D5;--blob2:#D3DDF8;--blob3:#F6E4D3;--blob-o:.75;
+  --glass:rgba(255,255,255,.62);--glass-b:rgba(255,255,255,.85);--shadow:0 8px 32px rgba(40,70,80,.09);
+  --fg:#1C1F22;--fg2:#5F666D;--line:rgba(28,31,34,.09);
+  --accent:#1F6F5C;--accent-soft:rgba(31,111,92,.12);--on-accent:#fff;
+  --sand:rgba(250,232,214,.78);--sand-fg:#8A4B14;
+  --good:#1F6F5C;--warn:#9A5518;--bad:#A3392F;
+  --orb:radial-gradient(circle at 32% 26%,#7FD0B5 0%,#2E8B73 48%,#1F6F5C 100%);
+  --font:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg1:#0E1614;--bg2:#101A18;--bg3:#111722;
+  --blob1:#1D5A49;--blob2:#27366B;--blob3:#5A3A1E;--blob-o:.45;
+  --glass:rgba(30,44,41,.62);--glass-b:rgba(255,255,255,.09);--shadow:0 8px 32px rgba(0,0,0,.35);
+  --fg:#E8EEEC;--fg2:#9AA6A2;--line:rgba(255,255,255,.1);
+  --accent:#5FC4A5;--accent-soft:rgba(95,196,165,.16);--on-accent:#0E1614;
+  --sand:rgba(110,72,36,.35);--sand-fg:#F0C9A0;
+  --good:#5FC4A5;--warn:#E3A765;--bad:#F08A80;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg1:#0E1614;--bg2:#101A18;--bg3:#111722;
+  --blob1:#1D5A49;--blob2:#27366B;--blob3:#5A3A1E;--blob-o:.45;
+  --glass:rgba(30,44,41,.62);--glass-b:rgba(255,255,255,.09);--shadow:0 8px 32px rgba(0,0,0,.35);
+  --fg:#E8EEEC;--fg2:#9AA6A2;--line:rgba(255,255,255,.1);
+  --accent:#5FC4A5;--accent-soft:rgba(95,196,165,.16);--on-accent:#0E1614;
+  --sand:rgba(110,72,36,.35);--sand-fg:#F0C9A0;
+  --good:#5FC4A5;--warn:#E3A765;--bad:#F08A80;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--fg);background:linear-gradient(170deg,var(--bg1),var(--bg2) 55%,var(--bg3));background-attachment:fixed;min-height:100vh;font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.blobs{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.blobs i{position:absolute;border-radius:50%;filter:blur(70px);opacity:var(--blob-o)}
+.blobs i:nth-child(1){width:340px;height:340px;background:var(--blob1);top:-110px;right:-120px}
+.blobs i:nth-child(2){width:300px;height:300px;background:var(--blob2);bottom:40px;left:-130px}
+.blobs i:nth-child(3){width:220px;height:220px;background:var(--blob3);top:45%;right:-80px}
+.wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:calc(20px + env(safe-area-inset-top,0px)) calc(130px + env(safe-area-inset-bottom,0px))}
+button{font-family:inherit;color:inherit;cursor:pointer}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1{margin:0;font-size:34px;font-weight:600;letter-spacing:-.03em}
+h2{margin:0;font-size:13px;font-weight:500;color:var(--fg2);letter-spacing:.02em}
+.sub{color:var(--fg2);font-size:15px;margin-top:2px}
+.sub.nocap{text-transform:none}
+.card{background:var(--glass);border:1px solid var(--glass-b);box-shadow:var(--shadow);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:24px;padding:16px 18px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;align-items:center;gap:12px}
+.grow{flex:1;min-width:0}
+.top{display:flex;align-items:center;justify-content:space-between;padding-top:8px;margin-bottom:18px;gap:12px}
+.iconbtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--glass-b);background:var(--glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--fg2)}
+.pill{min-height:48px;padding:0 22px;border-radius:26px;border:none;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:500}
+.pill.ghost{background:var(--glass);border:1px solid var(--glass-b);color:var(--fg)}
+.pill.sm{min-height:40px;padding:0 18px;font-size:14px}
+.pill:disabled{opacity:.5;cursor:default}
+.link{background:none;border:none;color:var(--accent);font-size:14px;font-weight:500;padding:8px 0;min-height:40px}
+.tag{display:inline-block;padding:4px 10px;border-radius:14px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:500}
+.sand{background:var(--sand);border-color:transparent;color:var(--sand-fg)}
+.sand .link,.sand .pill.ghost{color:var(--sand-fg)}
+.muted{color:var(--fg2);font-size:13px}
+.err{color:var(--bad);font-size:14px;min-height:0}
+.err:empty{display:none}
+/* orb */
+.orbwrap{display:flex;flex-direction:column;align-items:center;margin:26px 0 22px}
+.ring1{width:210px;height:210px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 18%,transparent);display:flex;align-items:center;justify-content:center}
+.ring2{width:182px;height:182px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);background:var(--glass);display:flex;align-items:center;justify-content:center}
+.orb{width:150px;height:150px;border-radius:50%;border:none;background:var(--orb);box-shadow:0 22px 44px rgba(31,111,92,.32),inset 0 2px 8px rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;color:#fff}
+.orb.on{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.orblabel{margin-top:14px;font-size:20px;font-weight:600;letter-spacing:-.015em}
+.orbhint{font-size:14px;color:var(--fg2);margin-top:2px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{padding:14px 14px}
+.tile b{display:block;font-size:26px;font-weight:300;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.tile span{font-size:12px;color:var(--fg2)}
+/* forms */
+textarea,input[type=text]{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;padding:14px 16px;resize:vertical}
+textarea{min-height:200px;line-height:1.5}
+label{font-size:12px;font-weight:500;color:var(--fg2);display:block;margin:0 0 6px 4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--glass-b);background:var(--glass);border-radius:16px;padding:7px 12px;font-size:13px;min-height:34px}
+.partial{color:var(--fg2);font-size:14px;min-height:20px;margin:6px 4px 0}
+.mic{width:96px;height:96px;border-radius:50%;border:none;background:var(--orb);box-shadow:0 18px 36px rgba(31,111,92,.3),inset 0 2px 6px rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;color:#fff}
+.mic.on{animation:pulse 1.6s ease-in-out infinite;box-shadow:0 0 0 10px color-mix(in srgb,var(--accent) 18%,transparent),0 18px 36px rgba(31,111,92,.3)}
+.center{display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0}
+/* lists */
+.item{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;text-align:left;width:100%;border:1px solid var(--glass-b);background:var(--glass);border-radius:22px;box-shadow:var(--shadow);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.item b{font-weight:600;font-size:16px;display:block}
+.sec{margin-top:6px}
+.sec h2{margin:0 0 8px 4px}
+.note{padding:14px 16px;border-radius:20px;background:var(--glass);border:1px solid var(--glass-b)}
+.note b{display:block;font-weight:600;margin-bottom:2px}
+.quote{border-left:3px solid var(--accent);padding-left:12px;font-style:italic}
+details summary{cursor:pointer;color:var(--accent);font-size:14px;font-weight:500;min-height:36px;display:flex;align-items:center}
+details p{white-space:pre-wrap;margin:6px 0 0;color:var(--fg2)}
+.verdict{font-size:13px;font-weight:600;padding:4px 10px;border-radius:14px;display:inline-block}
+.v-ok{background:var(--accent-soft);color:var(--good)}
+.v-parziale{background:var(--sand);color:var(--sand-fg)}
+.v-manca{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.rate{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rate button{min-height:52px;border-radius:18px;border:1px solid var(--glass-b);background:var(--glass);font-size:14px;font-weight:500;padding:6px}
+.progress{display:flex;gap:6px;margin:0 4px 16px}
+.progress i{flex:1;height:4px;border-radius:2px;background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.progress i.d{background:var(--accent)}
+.bigq{font-size:25px;line-height:1.2;font-weight:600;letter-spacing:-.025em}
+/* focus */
+.seg{display:flex;gap:4px;padding:4px;border-radius:26px;background:var(--glass);border:1px solid var(--glass-b)}
+.seg button{flex:1;min-height:42px;border:none;border-radius:22px;background:none;color:var(--fg2);font-size:14px;font-weight:500}
+.seg button.on{background:var(--bg1);color:var(--fg);box-shadow:0 2px 8px rgba(40,70,80,.12)}
+.timer{position:relative;width:268px;height:268px;margin:22px auto 8px;max-width:100%}
+.timer svg{position:absolute;inset:0;width:100%;height:100%}
+.timer .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.timer .t b{font-size:70px;font-weight:200;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.ctl{display:flex;align-items:center;justify-content:center;gap:26px;margin-top:10px}
+.round{width:56px;height:56px;border-radius:50%;border:1px solid var(--glass-b);background:var(--glass);display:flex;align-items:center;justify-content:center}
+.round.main{width:80px;height:80px;border:none;background:var(--orb);color:#fff;box-shadow:0 16px 32px rgba(31,111,92,.3)}
+/* tabs */
+.tabs{position:fixed;z-index:5;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));width:min(448px,calc(100% - 32px));height:68px;padding:6px;border-radius:34px;background:var(--glass);border:1px solid var(--glass-b);box-shadow:0 10px 36px rgba(40,70,80,.14);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);display:flex;gap:4px}
+.tabs[hidden]{display:none}
+.tabs button{flex:1;border:none;border-radius:28px;background:none;color:var(--fg2);font-size:12px;font-weight:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.tabs button.on{background:var(--bg1);color:var(--accent);box-shadow:0 2px 8px rgba(40,70,80,.12)}
+.toast{position:fixed;z-index:9;left:50%;transform:translateX(-50%);top:calc(14px + env(safe-area-inset-top,0px));background:var(--fg);color:var(--bg1);border-radius:20px;padding:10px 18px;font-size:14px;font-weight:500}
+.toast[hidden]{display:none}
+.spin{width:44px;height:44px;border-radius:50%;border:3px solid var(--accent-soft);border-top-color:var(--accent);animation:sp 1s linear infinite;margin:0 auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.orb.on,.mic.on,.spin{animation:none}}
+</style>
+</head><body>
+<div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+<main class="wrap" id="app"></main>
+<nav class="tabs" id="tabs" aria-label="Sezioni"></nav>
+<div class="toast" id="toast" role="status" hidden></div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const DAY=864e5, INT=[1,3,7,16,35,90];
+const IC={
+ mic:'<rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/>',
+ sun:'<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/>',
+ book:'<path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h10"/>',
+ timer:'<circle cx="12" cy="13" r="7.5"/><path d="M12 9v4l2.5 1.5"/><path d="M9.5 3h5"/>',
+ back:'<path d="M15 5l-7 7 7 7"/>',
+ chev:'<path d="M9 5l7 7-7 7"/>',
+ x:'<path d="M6 6l12 12"/><path d="M18 6L6 18"/>',
+ stop:'<rect x="6" y="6" width="12" height="12" rx="2.5"/>',
+ reset:'<path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v4.5h4.5"/>',
+ skip:'<path d="M6 5l9 7-9 7z"/><path d="M18 5v14"/>',
+ gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'
+};
+const ic=(n,s=22,w=1.6,f="none")=>`<svg aria-hidden="true" width="${s}" height="${s}" viewBox="0 0 24 24" fill="${f}" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
+const icFill=(n,s)=>`<svg aria-hidden="true" width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor">${n==='pause'?'<rect x="6" y="5" width="4.5" height="14" rx="1.6"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.6"/>':'<path d="M7 4.5v15l12-7.5z"/>'}</svg>`;
+
+/* ---------- stato ---------- */
+const S={view:"home",tab:"home",chapters:[],loaded:false,loadNote:"",draft:"",partial:"",listening:false,micErr:"",
+ pending:null,err:"",rev:null,openId:null,confirmDel:false,banner:false,ctl:null};
+const F={mode:"25",presets:{"25":[25,5],"50":[50,10],"90":[90,15]},phase:"work",total:1500,rem:1500,running:false,endAt:0,sessions:0};
+let dict=null;
+
+/* ---------- archivio: solo su questo telefono ---------- */
+const Store={
+ init(){try{S.chapters=JSON.parse(localStorage.getItem("rc_chapters")||"[]")}catch(e){S.chapters=[]}S.loaded=true},
+ _persist(){try{localStorage.setItem("rc_chapters",JSON.stringify(S.chapters))}catch(e){toast("Memoria piena: esporta una copia")}},
+ async put(c){S.chapters=[c,...S.chapters.filter(x=>x.id!==c.id)].sort((a,b)=>b.createdAt-a.createdAt);this._persist()},
+ async patch(id,p){const c=S.chapters.find(x=>x.id===id);if(c)Object.assign(c,p);this._persist()},
+ async remove(id){S.chapters=S.chapters.filter(x=>x.id!==id);this._persist()}};
+
+/* ---------- AI: chiamata diretta all'API Anthropic con la chiave salvata sul telefono ---------- */
+const MODEL_MAIN="claude-sonnet-5-5",MODEL_FAST="claude-haiku-5-5";
+function getKey(){try{return localStorage.getItem("rc_key")||""}catch(e){return ""}}
+async function askJSON(prompt,opt){
+ opt=opt||{};const key=getKey();if(!key)throw{code:"no_key"};
+ let r;
+ try{r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",signal:opt.signal,
+  headers:{"content-type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+  body:JSON.stringify({model:opt.model||MODEL_MAIN,max_tokens:4000,messages:[{role:"user",content:prompt}]})})}
+ catch(e){if(e&&e.name==="AbortError")throw{code:"cancelled"};throw{code:"network"}}
+ if(r.status===401||r.status===403)throw{code:"auth"};
+ if(r.status===429)throw{code:"rate_limited"};
+ if(!r.ok){let m="";try{m=JSON.stringify(await r.json())}catch(e){}throw{code:/credit/i.test(m)?"credit":"upstream_error"}}
+ const j=await r.json();const text=(j.content||[]).map(b=>b.text||"").join("");
+ const i=text.indexOf("{"),k=text.lastIndexOf("}");
+ try{return JSON.parse(text.slice(i,k+1))}catch(e){throw{code:"invalid_json"}}
+}
+
+/* ---------- riconoscimento vocale del telefono ---------- */
+function makeDict(){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return null;
+ let rec=null,want=false,H={};
+ const emit=(k,v)=>{try{H[k]&&H[k](v)}catch(e){}};
+ return {
+  active:()=>want,
+  start(){return new Promise((res,rej)=>{
+   want=true;let started=false,err=null;rec=new SR();rec.lang="it-IT";rec.continuous=true;rec.interimResults=true;
+   rec.onstart=()=>{if(!started){started=true;res()}emit("state",{state:"listening"})};
+   rec.onresult=e=>{let interim="";for(let i=e.resultIndex;i<e.results.length;i++){const r=e.results[i];
+    if(r.isFinal)emit("final",{text:" "+r[0].transcript.trim()});else interim+=r[0].transcript}
+    emit("partial",{text:interim})};
+   rec.onerror=e=>{const c=e.error;
+    if(["not-allowed","service-not-allowed","audio-capture","network","language-not-supported"].includes(c)){err=(c==="not-allowed"||c==="service-not-allowed")?"not_granted":"upstream_error";want=false;if(!started){started=true;rej({code:err})}}};
+   rec.onend=()=>{if(want&&!err){try{rec.start();return}catch(x){}}want=false;emit("partial",{text:""});emit("state",{state:"idle",reason:err})};
+   try{rec.start()}catch(e){want=false;rej({code:"upstream_error"})}
+  })},
+  stop(){want=false;try{rec&&rec.stop()}catch(e){}return Promise.resolve()},
+  onFinal:f=>{H.final=f},onPartial:f=>{H.partial=f},onState:f=>{H.state=f}
+ };
+}
+
+/* ---------- calcoli ---------- */
+function allQ(){const a=[];S.chapters.forEach(c=>(c.questions||[]).forEach(q=>a.push({c,q})));return a}
+function dueList(){const n=Date.now();return allQ().filter(x=>x.q.due<=n).sort((a,b)=>a.q.due-b.q.due)}
+function streak(){
+ const days=new Set();const k=t=>{const d=new Date(t);return d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()};
+ S.chapters.forEach(c=>{days.add(k(c.createdAt));(c.questions||[]).forEach(q=>{if(q.last)days.add(k(q.last))})});
+ let n=0,t=Date.now();if(!days.has(k(t)))t-=DAY;
+ while(days.has(k(t))){n++;t-=DAY}return n}
+function bookList(){const m=new Map();S.chapters.forEach(c=>{const key=(c.book||"").toLowerCase();if(!m.has(key))m.set(key,{book:c.book,author:c.author,chapters:[]});m.get(key).chapters.push(c)});return[...m.values()]}
+const fmtDay=t=>new Date(t).toLocaleDateString("it-IT",{day:"numeric",month:"short"});
+
+/* ---------- navigazione ---------- */
+const TABVIEW={home:"home",library:"library",focus:"focus",chapter:"library"};
+function go(v,opts){S.view=v;if(TABVIEW[v])S.tab=TABVIEW[v];S.err="";render();if(!(opts&&opts.keepScroll))window.scrollTo(0,0)}
+function softRender(){if(["home","library","focus","chapter"].includes(S.view))render()}
+function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>{el.hidden=true},2600)}
+function setErr(t){const e=$("#err");if(e)e.textContent=t||""}
+
+/* ---------- viste ---------- */
+const V={};
+V.home=()=>{
+ const due=dueList(),n=S.chapters.length;
+ const date=new Date().toLocaleDateString("it-IT",{weekday:"long",day:"numeric",month:"long"});
+ const week=S.chapters.filter(c=>c.createdAt>Date.now()-7*DAY).length;
+ let rev;
+ if(!S.loaded)rev=`<div class="card muted">Carico la libreria…</div>`;
+ else if(due.length)rev=`<div class="card sand"><div class="row"><div class="grow"><b style="font-size:17px;font-weight:600">${due.length} ${due.length===1?"domanda da ripassare":"domande da ripassare"}</b><div style="font-size:14px;margin-top:2px">Rispondi a voce, senza guardare gli appunti.</div></div><button class="pill sm ghost" data-act="review">Ripassa</button></div></div>`;
+ else if(n)rev=`<div class="card"><div class="row"><div class="grow"><b style="font-weight:600">Niente da ripassare oggi</b><div class="muted">Le domande tornano a intervalli crescenti.</div></div><button class="link" data-act="review" data-early="1">Ripassa in anticipo</button></div></div>`;
+ else rev=`<div class="card"><b style="font-weight:600">Inizia da un capitolo</b><div class="muted" style="margin-top:2px">Finisci un capitolo, premi il pulsante e raccontalo a voce. L'app ricava concetti e domande da ripassare nei giorni dopo.</div></div>`;
+ const banner=S.banner?`<div class="card sand"><div class="row"><div class="grow"><b style="font-weight:600">Sessione finita</b><div style="font-size:14px">Ripeti subito il capitolo, finché è fresco.</div></div><button class="pill sm ghost" data-act="rec">Ripeti</button></div></div>`:"";
+ return `<div class="top"><div><h1>Oggi</h1><div class="sub">${esc(date)}</div></div><button class="iconbtn" data-act="settings" aria-label="Impostazioni">${ic("gear",20)}</button></div>
+ <div class="stack">${banner}
+ <div class="orbwrap"><div class="ring1"><div class="ring2"><button class="orb" data-act="rec" aria-label="Ripeti il capitolo">${ic("mic",56,1.3)}</button></div></div>
+  <div class="orblabel">Ripeti il capitolo</div><div class="orbhint">Premi e parla</div></div>
+ ${rev}
+ <div class="tiles"><div class="card tile"><b>${streak()}</b><span>giorni di fila</span></div><div class="card tile"><b>${week}</b><span>capitoli in 7 giorni</span></div><div class="card tile"><b>${bookList().length}</b><span>libri</span></div></div>
+ <button class="item" data-act="tab" data-v="focus"><span class="tag" style="padding:10px">${ic("timer",22)}</span><span class="grow"><b>Focus</b><span class="muted">Pomodoro e sessioni lunghe</span></span>${ic("chev",18)}</button>
+ ${S.loadNote?`<div class="muted" style="text-align:center">${esc(S.loadNote)}</div>`:""}
+ </div>`};
+
+V.library=()=>{
+ const books=bookList();
+ const concepts=S.chapters.reduce((a,c)=>a+(c.concepts||[]).length,0);
+ return `<div class="top"><div><h1>Libri</h1><div class="sub nocap">${S.chapters.length} capitoli · ${concepts} concetti</div></div><button class="iconbtn" data-act="settings" aria-label="Impostazioni">${ic("gear",20)}</button></div>
+ <div class="stack">${books.length?books.map(b=>`<div class="card stack" style="gap:8px"><div><b style="font-size:17px;font-weight:600">${esc(b.book)}</b><div class="muted">${esc(b.author||"Autore non indicato")}</div></div>
+  ${b.chapters.map(c=>`<button class="item" style="box-shadow:none;padding:11px 14px;border-radius:16px" data-act="open" data-id="${esc(c.id)}"><span class="grow"><b style="font-size:15px">Capitolo ${esc(c.chapter||"?")}</b><span class="muted">${fmtDay(c.createdAt)} · ${(c.concepts||[]).length} concetti · ${(c.questions||[]).length} domande</span></span>${ic("chev",16)}</button>`).join("")}</div>`).join(""):
+ `<div class="card"><b style="font-weight:600">La libreria è vuota</b><div class="muted" style="margin-top:2px">Ogni capitolo che racconti a voce compare qui con concetti, citazioni e dati.</div></div>`}</div>`};
+
+V.chapter=()=>{
+ const c=S.chapters.find(x=>x.id===S.openId);if(!c)return V.library();
+ const list=(t,arr,fn)=>arr&&arr.length?`<div class="sec"><h2>${t}</h2><div class="stack" style="gap:8px">${arr.map(fn).join("")}</div></div>`:"";
+ return `<div class="top"><button class="iconbtn" data-act="tab" data-v="library" aria-label="Indietro">${ic("back",20)}</button><div class="grow" style="text-align:center;font-weight:500">Capitolo ${esc(c.chapter||"?")}</div><span style="width:44px"></span></div>
+ <div class="stack"><div><h1 style="font-size:28px">${esc(c.book)}</h1><div class="sub nocap">${esc(c.author||"")}${c.author?" · ":""}${fmtDay(c.createdAt)}</div></div>
+ ${c.summary?`<div class="card">${esc(c.summary)}</div>`:""}
+ ${list("Concetti",c.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
+ ${list("Citazioni",c.quotes,x=>`<div class="note quote">${esc(x)}</div>`)}
+ ${list("Dati",c.data,x=>`<div class="note">${esc(x)}</div>`)}
+ ${c.unclear&&c.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${c.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
+ <details><summary>Cosa hai detto</summary><p>${esc(c.transcript)}</p></details>
+ ${S.confirmDel?`<div class="row"><button class="pill sm ghost grow" data-act="deltoggle">Annulla</button><button class="pill sm grow" style="background:var(--bad)" data-act="delete" data-id="${esc(c.id)}">Elimina davvero</button></div>`:`<button class="link" style="color:var(--bad)" data-act="deltoggle">Elimina capitolo</button>`}
+ </div>`};
+
+V.record=()=>`<div class="top"><button class="iconbtn" data-act="cancelrec" aria-label="Chiudi">${ic("x",18)}</button><div style="font-weight:500">Ripeti il capitolo</div><span style="width:44px"></span></div>
+ <div class="stack">
+ <div class="muted" style="margin:0 4px">Racconta come a un amico: titolo del libro, capitolo, cosa dice. Più dici, meglio funziona.</div>
+ <textarea id="tx" aria-label="La tua spiegazione" placeholder="Nel capitolo 5 de L'arte dell'attenzione l'autore spiega che…">${esc(S.draft)}</textarea>
+ <div class="partial" id="partial">${esc(S.partial)}</div>
+ <div class="center">${dict?`<button class="mic${S.listening?" on":""}" id="micbtn" data-act="mic" aria-label="Parla">${ic("mic",38,1.4)}</button><div class="muted" id="mstat">${S.listening?"Sto ascoltando…":"Tocca per parlare"}</div>`:`<div class="muted" style="text-align:center">Il riconoscimento vocale non è disponibile su questo browser. Usa il microfono della tastiera.</div>`}
+ <div class="muted" id="micerr">${esc(S.micErr)}</div></div>
+ <div class="err" id="err">${esc(S.err)}</div>
+ <button class="pill" data-act="process">Ho finito</button></div>`;
+
+V.processing=()=>`<div class="top"><span style="width:44px"></span><span></span><span style="width:44px"></span></div>
+ <div class="stack" style="text-align:center;margin-top:60px;gap:18px"><div class="spin" role="status" aria-label="Elaborazione"></div>
+ <div><b style="font-size:18px;font-weight:600">Sto leggendo la tua spiegazione</b><div class="muted" style="margin-top:4px">Riconosco libro e capitolo, estraggo concetti e preparo le domande. Può servire fino a un minuto.</div></div>
+ <button class="link" data-act="stopproc">Annulla</button></div>`;
+
+V.confirm=()=>{
+ const p=S.pending,ai=p.ai||{};
+ const known=bookList();
+ const conf=typeof ai.confidence==="number"?Math.round(ai.confidence*100):null;
+ const alts=(ai.alternatives||[]).filter(Boolean);
+ const sec=(t,arr,fn,cls)=>arr&&arr.length?`<div class="sec"><h2>${t}</h2><div class="stack" style="gap:8px">${arr.map(fn).join("")}</div></div>`:"";
+ return `<div class="top"><button class="iconbtn" data-act="backrec" aria-label="Torna alla registrazione">${ic("back",20)}</button><div style="font-weight:500">Conferma</div><span style="width:44px"></span></div>
+ <div class="stack">
+ ${p.fail?`<div class="card sand"><div class="row"><div class="grow" style="font-size:14px">${esc(p.fail)}</div><button class="pill sm ghost" data-act="retry">Riprova</button></div></div>`:""}
+ <div class="card stack" style="gap:12px"><div class="row"><b style="font-size:17px;font-weight:600" class="grow">${ai.book?"È questo il libro?":"Di che libro parli?"}</b>${conf!==null?`<span class="tag">${conf}% sicuro</span>`:""}</div>
+  <div><label for="f-book">Titolo</label><input type="text" id="f-book" value="${esc(ai.book||"")}" autocomplete="off"></div>
+  <div><label for="f-author">Autore</label><input type="text" id="f-author" value="${esc(ai.author||"")}" autocomplete="off"></div>
+  <div><label for="f-chap">Capitolo</label><input type="text" id="f-chap" value="${esc(ai.chapter||"")}" autocomplete="off"></div>
+  ${known.length||alts.length?`<div class="chips">${known.map(b=>`<button class="chip" data-act="pick" data-book="${esc(b.book)}" data-author="${esc(b.author||"")}">${esc(b.book)}</button>`).join("")}${alts.map(b=>`<button class="chip" data-act="pick" data-book="${esc(b)}" data-author="">${esc(b)}</button>`).join("")}</div>`:""}
+  ${ai.book&&conf!==null&&conf<80?`<div class="muted">Non sono sicuro: controlla titolo e capitolo.</div>`:""}
+ </div>
+ ${ai.summary?`<div class="card">${esc(ai.summary)}</div>`:""}
+ ${sec("Concetti",ai.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
+ ${sec("Citazioni",ai.quotes,x=>`<div class="note quote">${esc(x)}</div>`)}
+ ${sec("Dati",ai.data,x=>`<div class="note">${esc(x)}</div>`)}
+ ${ai.unclear&&ai.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${ai.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
+ ${ai.questions&&ai.questions.length?`<div class="muted" style="margin:0 4px">${ai.questions.length} domande pronte per il ripasso, la prima domani.</div>`:""}
+ <div class="muted" style="margin:0 4px">L'AI lavora solo su ciò che hai detto, non sul testo del libro: se hai sbagliato qualcosa, resta sbagliato.</div>
+ <div class="err" id="err"></div>
+ <button class="pill" data-act="save">Salva nella libreria</button></div>`};
+
+V.review=()=>{
+ const R=S.rev;
+ if(!R.items.length)return `<div class="top"><button class="iconbtn" data-act="endrev" aria-label="Chiudi">${ic("x",18)}</button><div style="font-weight:500">Ripasso</div><span style="width:44px"></span></div><div class="card"><b style="font-weight:600">Non ci sono domande</b><div class="muted">Registra un capitolo e le domande compaiono qui.</div></div>`;
+ if(R.i>=R.items.length)return `<div class="top"><button class="iconbtn" data-act="endrev" aria-label="Chiudi">${ic("x",18)}</button><div style="font-weight:500">Ripasso</div><span style="width:44px"></span></div>
+  <div class="stack"><div class="card stack" style="gap:6px;text-align:center"><div style="font-size:26px;font-weight:600;letter-spacing:-.02em">Fatto</div><div class="muted">${R.items.length} domande ripassate. ${R.counts.ok} sapute, ${R.counts.part} a metà, ${R.counts.no} da rivedere.</div></div><button class="pill" data-act="endrev">Torna a Oggi</button></div>`;
+ const {c,q}=R.items[R.i];
+ const prog=`<div class="progress">${R.items.map((_,i)=>`<i class="${i<R.i?"d":""}"></i>`).join("")}</div>`;
+ const head=`<div class="top"><button class="iconbtn" data-act="endrev" aria-label="Chiudi">${ic("x",18)}</button><div style="font-weight:500">Richiamo attivo</div><div class="muted" style="width:44px;text-align:right">${R.i+1} / ${R.items.length}</div></div>${prog}`;
+ const card=`<div class="card stack" style="padding:22px"><span class="tag" style="align-self:flex-start">Spiega con parole tue</span><div class="bigq">${esc(q.q)}</div><div class="muted">${esc(c.book)} · capitolo ${esc(c.chapter||"?")}</div></div>`;
+ if(R.stage==="answer")return head+`<div class="stack">${card}
+  <textarea id="tx" style="min-height:130px" aria-label="La tua risposta" placeholder="Rispondi senza guardare gli appunti">${esc(S.draft)}</textarea>
+  <div class="partial" id="partial">${esc(S.partial)}</div>
+  <div class="center" style="margin:6px 0">${dict?`<button class="mic${S.listening?" on":""}" id="micbtn" data-act="mic" aria-label="Rispondi a voce">${ic("mic",38,1.4)}</button><div class="muted" id="mstat">${S.listening?"Sto ascoltando…":"Rispondi a voce"}</div>`:""}<div class="muted" id="micerr">${esc(S.micErr)}</div></div>
+  <div class="err" id="err"></div>
+  <div class="row"><button class="pill grow" data-act="grade">Valuta la risposta</button><button class="link" data-act="reveal">Mostra la risposta</button></div></div>`;
+ if(R.stage==="grading")return head+`<div class="stack">${card}<div class="stack" style="text-align:center;gap:12px;margin-top:20px"><div class="spin"></div><div class="muted">Confronto con la tua spiegazione di allora…</div></div></div>`;
+ const r=R.res;
+ const vlabel={ok:"Risposta solida",parziale:"Quasi",manca:"Manca qualcosa"}[r.verdict];
+ return head+`<div class="stack">${card}
+  ${r.verdict?`<div class="card stack" style="gap:8px"><span class="verdict v-${r.verdict}" style="align-self:flex-start">${vlabel}</span>${r.feedback?`<div>${esc(r.feedback)}</div>`:""}${r.missing&&r.missing.length?`<div class="muted">Mancava: ${r.missing.map(esc).join(" · ")}</div>`:""}</div>`:""}
+  ${r.err?`<div class="muted">${esc(r.err)}</div>`:""}
+  <div class="card"><h2 style="margin-bottom:4px">La tua spiegazione di allora</h2>${esc(q.ideal)}</div>
+  <div><h2 style="margin:0 4px 8px">Quanto lo ricordavi davvero?</h2><div class="rate"><button data-act="rate" data-r="no">Non lo ricordavo</button><button data-act="rate" data-r="part">A metà</button><button data-act="rate" data-r="ok">Lo sapevo</button></div></div></div>`};
+
+V.focus=()=>{
+ const m=F.mode;
+ return `<div class="top"><div><h1>Focus</h1><div class="sub nocap">Sessioni di studio con pausa</div></div></div>
+ <div class="stack"><div class="seg" role="tablist"><button class="${m==="25"?"on":""}" data-act="fmode" data-m="25">Pomodoro 25·5</button><button class="${m==="50"?"on":""}" data-act="fmode" data-m="50">50·10</button><button class="${m==="90"?"on":""}" data-act="fmode" data-m="90">Deep 90</button></div>
+ <div class="timer"><svg viewBox="0 0 280 280" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7FD0B5"/><stop offset="100%" stop-color="#1F6F5C"/></linearGradient></defs><circle cx="140" cy="140" r="124" fill="none" stroke="var(--accent-soft)" stroke-width="10"/><circle id="ring" cx="140" cy="140" r="124" fill="none" stroke="url(#g)" stroke-width="10" stroke-linecap="round" stroke-dasharray="779.1" stroke-dashoffset="${779.1*(F.rem/F.total)}" transform="rotate(-90 140 140)"/></svg>
+  <div class="t"><b id="ft">${fmt(F.rem)}</b><span class="muted" id="fl">${F.phase==="work"?"Studio · sessione "+(F.sessions+1):"Pausa"}</span></div></div>
+ <div class="ctl"><button class="round" data-act="freset" aria-label="Ricomincia">${ic("reset",22)}</button><button class="round main" data-act="ftoggle" aria-label="${F.running?"Pausa":"Avvia"}">${icFill(F.running?"pause":"play",30)}</button><button class="round" data-act="fskip" aria-label="Salta">${ic("skip",22)}</button></div>
+ <div class="card muted" style="text-align:center">A fine sessione ti invito a ripetere il capitolo.</div></div>`};
+
+V.settings=()=>{const has=!!getKey();return `<div class="top"><button class="iconbtn" data-act="tab" data-v="home" aria-label="Indietro">${ic("back",20)}</button><div style="font-weight:500">Impostazioni</div><span style="width:44px"></span></div>
+<div class="stack"><div class="card stack" style="gap:10px"><b style="font-weight:600">Chiave AI</b>
+<div class="muted">${has?"Chiave salvata su questo telefono.":"Incolla la chiave Anthropic. Resta solo su questo telefono e serve a riconoscere il libro e valutare le risposte."}</div>
+<input type="password" id="k-key" placeholder="sk-ant-…" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Chiave AI">
+<div class="err" id="err"></div>
+<div class="row"><button class="pill grow" data-act="savekey">${has?"Sostituisci":"Salva chiave"}</button>${has?'<button class="link" data-act="clearkey" style="color:var(--bad)">Rimuovi</button>':'<button class="link" data-act="skipkey">Per ora salta</button>'}</div></div>
+<div class="card stack" style="gap:10px"><b style="font-weight:600">Copia dei dati</b><div class="muted">I capitoli stanno solo su questo telefono. Se cancelli i dati del sito o cambi telefono si perdono. Esporta una copia ogni tanto.</div><button class="pill ghost" data-act="export">Esporta copia</button></div></div>`};
+
+const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+
+/* ---------- render ---------- */
+function render(){
+ const app=$("#app");app.innerHTML=(V[S.view]||V.home)();
+ const showTabs=["home","library","focus","chapter"].includes(S.view);
+ const tabs=$("#tabs");tabs.hidden=!showTabs;
+ tabs.innerHTML=[["home","Oggi","sun"],["library","Libri","book"],["focus","Focus","timer"]].map(([k,l,i])=>`<button class="${S.tab===k?"on":""}" data-act="tab" data-v="${k}">${ic(i,22)}${l}</button>`).join("");
+}
+function paintRec(){
+ const b=$("#micbtn");if(b)b.classList.toggle("on",S.listening);
+ const s=$("#mstat");if(s)s.textContent=S.listening?"Sto ascoltando…":(S.view==="review"?"Rispondi a voce":"Tocca per parlare");
+ const p=$("#partial");if(p)p.textContent=S.partial;
+ const e=$("#micerr");if(e)e.textContent=S.micErr;
+}
+function paintF(){
+ const t=$("#ft");if(t)t.textContent=fmt(F.rem);
+ const r=$("#ring");if(r)r.setAttribute("stroke-dashoffset",779.1*(F.rem/F.total));
+ const l=$("#fl");if(l)l.textContent=F.phase==="work"?"Studio · sessione "+(F.sessions+1):"Pausa";
+}
+
+/* ---------- AI ---------- */
+function errCopy(code){
+ return {no_key:"Manca la chiave AI. Aggiungila nelle impostazioni oppure compila a mano.",
+  auth:"La chiave AI non è valida. Controllala nelle impostazioni.",
+  credit:"Il credito Anthropic è finito. Ricaricalo sulla console.",
+  network:"Nessuna connessione. Riprova quando sei online.",
+  rate_limited:"Troppe richieste ravvicinate. Aspetta un minuto e riprova.",
+  invalid_json:"La risposta non era leggibile. Riprova.",
+  cancelled:"Elaborazione annullata."}[code]||"Non sono riuscito a elaborare la spiegazione. Riprova o compila a mano.";
+}
+const arr=a=>Array.isArray(a)?a.filter(x=>x!=null&&x!==""):[];
+function normalize(a){
+ if(!a||typeof a!=="object")return null;
+ return {book:a.book?String(a.book):"",author:a.author?String(a.author):"",chapter:a.chapter!=null&&a.chapter!==""?String(a.chapter):"",
+  confidence:typeof a.confidence==="number"?Math.max(0,Math.min(1,a.confidence)):null,alternatives:arr(a.alternatives).map(String).slice(0,2),
+  summary:a.summary?String(a.summary):"",
+  concepts:arr(a.concepts).map(x=>({title:String(x.title||""),text:String(x.text||"")})).filter(x=>x.title||x.text).slice(0,8),
+  quotes:arr(a.quotes).map(String).slice(0,6),data:arr(a.data).map(String).slice(0,8),unclear:arr(a.unclear).map(String).slice(0,5),
+  questions:arr(a.questions).map(x=>({q:String(x.q||""),ideal:String(x.ideal||"")})).filter(x=>x.q&&x.ideal).slice(0,5)};
+}
+async function process(text){
+ S.draft=text;S.err="";go("processing");
+ let ai=null,fail="";
+ if(!getKey())fail=errCopy("no_key");
+ else{
+  S.ctl=new AbortController();
+  const known=bookList().map(b=>b.book).join(" | ")||"nessuno";
+  const prompt=`Sei l'assistente di un'app di studio. Luigi ha appena letto un capitolo di un libro e lo ha spiegato a voce. Sotto c'è la trascrizione, che può contenere errori di riconoscimento vocale.
+Libri già in libreria: ${known}.
+Rispondi SOLO con un oggetto JSON di questa forma:
+{"book": titolo o null, "author": autore o null, "chapter": numero o titolo del capitolo come stringa, o null, "confidence": numero da 0 a 1 su quanto sei sicuro di libro e capitolo, "alternatives": [fino a 2 titoli alternativi plausibili], "summary": "una frase", "concepts": [{"title": "...", "text": "..."}] (da 3 a 6), "quotes": ["..."] (solo frasi che Luigi ha pronunciato come citazioni), "data": ["..."] (numeri, date, nomi propri citati), "unclear": ["..."] (passaggi vaghi o possibilmente imprecisi, che non si possono controllare senza il libro), "questions": [{"q": "domanda di richiamo attivo, che richiede di spiegare", "ideal": "risposta corretta basata SOLO su ciò che Luigi ha detto"}] (da 3 a 5)}
+Regole: non aggiungere informazioni che non sono nella trascrizione. Se libro o capitolo non emergono chiaramente dal testo, usa null e una confidence bassa: non indovinare. Scrivi in italiano.
+
+Trascrizione:
+"""
+${text.slice(0,30000)}
+"""`;
+  try{ai=normalize(await askJSON(prompt,{signal:S.ctl.signal,model:MODEL_MAIN}));if(!ai)fail=errCopy("invalid_json")}
+  catch(e){if(e&&e.code==="cancelled"){go("record");return}fail=errCopy(e&&e.code)}
+ }
+ S.pending={transcript:text,ai:ai||{concepts:[],quotes:[],data:[],unclear:[],questions:[],alternatives:[]},fail};
+ go("confirm");
+}
+async function grade(){
+ const R=S.rev,{q}=R.items[R.i];
+ if(dict&&dict.active())await dict.stop().catch(()=>{});
+ const tx=$("#tx");const ans=(tx?tx.value:S.draft).trim();S.draft=ans;
+ if(ans.length<3){setErr("Scrivi o detta una risposta, anche breve. Oppure mostra la risposta.");return}
+ R.ans=ans;R.stage="grading";render();
+ let res={verdict:null,err:""};
+ if(getKey()){
+  try{
+   const prompt=`Domanda di ripasso: ${q.q}
+Risposta di riferimento (la spiegazione che Luigi aveva dato dopo aver letto, non verificata sul libro): ${q.ideal}
+Risposta di Luigi adesso: ${ans}
+Rispondi SOLO con JSON: {"verdict": "ok" oppure "parziale" oppure "manca", "feedback": "massimo 2 frasi, tono diretto", "missing": ["punti chiave che mancano, massimo 3"]}
+Valuta il significato, non le parole. Non aggiungere informazioni esterne.`;
+   const j=await askJSON(prompt,{model:MODEL_FAST});
+   const v=["ok","parziale","manca"].includes(j.verdict)?j.verdict:"parziale";
+   res={verdict:v,feedback:String(j.feedback||""),missing:arr(j.missing).map(String).slice(0,3)};
+  }catch(e){res={verdict:null,err:"Non sono riuscito a valutare. Confronta tu con la risposta qui sotto."}}
+ }else res.err="Manca la chiave AI. Confronta tu con la risposta qui sotto.";
+ R.res=res;R.stage="result";render();
+}
+async function rate(r){
+ const R=S.rev,{c,q}=R.items[R.i];
+ let step=q.step||0;
+ if(r==="ok")step=Math.min(step+1,INT.length-1);else if(r==="no")step=0;
+ const days=r==="part"?Math.max(1,Math.round(INT[step]/2)):INT[step];
+ const nq=(c.questions||[]).map(x=>x.id===q.id?Object.assign({},x,{step,due:Date.now()+days*DAY,last:Date.now(),tries:(x.tries||0)+1}):x);
+ R.counts[r]++;R.i++;R.stage="answer";R.res=null;S.draft="";S.partial="";
+ render();window.scrollTo(0,0);
+ try{await Store.patch(c.id,{questions:nq})}catch(e){toast("Non sono riuscito a salvare l'ultimo voto")}
+}
+async function save(){
+ const p=S.pending,ai=p.ai;
+ const book=$("#f-book").value.trim(),author=$("#f-author").value.trim(),chapter=$("#f-chap").value.trim();
+ if(!book){setErr("Scrivi il titolo del libro.");return}
+ if(!chapter){setErr("Scrivi il numero o il titolo del capitolo.");return}
+ const now=Date.now(),id="c"+now.toString(36);
+ const doc={id,book,author,chapter,confidence:ai.confidence==null?0:ai.confidence,transcript:p.transcript,summary:ai.summary||"",
+  concepts:ai.concepts||[],quotes:ai.quotes||[],data:ai.data||[],unclear:ai.unclear||[],
+  questions:(ai.questions||[]).map((x,i)=>({id:"q"+i,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0})),createdAt:now};
+ const b=document.querySelector('[data-act="save"]');if(b)b.disabled=true;
+ try{await Store.put(doc)}catch(e){if(b)b.disabled=false;setErr("Non sono riuscito a salvare. Riprova.");return}
+ S.pending=null;S.draft="";S.partial="";
+ toast("Capitolo salvato");go("home");
+}
+
+/* ---------- timer ---------- */
+function beep(){try{const a=new(window.AudioContext||window.webkitAudioContext)();[0,.25,.5].forEach(t=>{const o=a.createOscillator(),g=a.createGain();o.frequency.value=660;o.connect(g);g.connect(a.destination);g.gain.setValueAtTime(.0001,a.currentTime+t);g.gain.exponentialRampToValueAtTime(.2,a.currentTime+t+.02);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+t+.22);o.start(a.currentTime+t);o.stop(a.currentTime+t+.25)})}catch(e){}}
+function endPhase(){
+ F.running=false;beep();
+ if(F.phase==="work"){F.sessions++;F.phase="break";F.total=F.presets[F.mode][1]*60;S.banner=true}
+ else{F.phase="work";F.total=F.presets[F.mode][0]*60}
+ F.rem=F.total;if(S.view==="focus"||S.view==="home")render();
+}
+setInterval(()=>{if(!F.running)return;F.rem=Math.max(0,Math.round((F.endAt-Date.now())/1000));paintF();if(F.rem<=0)endPhase()},500);
+
+/* ---------- eventi ---------- */
+document.addEventListener("click",ev=>{
+ const el=ev.target.closest("[data-act]");if(!el)return;
+ const a=el.dataset.act;
+ if(a==="mic"){ // deve partire subito dal clic
+  if(!dict)return;
+  if(dict.active()){dict.stop().catch(()=>{});return}
+  S.micErr="";dict.start().catch(e=>{S.micErr=e&&e.code==="not_granted"?"Microfono non consentito. Scrivi nel riquadro.":"Dettatura non partita. Riprova o scrivi.";paintRec()});
+  return}
+ switch(a){
+  case "tab":go(el.dataset.v);break;
+  case "settings":go("settings");break;
+  case "savekey":{const v=($("#k-key")||{}).value.trim();if(!/^sk-ant-/.test(v)||v.length<30){setErr("Non sembra una chiave Anthropic: deve iniziare con sk-ant- ed essere lunga.");break}
+   try{localStorage.setItem("rc_key",v)}catch(e){setErr("Non riesco a salvarla su questo browser.");break}toast("Chiave salvata");go("home");break}
+  case "clearkey":try{localStorage.removeItem("rc_key")}catch(e){}toast("Chiave rimossa");go("settings");break;
+  case "skipkey":try{localStorage.setItem("rc_skip","1")}catch(e){}go("home");break;
+  case "export":exportData();break;
+  case "rec":S.draft="";S.partial="";S.micErr="";go("record");break;
+  case "cancelrec":if(dict&&dict.active())dict.stop().catch(()=>{});S.draft=($("#tx")||{}).value||S.draft;go("home");break;
+  case "process":{
+   (async()=>{if(dict&&dict.active())await dict.stop().catch(()=>{});
+    const t=(($("#tx")||{}).value||"").trim();
+    if(t.length<40){setErr("Racconta qualche frase in più: servono più parole per riconoscere libro e capitolo.");return}
+    process(t)})();break}
+  case "stopproc":if(S.ctl)S.ctl.abort();break;
+  case "backrec":go("record");break;
+  case "retry":process(S.pending.transcript);break;
+  case "pick":$("#f-book").value=el.dataset.book;if(el.dataset.author)$("#f-author").value=el.dataset.author;break;
+  case "save":save();break;
+  case "open":S.openId=el.dataset.id;S.confirmDel=false;go("chapter");break;
+  case "deltoggle":S.confirmDel=!S.confirmDel;render();break;
+  case "delete":Store.remove(el.dataset.id).then(()=>{toast("Capitolo eliminato");S.confirmDel=false;go("library")}).catch(()=>toast("Non sono riuscito a eliminare"));break;
+  case "review":startReview(!!el.dataset.early);break;
+  case "grade":grade();break;
+  case "reveal":if(dict&&dict.active())dict.stop().catch(()=>{});S.rev.res={verdict:null,err:""};S.rev.stage="result";render();break;
+  case "rate":rate(el.dataset.r);break;
+  case "endrev":if(dict&&dict.active())dict.stop().catch(()=>{});S.rev=null;go("home");break;
+  case "fmode":{F.mode=el.dataset.m;F.phase="work";F.total=F.presets[F.mode][0]*60;F.rem=F.total;F.running=false;render();break}
+  case "ftoggle":if(F.running){F.rem=Math.max(0,Math.round((F.endAt-Date.now())/1000));F.running=false}else{F.endAt=Date.now()+F.rem*1000;F.running=true;S.banner=false}render();break;
+  case "freset":F.running=false;F.rem=F.total;render();break;
+  case "fskip":endPhase();break;
+ }
+});
+document.addEventListener("input",ev=>{if(ev.target.id==="tx")S.draft=ev.target.value});
+
+async function exportData(){
+ const data=JSON.stringify({exportedAt:new Date().toISOString(),chapters:S.chapters},null,1);
+ const name="ripeti-il-capitolo-"+new Date().toISOString().slice(0,10)+".json";
+ try{const f=new File([data],name,{type:"application/json"});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return}}catch(e){if(e&&e.name==="AbortError")return}
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));a.download=name;document.body.appendChild(a);a.click();a.remove();
+}
+function startReview(early){
+ let items=dueList();
+ if(!items.length&&early)items=allQ().sort((a,b)=>a.q.due-b.q.due);
+ S.rev={items:items.slice(0,5),i:0,stage:"answer",res:null,counts:{ok:0,part:0,no:0}};S.draft="";S.partial="";S.micErr="";go("review");
+}
+/* Scorciatoie: il link con #registra apre subito la registrazione, #ripasso il ripasso */
+function route(){
+ const h=location.hash.replace("#","");
+ let skip="";try{skip=localStorage.getItem("rc_skip")||""}catch(e){}
+ if(!getKey()&&!skip&&S.view==="home"){go("settings");return}
+ if(h==="registra"&&S.view!=="record"){S.draft="";S.partial="";S.micErr="";go("record");const t=$("#tx");if(t)try{t.focus()}catch(e){}}
+ else if(h==="ripasso"&&S.view!=="review"){if(dueList().length)startReview(false);else go("home")}
+}
+window.addEventListener("hashchange",route);
+
+/* ---------- avvio ---------- */
+(function(){
+ Store.init();
+ dict=makeDict();
+ if(dict){
+  dict.onFinal(({text})=>{const t=$("#tx");if(!t)return;t.value=t.value?t.value+text:text.trimStart();S.draft=t.value});
+  dict.onPartial(({text})=>{S.partial=text;paintRec()});
+  dict.onState(({state,reason})=>{S.listening=state!=="idle";if(!S.listening)S.partial="";
+   if(reason==="not_granted")S.micErr="Microfono non consentito. Abilitalo nelle impostazioni del telefono per questo sito.";
+   else if(reason)S.micErr="Il riconoscimento vocale si è interrotto. Riprova o scrivi.";paintRec()});
+ }
+ render();route();
+ if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+})();
+</script>
+</body></html>
