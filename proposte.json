@@ -1,4 +1,56 @@
 {
+ "usati": [
+  {
+   "id": "cseed-emozione-ml",
+   "doi": "",
+   "titolo": "L'algoritmo non è un giudice neutrale (McVeigh et al., Trends Cogn Sci 2026)"
+  },
+  {
+   "id": "w47-trieste-gruppo",
+   "doi": "",
+   "titolo": "Discutere in gruppo smaschera le fake news (Carbone et al., PLOS ONE 2026)"
+  },
+  {
+   "id": "w47-ia-accusa",
+   "doi": "",
+   "titolo": "Quando l'IA accusa, gli umani non le credono (Loconte et al., arXiv 2512.02848)"
+  },
+  {
+   "id": "w47-sorriso-vocale",
+   "doi": "10.1016/j.isci.2025.113858",
+   "titolo": "Il sorriso nella voce (Merchie et al., iScience 2025)"
+  },
+  {
+   "id": "w47b-seneca-amico",
+   "doi": "",
+   "titolo": "Seneca, Epistulae morales 35.1, amico e amore (ritirato)"
+  },
+  {
+   "id": "w47b-sguardo-diretto",
+   "doi": "10.1016/j.biopsycho.2022.108451",
+   "titolo": "Sguardo diretto e robot (Kiilavuori et al. 2022, ritirato)"
+  },
+  {
+   "id": "w47d-quintiliano-vir-bonus",
+   "doi": "",
+   "titolo": "Quintiliano 12.1.1, vir bonus dicendi peritus; Cicerone De oratore III 55"
+  },
+  {
+   "id": "w47d-thin-slices",
+   "doi": "10.3389/fpsyg.2021.667326",
+   "titolo": "Thin slices (Murphy e Hall, Front Psychol 2021)"
+  },
+  {
+   "id": "w47d-persuasione-esperto",
+   "doi": "10.3389/fnbeh.2023.1147140",
+   "titolo": "Persuasione esperta e EEG (Ntoumanis et al., 2023)"
+  },
+  {
+   "id": "w47x-persuasione-accoppiamento",
+   "doi": "10.1093/cercor/bhad003",
+   "titolo": "Accoppiamento neurale nella persuasione (Li et al., Cereb Cortex 2023, solo abstract letto, non usare finché non si legge il testo)"
+  }
+ ],
  "batches": [
   {
    "id": "2026-w47",
