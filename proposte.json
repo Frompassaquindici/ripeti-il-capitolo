@@ -268,11 +268,11 @@
    ]
   },
   {
-   "id": "2026-w47c",
+   "id": "2026-w47d",
    "from": "2026-11-20",
    "papers": [
     {
-     "id": "w47c-quintiliano-vir-bonus",
+     "id": "w47d-quintiliano-vir-bonus",
      "chapter": "Per persuadere bene devi essere una persona di cui ci si può fidare",
      "author": "Catone il Censore, ripreso da Quintiliano · Institutio oratoria, 12.1.1 · classico latino",
      "confidence": 1,
@@ -330,14 +330,11 @@
      ],
      "concepts": [],
      "data": [
-      "Quintiliano, Institutio oratoria 12.1.1",
-      "De oratore III, 55 (citato nell'articolo 'Quintilian and the Vir Bonus', Journal of Roman Studies)",
-      "Traduzioni italiane mie: da confrontare con un'edizione stampata se le citi in pubblico"
+      "Quintiliano, Institutio oratoria 12.1.1, che riprende la definizione di Catone",
+      "Cicerone, De oratore III, 55",
+      "Traduzioni italiane mie"
      ],
-     "unclear": [
-      "Ho verificato le frasi latine su un articolo accademico, non sul testo integrale",
-      "La riga 'applicazione per il coach' è mia, non dei classici"
-     ],
+     "unclear": [],
      "questions": [
       {
        "q": "Cosa significa vir bonus dicendi peritus?",
@@ -362,174 +359,187 @@
      ]
     },
     {
-     "id": "w47c-thin-slices",
-     "chapter": "Bastano pochi secondi di comportamento per leggere una persona",
-     "author": "Murphy, Hall · Frontiers in Psychology, 2021 (rassegna) e Slepian, Bogart, Ambady · Annual Review of Clinical Psychology, 2014",
+     "id": "w47d-thin-slices",
+     "chapter": "Bastano pochi minuti di comportamento per leggere una persona, ma non tutto si legge uguale",
+     "author": "Murphy e Hall · Frontiers in Psychology, 2021 (rassegna sulle thin slices)",
      "confidence": 1,
      "transcript": "",
-     "summary": "Dal comportamento non verbale, anche in una finestra breve, si possono leggere tratti e stati interni con una certa accuratezza, e a volte prevedere esiti futuri. Il metodo si chiama thin slices, fette sottili.",
+     "summary": "Una fetta sottile è un breve estratto di comportamento, di solito sotto i 5 minuti. Funziona bene per alcuni segnali, come lo sguardo, e male per altri, come quanto parla una persona. Le fette prese dal centro di un'interazione valgono più di quelle dell'inizio.",
      "images": [
       {
-       "title": "La fetta di prosciutto",
-       "text": "Un banco del salumiere con una fetta sottilissima di prosciutto messa controluce: ci vedi attraverso tutto il cartellino della persona. Poche secondi bastano per un primo quadro, non per il giudizio finale."
+       "title": "Il prosciutto affettato",
+       "text": "Un salumiere affetta una coscia di prosciutto: ogni fetta è sottile, ma la prima e l'ultima sono più secche. La fetta migliore è quella presa dal centro: il centro di una conversazione dice più dei primi secondi."
       },
       {
-       "title": "Il cronometro accanto alla faccia",
-       "text": "Due volti uguali con cronometri diversi: 5 secondi, 5 minuti. Il cronometro corto è già abbastanza sensato, ma più tempo cambia spesso la precisione."
+       "title": "Il faro dello sguardo",
+       "text": "Un faro che gira sul mare: ogni volta che ripassa, illumina nello stesso punto. Lo sguardo è il segnale più stabile: una fetta basta per capire come guarda una persona."
       },
       {
-       "title": "L'indovino con la palla di vetro",
-       "text": "Un indovino che guarda dentro una palla piena di gesti, non di fumo. Dal non verbale si possono prevedere cose che non c'entrano con il gesto stesso."
+       "title": "Il cronometro che mente",
+       "text": "Una persona che parla con un cronometro in bocca: un minuto parla tanto, il minuto dopo quasi niente. Quanto parla cambia da fetta a fetta, quindi una fetta non lo rappresenta."
       },
       {
-       "title": "La bilancia con il peso dei dettagli",
-       "text": "Due piatti: nel primo la fetta di comportamento, nel secondo tutta la registrazione. Se i piatti si equilibrano, la fetta rappresenta bene il resto."
+       "title": "La sveglia a 5 secondi",
+       "text": "Una sveglia che suona dopo soli 5 secondi di faccia sconosciuta e ti dice già qualcosa su estroversione e coscienziosità. Non dice quasi niente sulla gradevolezza."
       }
      ],
      "phrases": [
-      "Pochi secondi di comportamento dicono già qualcosa, ma non tutto.",
-      "La fetta sottile non è un verdetto: è una prima ipotesi da verificare.",
-      "Prima guardi come si muove, poi controlli se hai capito bene.",
-      "Quanto è lunga la fetta cambia quanto sei preciso."
+      "Pochi minuti di comportamento bastano per un primo quadro, ma i primi secondi sono il pezzo meno affidabile.",
+      "Lo sguardo si legge in una fetta. Quanto parla una persona, no.",
+      "Se vuoi capire come è fatta una persona, guarda il centro della conversazione, non l'apertura.",
+      "Una fetta sottile è una buona ipotesi, non una sentenza."
      ],
      "quotes": [],
      "deep": [
       {
-       "title": "La rassegna 2021",
-       "text": "Murphy e Hall passano in rassegna la ricerca sulle fette sottili come metodo di misura. Si chiedono se una fetta rappresenta il totale del comportamento, se predice altre variabili e se la precisione dei giudizi cambia con la lunghezza della fetta."
+       "title": "Che cos'è",
+       "text": "Un breve estratto di un flusso di comportamento, di solito sotto i 5 minuti. Il termine viene da Ambady e Rosenthal, che in una meta-analisi mostrarono che dalle fette si possono prevedere altre variabili."
       },
       {
-       "title": "La rassegna 2014",
-       "text": "Slepian, Bogart e Ambady riportano che da un breve sguardo al comportamento non verbale altrui si possono percepire con accuratezza tratti e stati interni. Dalle fette si possono prevedere anche esiti futuri."
+       "title": "Cosa funziona",
+       "text": "Gaze, cenni del capo e sorrisi sono abbastanza stabili da una fetta all'altra. In uno studio su 15 minuti di interazione, due fette da 1 minuto bastavano per rappresentare tutti questi comportamenti. Il tempo in cui una persona parla invece varia molto e una fetta non lo rappresenta."
       },
       {
-       "title": "Dove vale",
-       "text": "Nel contesto clinico, per certi disturbi la lettura dal non verbale è possibile. Condizioni che alterano la mimica, come il Parkinson o la paralisi facciale, possono disturbare i giudizi."
+       "title": "Dove prendere la fetta",
+       "text": "Le fette prese dal centro di un'interazione rappresentano meglio il tutto di quelle dell'inizio o della fine. In un'analisi su colloqui clinici, le fette dopo i primi 5 minuti erano le migliori."
       },
       {
-       "title": "Come usarlo",
-       "text": "Leggi i segnali come ipotesi, poi conferma con una domanda o con più tempo. Più contesto hai, meno ti fidi della sola prima impressione."
+       "title": "Quanto durano",
+       "text": "Per i tratti di personalità, le persone sono sopra il caso già a 5 secondi per quasi tutti i Big Five, con l'eccezione della gradevolezza. Passare da 60 a 300 secondi migliora poco. Per predire altre variabili, 2 minuti erano quasi bravi quanto 5."
       },
       {
-       "title": "Limite",
-       "text": "Sono due rassegne: l'abstract non dà numeri precisi e non dice quanto è grande l'accuratezza nei vari casi."
+       "title": "Quanto conta la prima impressione",
+       "text": "Quasi un terzo dei responsabili delle assunzioni dice di decidere se un candidato va bene nei primi 5 minuti. Per i giudizi su orientamento sessuale, la precisione è sopra il caso con foto da 50 millisecondi, ma non da 33."
+      },
+      {
+       "title": "Quando non funziona",
+       "text": "In uno studio su madri e figli sordi, fette da 3 minuti di gioco non rappresentavano 18 minuti di interazione. La conclusione degli autori è che le fette vanno scelte in base a cosa misuri."
+      },
+      {
+       "title": "Limiti dello studio",
+       "text": "È una rassegna, non un esperimento. La gran parte delle ricerche riguarda persone bianche, europee o americane, giovani adulti o bambini. Pochi studi hanno guardato culture diverse."
       }
      ],
      "concepts": [],
      "data": [
-      "Murphy NA, Hall JA. Front Psychol 2021, DOI 10.3389/fpsyg.2021.667326",
-      "Slepian ML, Bogart KR, Ambady N. Annu Rev Clin Psychol 2014, DOI 10.1146/annurev-clinpsy-090413-123522"
+      "Murphy NA, Hall JA. Front Psychol 2021;12:667326, DOI 10.3389/fpsyg.2021.667326",
+      "Letto il testo completo",
+      "Hall e colleghi: tre fette da 1 minuto in un'intervista medica di 15, correlazioni tra 0,60 e 0,82",
+      "Carney e colleghi: Big Five a 5, 20, 45, 60 e 300 secondi"
      ],
-     "unclear": [
-      "Ho letto solo gli abstract: niente numeri sull'accuratezza",
-      "Sono rassegne: nessun esperimento singolo da citare con percentuali"
-     ],
+     "unclear": [],
      "questions": [
       {
-       "q": "Che cosa sono le thin slices?",
-       "ideal": "Brevi finestre di comportamento osservato usate per misurare o prevedere tratti, stati interni o esiti."
+       "q": "Cosa sono le thin slices e di che durata sono di solito?",
+       "ideal": "Brevi estratti di un flusso di comportamento, di solito sotto i 5 minuti."
       },
       {
-       "q": "Che tre domande si fa la rassegna del 2021?",
-       "ideal": "Se la fetta rappresenta il totale, se predice altre variabili, se la precisione dipende dalla lunghezza."
+       "q": "Quali segnali si leggono bene da una fetta e quali no?",
+       "ideal": "Bene sguardo, cenni del capo e sorrisi. Male il tempo di parola e, in genere, i gesti."
       },
       {
-       "q": "Cosa si può leggere da una fetta breve, secondo la rassegna del 2014?",
-       "ideal": "Tratti e stati interni, e con una certa accuratezza anche esiti futuri."
+       "q": "Da dove conviene prendere la fetta?",
+       "ideal": "Dal centro dell'interazione: quelle dell'inizio e della fine rappresentano peggio il tutto."
       },
       {
-       "q": "Quando rischia di fallire?",
-       "ideal": "Quando il non verbale è alterato, per esempio nel Parkinson o con paralisi facciale."
+       "q": "Dopo quanto tempo si è già sopra il caso nel giudicare la personalità?",
+       "ideal": "Già a 5 secondi per quasi tutti i tratti, tranne la gradevolezza. Dopo 60 secondi il guadagno è piccolo."
       },
       {
-       "q": "Come la useresti con uno sconosciuto?",
-       "ideal": "Come ipotesi: osservo, poi verifico con una domanda o con più tempo prima di concludere."
+       "q": "Quando una fetta può ingannare?",
+       "ideal": "Quando il comportamento varia molto nel tempo, come il tempo di parola, o con popolazioni particolari, come nello studio su madri e figli sordi."
       }
      ]
     },
     {
-     "id": "w47c-persuasione-accoppiamento",
-     "chapter": "Quando persuadi bene, i cervelli si sincronizzano: e prevede il sì meglio delle risposte a voce",
-     "author": "Li, Luo, Wang, Li · Cerebral Cortex, 2023",
+     "id": "w47d-persuasione-esperto",
+     "chapter": "Gli argomenti che cambiano le scelte sono quelli concreti sul tuo corpo",
+     "author": "Ntoumanis, Davydova, Sheronova, Panidi, Kosonogov, Shestakova, Jääskeläinen, Klucharev · Frontiers in Behavioral Neuroscience, 2023",
      "confidence": 1,
      "transcript": "",
-     "summary": "In una situazione naturale a due, quando il persuasore usa argomenti persuasivi aumenta l'accoppiamento neurale con chi ascolta. E questo accoppiamento prevede se l'altro si adeguerà meglio dei questionari.",
+     "summary": "Dopo aver ascoltato 7 minuti di un esperto, le persone erano disposte a pagare meno per i dolci. Quanto cambiavano idea si prevedeva dalle onde cerebrali mentre ascoltavano, e due passaggi in particolare prevedevano chi si sarebbe lasciato convincere.",
      "images": [
       {
-       "title": "I due cervelli con il filo",
-       "text": "Due teste con un filo luminoso che le collega. Quando il persuasore dice l'argomento giusto, il filo si illumina. Il filo è l'accoppiamento neurale."
+       "title": "La nutrizionista con la lavagna",
+       "text": "Una nutrizionista in camice davanti a una lavagna piena di 13 argomenti. Chi ascolta ha una cuffia piena di fili. Dopo sette minuti, il cartellino del prezzo sul dolce si abbassa da solo."
       },
       {
-       "title": "Il sì scritto sulla fronte",
-       "text": "Chi ascolta ha una luce sulla fronte: verde se dirà sì. La luce si accende prima che lui lo dica, e prima del suo questionario."
+       "title": "La pelle che si schiarisce",
+       "text": "Un volto con l'acne che si ripulisce come lo schermo di un telefono dopo un panno. È il momento in cui il cervello di chi si lascia convincere si distingue dagli altri."
       },
       {
-       "title": "Il cielo artico",
-       "text": "Due persone su un ghiacciaio che discutono cosa salvare dal campo. Il compito è un gioco di sopravvivenza: scelgono oggetti insieme e uno convince l'altro."
+       "title": "Il cuore che respira",
+       "text": "Un cuore e dei vasi con le valigie in mano che si siedono a riposo: la pressione scende. È il secondo passaggio in cui il segnale cerebrale separa chi cambia idea da chi no."
       },
       {
-       "title": "Il primo argomento che apre",
-       "text": "Una porta con una maniglia a forma di argomento. Il primo argomento mirato è la chiave che apre: dopo, il resto passa più facile."
+       "title": "Il coro con la stessa voce",
+       "text": "Una platea di persone con la cuffia che muovono insieme la testa nello stesso momento. Più il tuo cervello va in coro con gli altri, più ti lasci persuadere."
       }
      ],
      "phrases": [
-      "Persuadere bene si sente nel cervello dell'altro prima che nelle sue parole.",
-      "Gli argomenti mirati sincronizzano chi ascolta con te.",
-      "Il sì si prevede dal cervello meglio che dal questionario.",
-      "Il primo argomento giusto è quello che apre la porta."
+      "Gli argomenti che arrivano di più sono quelli concreti sul tuo corpo: la pelle, la pressione.",
+      "Chi cambia idea è chi segue il discorso insieme agli altri, non chi si distrae.",
+      "Un esperto convince di più chi tende a conformarsi.",
+      "Si riduce più facilmente il desiderio di una cosa dannosa che si aumenta quello di una sana."
      ],
      "quotes": [],
      "deep": [
       {
        "title": "L'esperimento",
-       "text": "Coppie di persuasore e ricevente fanno insieme un compito modificato, l'Arctic Survival Task, mentre un sistema di fNIRS a due teste misura l'attività cerebrale di entrambi."
+       "text": "49 partecipanti reclutati, 45 nell'analisi finale (27 donne, età media 22,5). Fanno due blocchi di un'asta in cui offrono denaro per prodotti con etichetta 'con zucchero', 'senza zucchero' o 'non commestibili'. In mezzo ascoltano per 7 minuti un nutrizionista in prima persona, con 13 argomenti sui rischi dello zucchero. L'EEG registra tutto."
       },
       {
-       "title": "Il risultato principale",
-       "text": "Con gli argomenti persuasivi, rispetto a quelli non persuasivi, l'accoppiamento neurale cresce in aree come il giro temporale superiore sinistro e il giro frontale superiore."
+       "title": "Il risultato comportamentale",
+       "text": "Dopo l'ascolto, la disponibilità a pagare per i prodotti con zucchero scende in modo significativo. Per i prodotti senza zucchero e non commestibili non cambia in modo significativo (t = -3,73 contro lo zero per i prodotti con zucchero, p = 0,0005)."
       },
       {
-       "title": "La direzione",
-       "text": "Gli indici di G-causalità mostrano la direzione del flusso di informazione tra persuasore e ricevente."
+       "title": "Previsione con la sincronia",
+       "text": "Chi ha un cervello più sincronizzato con gli altri durante l'ascolto riduce di più l'offerta: correlazione di -0,29, p = 0,027 con test a una coda, quindi risultato da leggere con cautela (a due code p = 0,054)."
       },
       {
-       "title": "Il punto forte",
-       "text": "L'accoppiamento neurale prevede gli esiti della persuasione, cioè se il ricevente si adegua, meglio delle misure classiche di autovalutazione."
+       "title": "Previsione con i pattern",
+       "text": "Un algoritmo prevede chi si lascia convincere meglio del caso in due finestre: tra il secondo 165 e il 168 (65% contro 49,5% di caso) e tra il 200 e il 203 (69% contro 49,9%). In quei punti l'esperto parlava della pelle che migliora e dell'acne che sparisce, e della pressione che scende e del cuore che lavora meno."
       },
       {
-       "title": "Limite",
-       "text": "Studio di laboratorio con un compito particolare, e io ho letto solo l'abstract: niente numeri sul campione né sulle dimensioni dell'effetto."
+       "title": "Chi si lascia convincere",
+       "text": "Chi ha un punteggio più alto nella scala di conformismo cambia di più la sua offerta (correlazione -0,30, p = 0,049)."
+      },
+      {
+       "title": "Cosa non ha funzionato",
+       "text": "Gli autori si aspettavano che il segnale P300 diminuisse davanti ai dolci dopo l'ascolto, ma è aumentato: lo spiegano con la paura. Non hanno trovato nessun legame tra P300 e disponibilità a pagare."
+      },
+      {
+       "title": "Limiti dello studio",
+       "text": "Nei dolci non c'era l'imballaggio, che nel mercato reale può annullare l'effetto. L'etichetta 'con zucchero' è poco comune nel paese dello studio. Non c'era un gruppo di controllo di persone: l'ha usato uno studio precedente degli stessi autori. Gli autori non hanno chiesto ai partecipanti quale argomento fosse stato più importante."
       }
      ],
      "concepts": [],
      "data": [
-      "Cereb Cortex 2023;33(11):6818-6833, DOI 10.1093/cercor/bhad003",
-      "Protocollo: naturalistic dyadic persuasion paradigm con fNIRS a due teste"
+      "Ntoumanis I et al. Front Behav Neurosci 2023;17:1147140, DOI 10.3389/fnbeh.2023.1147140",
+      "Letto il testo completo",
+      "45 partecipanti, età media 22,5; audio di 7 minuti con 13 argomenti"
      ],
-     "unclear": [
-      "Ho letto solo l'abstract: niente numeri",
-      "Il consiglio di usare il primo argomento mirato è una mia lettura, non un test dello studio"
-     ],
+     "unclear": [],
      "questions": [
       {
-       "q": "Cosa misurano nei due partecipanti?",
-       "ideal": "L'attività cerebrale di entrambi insieme, con fNIRS a due teste durante un compito di sopravvivenza artica."
+       "q": "Che cosa cambia dopo l'ascolto dell'esperto?",
+       "ideal": "Cala la disponibilità a pagare per i prodotti con zucchero, non per gli altri."
       },
       {
-       "q": "Che cosa aumenta con gli argomenti persuasivi?",
-       "ideal": "L'accoppiamento neurale tra persuasore e ricevente."
+       "q": "Cosa prevede quanto una persona cambia idea?",
+       "ideal": "La sincronia del suo cervello con quello degli altri mentre ascolta, e i pattern di EEG in due finestre."
       },
       {
-       "q": "Cosa prevede l'accoppiamento?",
-       "ideal": "L'esito della persuasione, cioè se il ricevente si adegua, meglio delle misure di autovalutazione."
+       "q": "Di cosa parlava l'esperto nei due passaggi che prevedevano la persuasione?",
+       "ideal": "Della pelle che migliora, con l'acne che sparisce, e della pressione che scende."
       },
       {
-       "q": "Dove si vede l'effetto?",
-       "ideal": "Nel giro temporale superiore sinistro e nel giro frontale superiore, tra le altre aree."
+       "q": "Su chi funziona di più?",
+       "ideal": "Su chi ha un punteggio più alto di conformismo."
       },
       {
-       "q": "Perché non è una prova definitiva?",
-       "ideal": "È un compito di laboratorio e ho letto solo l'abstract, senza numeri sul campione."
+       "q": "Che risultato non ha confermato le ipotesi?",
+       "ideal": "Il P300 davanti ai dolci non è diminuito dopo l'ascolto, è aumentato, e non si è legato alla disponibilità a pagare."
       }
      ]
     }
@@ -542,6 +552,9 @@
   "w47-trieste-gruppo",
   "w47b-seneca-amico",
   "w47b-sguardo-diretto",
-  "w47b-thin-slices"
+  "w47b-thin-slices",
+  "w47c-persuasione-accoppiamento",
+  "w47c-quintiliano-vir-bonus",
+  "w47c-thin-slices"
  ]
 }
