@@ -266,6 +266,278 @@
      ]
     }
    ]
+  },
+  {
+   "id": "2026-w47b",
+   "from": "2026-11-20",
+   "papers": [
+    {
+     "id": "w47b-seneca-amico",
+     "chapter": "Chi è amico ama, ma chi ama non è per forza amico",
+     "author": "Seneca · Epistulae morales ad Lucilium, 35.1 · classico latino",
+     "confidence": 1,
+     "transcript": "",
+     "summary": "Seneca scrive a Lucilio che amore e amicizia non sono la stessa cosa: l'amicizia giova sempre, l'amore a volte fa anche male. Una frase breve per distinguere chi ti vuole bene da chi ti fa bene.",
+     "images": [
+      {
+       "title": "Il cartello a due porte",
+       "text": "Un portone con due porte: sopra una c'è scritto AMICO, sopra l'altra AMANTE. Chi entra dalla seconda non passa per forza dalla prima. Ricordati la regola: l'amore non è il biglietto per l'amicizia."
+      },
+      {
+       "title": "La medicina e il fuoco",
+       "text": "Su un tavolo una medicina e un fiammifero acceso. La medicina giova sempre, il fuoco scalda ma a volte brucia. Amicizia = medicina, amore = fuoco: a volte fa male, e va bene così."
+      },
+      {
+       "title": "La spunta che manca",
+       "text": "Una lista con due colonne: 'ti amo' e 'ti giovo'. Una persona ha la spunta solo nella prima. L'amico è quello con la spunta in tutte e due, sempre."
+      },
+      {
+       "title": "Lucilio che legge in treno",
+       "text": "Un uomo seduto con una lettera aperta, e il suo amico Seneca che gli parla dal foglio. Immagina la frase sussurrata a voce bassa: è una predica fatta da amico, non da giudice."
+      }
+     ],
+     "phrases": [
+      "Chi ti ama non è per forza tuo amico. L'amico invece ti fa sempre bene.",
+      "L'amicizia giova sempre, l'amore a volte fa anche male.",
+      "Prima di chiamare qualcuno amico, chiediti se ti giova o se ti scalda soltanto.",
+      "Un amico non è chi prova qualcosa per te, è chi ti fa bene nel tempo."
+     ],
+     "quotes": [
+      "Qui amicus est amat; qui amat non utique amicus est; itaque amicitia semper prodest, amor aliquando etiam nocet. (Ep. 35.1) Chi è amico ama; chi ama non è per forza amico; perciò l'amicizia giova sempre, l'amore a volte fa anche male."
+     ],
+     "deep": [
+      {
+       "title": "Il contesto",
+       "text": "Seneca scrive a Lucilio, più giovane, e gli dice che lo vuole amico: finché Lucilio non si migliora, secondo lui lo ama ma non è ancora un amico."
+      },
+      {
+       "title": "Cosa intende per amicizia",
+       "text": "Per Seneca l'amicizia è un rapporto che fa bene all'altro e lo rende migliore. L'amore può essere anche solo un sentimento, e non garantisce questo effetto."
+      },
+      {
+       "title": "Come usarla oggi",
+       "text": "Quando qualcuno ti dice 'ti voglio bene' ma ti fa stare peggio, o quando vuoi capire se un rapporto è davvero un'amicizia. Anche in coppia e in famiglia: vale la differenza tra l'affetto e il fare bene."
+      },
+      {
+       "title": "Equivoco da evitare",
+       "text": "Non vuol dire che l'amore sia sbagliato. Dice solo che da solo non basta a fare un amico. La frase è spesso trasformata in slogan sulle relazioni e perde la sfumatura."
+      },
+      {
+       "title": "Per fare tua la frase",
+       "text": "Ripetila in latino e in italiano. Ti basta ricordare la costruzione: amicus ama, ma amans non è amicus. Il ritmo è fatto apposta per essere ricordato."
+      }
+     ],
+     "concepts": [],
+     "data": [
+      "Seneca, Epistulae morales ad Lucilium, 35.1",
+      "Testo verificato sul commento latino di Jacques Bailly (UVM) e sull'antologia Manipulus florum",
+      "Traduzione italiana mia: da rileggere con una traduzione stampata se la citi in pubblico"
+     ],
+     "unclear": [
+      "Il resto della lettera non l'ho riletto: qui c'è solo il primo paragrafo",
+      "La traduzione è mia, non è di un'edizione italiana"
+     ],
+     "questions": [
+      {
+       "q": "Che cosa distingue l'amico da chi ti ama, per Seneca?",
+       "ideal": "Chi ama non è per forza amico: l'amicizia giova sempre, l'amore a volte fa anche male."
+      },
+      {
+       "q": "Dove si trova la frase e chi la scrive?",
+       "ideal": "Seneca, Epistulae morales ad Lucilium, lettera 35, paragrafo 1."
+      },
+      {
+       "q": "Come la useresti con una persona che dice di volerti bene ma ti fa stare male?",
+       "ideal": "Con calma: voler bene non basta, un amico è uno che ti fa bene nel tempo. Descrivi un comportamento concreto."
+      },
+      {
+       "q": "Come la ripeti in latino?",
+       "ideal": "Qui amicus est amat; qui amat non utique amicus est; itaque amicitia semper prodest, amor aliquando etiam nocet."
+      },
+      {
+       "q": "Che equivoco bisogna evitare?",
+       "ideal": "Pensare che dica che l'amore è sbagliato: dice solo che da solo non basta a fare un amico."
+      }
+     ]
+    },
+    {
+     "id": "w47b-thin-slices",
+     "chapter": "Bastano pochi secondi di comportamento per leggere una persona",
+     "author": "Murphy, Hall · Frontiers in Psychology, 2021 (rassegna) e Slepian, Bogart, Ambady · Annual Review of Clinical Psychology, 2014",
+     "confidence": 1,
+     "transcript": "",
+     "summary": "Dal comportamento non verbale, anche in una finestra breve, si possono leggere tratti e stati interni con una certa accuratezza, e a volte prevedere esiti futuri. Il metodo si chiama thin slices, fette sottili.",
+     "images": [
+      {
+       "title": "La fetta di prosciutto",
+       "text": "Un banco del salumiere con una fetta sottilissima di prosciutto messa controluce: ci vedi attraverso tutto il cartellino della persona. Poche secondi bastano per un primo quadro, non per il giudizio finale."
+      },
+      {
+       "title": "Il cronometro accanto alla faccia",
+       "text": "Due volti uguali con cronometri diversi: 5 secondi, 5 minuti. Il cronometro corto è già abbastanza sensato, ma più tempo cambia spesso la precisione."
+      },
+      {
+       "title": "L'indovino con la palla di vetro",
+       "text": "Un indovino che guarda dentro una palla piena di gesti, non di fumo. Dal non verbale si possono prevedere cose che non c'entrano con il gesto stesso."
+      },
+      {
+       "title": "La bilancia con il peso dei dettagli",
+       "text": "Due piatti: nel primo la fetta di comportamento, nel secondo tutta la registrazione. Se i piatti si equilibrano, la fetta rappresenta bene il resto."
+      }
+     ],
+     "phrases": [
+      "Pochi secondi di comportamento dicono già qualcosa, ma non tutto.",
+      "La fetta sottile non è un verdetto: è una prima ipotesi da verificare.",
+      "Prima guardi come si muove, poi controlli se hai capito bene.",
+      "Quanto è lunga la fetta cambia quanto sei preciso."
+     ],
+     "quotes": [],
+     "deep": [
+      {
+       "title": "La rassegna 2021",
+       "text": "Murphy e Hall passano in rassegna la ricerca sulle fette sottili come metodo di misura. Si chiedono se una fetta rappresenta il totale del comportamento, se predice altre variabili e se la precisione dei giudizi cambia con la lunghezza della fetta."
+      },
+      {
+       "title": "La rassegna 2014",
+       "text": "Slepian, Bogart e Ambady riportano che da un breve sguardo al comportamento non verbale altrui si possono percepire con accuratezza tratti e stati interni. Dalle fette si possono prevedere anche esiti futuri."
+      },
+      {
+       "title": "Dove vale",
+       "text": "Nel contesto clinico, per certi disturbi la lettura dal non verbale è possibile. Condizioni che alterano la mimica, come il Parkinson o la paralisi facciale, possono disturbare i giudizi."
+      },
+      {
+       "title": "Come usarlo",
+       "text": "Leggi i segnali come ipotesi, poi conferma con una domanda o con più tempo. Più contesto hai, meno ti fidi della sola prima impressione."
+      },
+      {
+       "title": "Limite",
+       "text": "Sono due rassegne: l'abstract non dà numeri precisi e non dice quanto è grande l'accuratezza nei vari casi."
+      }
+     ],
+     "concepts": [],
+     "data": [
+      "Murphy NA, Hall JA. Front Psychol 2021, DOI 10.3389/fpsyg.2021.667326",
+      "Slepian ML, Bogart KR, Ambady N. Annu Rev Clin Psychol 2014, DOI 10.1146/annurev-clinpsy-090413-123522"
+     ],
+     "unclear": [
+      "Ho letto solo gli abstract: niente numeri sull'accuratezza",
+      "Sono rassegne: nessun esperimento singolo da citare con percentuali"
+     ],
+     "questions": [
+      {
+       "q": "Che cosa sono le thin slices?",
+       "ideal": "Brevi finestre di comportamento osservato usate per misurare o prevedere tratti, stati interni o esiti."
+      },
+      {
+       "q": "Che tre domande si fa la rassegna del 2021?",
+       "ideal": "Se la fetta rappresenta il totale, se predice altre variabili, se la precisione dipende dalla lunghezza."
+      },
+      {
+       "q": "Cosa si può leggere da una fetta breve, secondo la rassegna del 2014?",
+       "ideal": "Tratti e stati interni, e con una certa accuratezza anche esiti futuri."
+      },
+      {
+       "q": "Quando rischia di fallire?",
+       "ideal": "Quando il non verbale è alterato, per esempio nel Parkinson o con paralisi facciale."
+      },
+      {
+       "q": "Come la useresti con uno sconosciuto?",
+       "ideal": "Come ipotesi: osservo, poi verifico con una domanda o con più tempo prima di concludere."
+      }
+     ]
+    },
+    {
+     "id": "w47b-sguardo-diretto",
+     "chapter": "Lo sguardo diretto accende il corpo, anche se è un robot",
+     "author": "Kiilavuori, Peltola, Sariola, Hietanen · Biological Psychology, 2022",
+     "confidence": 1,
+     "transcript": "",
+     "summary": "Quando qualcuno ci guarda dritto negli occhi, il corpo reagisce con più attivazione e con espressioni di affetto positivo, anche se chi guarda è un robot umanoide. Contava poco se i partecipanti credevano di essere visti.",
+     "images": [
+      {
+       "title": "Lo sguardo come interruttore",
+       "text": "Un interruttore sul muro con due occhi dipinti sopra. Quando gli occhi si girano verso di te, la stanza si illumina. Lo sguardo diretto accende qualcosa nel corpo."
+      },
+      {
+       "title": "Il robot che arrossisce",
+       "text": "Un robot umanoide con le guance rosse che ti guarda dritto. Anche lui ti fa sorridere un po' senza che tu te ne accorga."
+      },
+      {
+       "title": "La spia sulla mano",
+       "text": "Sulla mano sinistra una spia che si accende appena incrocia uno sguardo: è la conduttanza della pelle, una reazione che non controlli."
+      },
+      {
+       "title": "Lo specchio doppio",
+       "text": "Una finestra da cui credi di non essere visto. Anche così, se lo sguardo è diretto, il corpo reagisce. L'effetto è un po' più piccolo, ma c'è."
+      }
+     ],
+     "phrases": [
+      "Lo sguardo diretto non è neutro: accende il corpo prima di accendere il ragionamento.",
+      "Anche un robot che ti guarda dritto ti fa sorridere un po'.",
+      "Distogliere lo sguardo spegne qualcosa, guardare dritto lo accende.",
+      "Credere di essere guardati cambia l'intensità, non l'effetto."
+     ],
+     "quotes": [],
+     "deep": [
+      {
+       "title": "L'esperimento",
+       "text": "Studio preregistrato: i ricercatori misurano conduttanza cutanea, EMG del zigomatico e del corrugatore ed EEG frontale mentre un robot umanoide o un modello umano guarda dritto o altrove."
+      },
+      {
+       "title": "Il risultato",
+       "text": "Con lo sguardo diretto, rispetto a quello distolto, c'è più attivazione autonomica e più risposta facciale legata all'affetto positivo. Succede con il robot e con l'umano, a prescindere dalla credenza."
+      },
+      {
+       "title": "Il ruolo della credenza",
+       "text": "Credere o meno di essere visti cambia l'intensità delle risposte, meno per il robot che per l'umano."
+      },
+      {
+       "title": "Cosa non si vede",
+       "text": "Nell'asimmetria EEG frontale l'effetto della direzione dello sguardo non è significativo."
+      },
+      {
+       "title": "Come usarlo",
+       "text": "Lo sguardo diretto è un segnale forte: usalo a dosi, per creare vicinanza. Se vuoi alleggerire, distogli lo sguardo ogni tanto."
+      }
+     ],
+     "concepts": [],
+     "data": [
+      "Biol Psychol 2022;175:108451, DOI 10.1016/j.biopsycho.2022.108451",
+      "Studio preregistrato con robot umanoide e modello umano"
+     ],
+     "unclear": [
+      "Ho letto solo l'abstract: niente dimensione del campione né numeri",
+      "Il consiglio sull'uso dello sguardo è una mia applicazione, non una conclusione dello studio"
+     ],
+     "questions": [
+      {
+       "q": "Che cosa succede al corpo con lo sguardo diretto?",
+       "ideal": "Più attivazione autonomica e più risposte facciali di affetto positivo rispetto allo sguardo distolto."
+      },
+      {
+       "q": "Vale anche per un robot?",
+       "ideal": "Sì, risposte simili per robot umanoide e modello umano."
+      },
+      {
+       "q": "Che ruolo ha la credenza di essere visti?",
+       "ideal": "Cambia la grandezza delle risposte, meno per il robot che per l'umano, ma l'effetto resta."
+      },
+      {
+       "q": "Quali misure usano?",
+       "ideal": "Conduttanza cutanea, EMG di zigomatico e corrugatore, EEG frontale."
+      },
+      {
+       "q": "Dove non si vede l'effetto?",
+       "ideal": "Nell'asimmetria EEG frontale: la direzione dello sguardo non è significativa."
+      }
+     ]
+    }
+   ]
   }
+ ],
+ "ritirati": [
+  "w47-trieste-gruppo",
+  "w47-ia-accusa",
+  "w47-sorriso-vocale"
  ]
 }

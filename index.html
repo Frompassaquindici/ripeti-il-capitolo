@@ -442,7 +442,9 @@ function weeklyCard(){const l=S.chapters.filter(c=>c.batch&&!paperDone(c));if(!l
 async function loadWeekly(){
  try{const r=await fetch("proposte.json",{cache:"no-store"});if(!r.ok)return;const j=await r.json();
   let got=[];try{got=JSON.parse(localStorage.getItem("rc_batches")||"[]")}catch(e){}
-  const ok=(j.batches||[]).filter(b=>!got.includes(b.id)&&(!b.from||Date.now()>=new Date(b.from).getTime()));
+  const ret=j.ritirati||[],n0=S.chapters.length;
+  S.chapters=S.chapters.filter(c=>!(ret.includes(c.id)&&!paperDone(c)));if(S.chapters.length!==n0){Store._persist();if(["home","library"].includes(S.view))render();}
+  const ok=(j.batches||[]).map(b=>Object.assign({},b,{papers:(b.papers||[]).filter(p=>!ret.includes(p.id))})).filter(b=>b.papers.length&&!got.includes(b.id)&&(!b.from||Date.now()>=new Date(b.from).getTime()));
   if(!ok.length||S.chapters.some(c=>c.batch&&!paperDone(c)))return;
   const b=ok[ok.length-1],now=Date.now();
   (b.papers||[]).slice(0,3).forEach((p,k)=>{if(S.chapters.find(x=>x.id===p.id))return;
