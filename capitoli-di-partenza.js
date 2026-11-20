@@ -1,8 +1,9 @@
 /* Capitoli aggiunti alla libreria una sola volta. Ogni voce ha id unico. */
 window.SEED=[{
  "id": "cseed-emozione-ml",
- "book": "Paper: il machine learning e la natura dell'emozione",
- "author": "McVeigh, Smart, Satpute, Quigley, Theriault-Brown, Barrett · Trends in Cognitive Sciences, ott 2026",
+ "kind": "paper",
+ "book": "Paper e articoli",
+ "author": "McVeigh, Smart, Satpute, Quigley, Theriault-Brown, Barrett · Trends in Cognitive Sciences, 2026",
  "chapter": "L'algoritmo non è un giudice neutrale",
  "confidence": 1,
  "transcript": "",

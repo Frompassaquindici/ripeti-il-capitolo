@@ -288,7 +288,7 @@ function bookList(){const m=new Map();S.chapters.forEach(c=>{const key=(c.book||
 const fmtDay=t=>new Date(t).toLocaleDateString("it-IT",{day:"numeric",month:"short"});
 
 /* ---------- navigazione ---------- */
-const TABVIEW={home:"home",library:"library",focus:"focus",chapter:"library",ask:"ask",stats:"home"};
+const TABVIEW={home:"home",library:"library",focus:"focus",chapter:"library",paper:"library",ask:"ask",stats:"home"};
 function go(v,opts){if(v==="record"&&!["record","confirm","processing"].includes(S.view)){S.recOpenAt=Date.now();S.recStartLogged=false;logEv("rec_open")}
  S.view=v;if(TABVIEW[v])S.tab=TABVIEW[v];S.err="";render();if(!(opts&&opts.keepScroll))window.scrollTo(0,0)}
 function softRender(){if(["home","library","focus","chapter"].includes(S.view))render()}
@@ -312,8 +312,10 @@ V.home=()=>{
  <div class="orbwrap"><div class="ring1"><div class="ring2"><button class="orb" data-act="rec" aria-label="Ripeti il capitolo">${ic("mic",56,1.3)}</button></div></div>
   <div class="orblabel">Ripeti il capitolo</div><div class="orbhint">Premi e parla</div></div>
  ${rev}
+ ${weeklyCard()}
  ${expBanner()}
  <div class="tiles"><div class="card tile"><b>${streak()}</b><span>giorni di fila</span></div><div class="card tile"><b>${week}</b><span>capitoli in 7 giorni</span></div><div class="card tile"><b>${bookList().length}</b><span>libri</span></div></div>
+ <button class="item" data-act="paper"><span class="tag" style="padding:10px">${ic("book",22)}</span><span class="grow"><b>Aggiungi paper</b><span class="muted">Link o testo, lo trasformo in immagini da ricordare</span></span>${ic("chev",18)}</button>
  <button class="item" data-act="tab" data-v="focus"><span class="tag" style="padding:10px">${ic("timer",22)}</span><span class="grow"><b>Focus</b><span class="muted">Pomodoro e sessioni lunghe</span></span>${ic("chev",18)}</button>
  <button class="item" data-act="stats"><span class="tag" style="padding:10px">${ic("book",22)}</span><span class="grow"><b>Misure dell'alpha</b><span class="muted">Abitudine e memoria in numeri</span></span>${ic("chev",18)}</button>
  ${S.loadNote?`<div class="muted" style="text-align:center">${esc(S.loadNote)}</div>`:""}
@@ -323,25 +325,26 @@ V.library=()=>{
  const books=bookList();
  const concepts=S.chapters.reduce((a,c)=>a+(c.concepts||[]).length,0);
  return `<div class="top"><div><h1>Libri</h1><div class="sub nocap">${S.chapters.length} capitoli · ${concepts} concetti</div></div><button class="iconbtn" data-act="settings" aria-label="Impostazioni">${ic("gear",20)}</button></div>
- <div class="stack">${books.length?books.map(b=>`<div class="card stack" style="gap:8px"><div><b style="font-size:17px;font-weight:600">${esc(b.book)}</b><div class="muted">${esc(b.author||"Autore non indicato")}</div></div>
+ <div class="stack"><button class="item" data-act="paper"><span class="tag" style="padding:10px">${ic("book",22)}</span><span class="grow"><b>Aggiungi paper</b><span class="muted">Link o testo, lo trasformo in immagini da ricordare</span></span>${ic("chev",18)}</button>${books.length?books.map(b=>`<div class="card stack" style="gap:8px"><div><b style="font-size:17px;font-weight:600">${esc(b.book)}</b><div class="muted">${esc(b.author||"Autore non indicato")}</div></div>
   ${b.chapters.map(c=>`<button class="item" style="box-shadow:none;padding:11px 14px;border-radius:16px" data-act="open" data-id="${esc(c.id)}"><span class="grow"><b style="font-size:15px">${/^\d+$/.test(String(c.chapter||""))?"Capitolo ":""}${esc(c.chapter||"?")}</b><span class="muted">${fmtDay(c.createdAt)} · ${(c.images||[]).length?(c.images.length)+" immagini · ":""}${(c.concepts||[]).length} concetti · ${(c.questions||[]).length} domande</span></span>${ic("chev",16)}</button>`).join("")}</div>`).join(""):
  `<div class="card"><b style="font-weight:600">La libreria è vuota</b><div class="muted" style="margin-top:2px">Ogni capitolo che racconti a voce compare qui con concetti, citazioni e dati.</div></div>`}</div>`};
 
 V.chapter=()=>{
  const c=S.chapters.find(x=>x.id===S.openId);if(!c)return V.library();
  const list=(t,arr,fn)=>arr&&arr.length?`<div class="sec"><h2>${t}</h2><div class="stack" style="gap:8px">${arr.map(fn).join("")}</div></div>`:"";
- return `<div class="top"><button class="iconbtn" data-act="tab" data-v="library" aria-label="Indietro">${ic("back",20)}</button><div class="grow" style="text-align:center;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${/^\d+$/.test(String(c.chapter||""))?"Capitolo ":""}${esc(c.chapter||"?")}</div><span style="width:44px"></span></div>
- <div class="stack"><div><h1 style="font-size:28px">${esc(c.book)}</h1><div class="sub nocap">${esc(c.author||"")}${c.author?" · ":""}${fmtDay(c.createdAt)}</div></div>
+ return `<div class="top"><button class="iconbtn" data-act="tab" data-v="library" aria-label="Indietro">${ic("back",20)}</button><div class="grow" style="text-align:center;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.kind==="paper"?"Paper":(/^\d+$/.test(String(c.chapter||""))?"Capitolo ":"")+esc(c.chapter||"?")}</div><span style="width:44px"></span></div>
+ <div class="stack"><div><h1 style="font-size:28px">${esc(c.kind==="paper"?c.chapter:c.book)}</h1><div class="sub nocap">${esc(c.author||"")}${c.author?" · ":""}${fmtDay(c.createdAt)}</div></div>
  ${c.summary?`<div class="card">${esc(c.summary)}</div>`:""}
- ${list("Immagini mentali",c.images,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
+ ${c.images&&c.images.length?`<div class="sec"><h2>Immagini mentali</h2><div class="stack" style="gap:8px">${c.images.map((x,i)=>imgCard(c,x,i)).join("")}</div></div>`:""}
  ${list("Frasi da fare tue",c.phrases,x=>`<div class="note quote">${esc(x)}</div>`)}
  ${list("Citazioni",c.quotes,x=>`<div class="note quote">${esc(x)}</div>`)}
  ${list("Per capire meglio",c.deep,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
  ${list("Concetti",c.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
  ${list("Dati",c.data,x=>`<div class="note">${esc(x)}</div>`)}
  ${c.unclear&&c.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${c.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
- <label class="link" style="cursor:pointer;display:inline-flex;align-items:center">Aggiungi foto di una pagina<input type="file" accept="image/*" data-photo="c:${esc(c.id)}" hidden></label>
- <details><summary>Cosa hai detto</summary><p>${esc(c.transcript)}</p></details>
+ ${c.kind==="paper"?"":`<label class="link" style="cursor:pointer;display:inline-flex;align-items:center">Aggiungi foto di una pagina<input type="file" accept="image/*" data-photo="c:${esc(c.id)}" hidden></label>`}
+ ${c.batch&&!paperDone(c)?`<button class="pill" data-act="done" data-id="${esc(c.id)}">Segna come studiato</button>`:""}
+ ${c.transcript?`<details><summary>Cosa hai detto</summary><p>${esc(c.transcript)}</p></details>`:""}
  ${S.confirmDel?`<div class="row"><button class="pill sm ghost grow" data-act="deltoggle">Annulla</button><button class="pill sm grow" style="background:var(--bad)" data-act="delete" data-id="${esc(c.id)}">Elimina davvero</button></div>`:`<button class="link" style="color:var(--bad)" data-act="deltoggle">Elimina capitolo</button>`}
  </div>`};
 
@@ -431,6 +434,91 @@ function expBanner(){
  if(Date.now()-Math.max(last,oldest)<=7*DAY)return "";
  return `<div class="card"><div class="row"><div class="grow"><b style="font-weight:600">Fai una copia dei capitoli</b><div class="muted">Sono solo su questo telefono. Salvala in File o su iCloud.</div></div><button class="pill sm ghost" data-act="export">Esporta</button></div></div>`}
 
+
+function paperDone(c){return !!c.doneAt||((c.questions||[]).length>0&&c.questions.every(q=>(q.tries||0)>0))}
+function weeklyCard(){const l=S.chapters.filter(c=>c.batch&&!paperDone(c));if(!l.length)return "";
+ return `<div class="card stack" style="gap:8px"><div><b style="font-size:17px;font-weight:600">Paper di questa settimana</b><div class="muted">${l.length} da finire. I prossimi arrivano solo quando li hai chiusi tutti.</div></div>${l.map(c=>`<button class="item" style="box-shadow:none;padding:11px 14px;border-radius:16px" data-act="open" data-id="${esc(c.id)}"><span class="grow"><b style="font-size:15px">${esc(c.chapter)}</b><span class="muted">${c.opened?"Aperto, da finire":"Nuovo"}</span></span>${ic("chev",16)}</button>`).join("")}</div>`}
+/* Ogni settimana proposte.json può contenere un blocco di 3 paper. Arriva solo se la sua data è passata e tutti i paper dei blocchi precedenti sono chiusi. */
+async function loadWeekly(){
+ try{const r=await fetch("proposte.json",{cache:"no-store"});if(!r.ok)return;const j=await r.json();
+  let got=[];try{got=JSON.parse(localStorage.getItem("rc_batches")||"[]")}catch(e){}
+  for(const b of (j.batches||[])){
+   if(got.includes(b.id))continue;
+   if(b.from&&Date.now()<new Date(b.from).getTime())break;
+   if(S.chapters.some(c=>c.batch&&!paperDone(c)))break;
+   const now=Date.now();
+   (b.papers||[]).slice(0,3).forEach((p,k)=>{if(S.chapters.find(x=>x.id===p.id))return;
+    S.chapters.push(Object.assign({},p,{kind:"paper",book:"Paper e articoli",batch:b.id,createdAt:now-k,
+     questions:(p.questions||[]).map((x,n)=>({id:"q"+n,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0}))}))});
+   got.push(b.id);S.chapters.sort((a,c)=>c.createdAt-a.createdAt);Store._persist();
+   try{localStorage.setItem("rc_batches",JSON.stringify(got))}catch(e){}
+   logEv("batch",{id:b.id});if(["home","library"].includes(S.view))render();break}
+ }catch(e){}
+}
+
+function imgCard(c,x,i){
+ const ed=S.editImg&&S.editImg.id===c.id&&S.editImg.i===i;
+ if(ed)return `<div class="note"><b>${esc(x.title)}</b><div class="muted" style="margin:0 0 8px">${esc(x.text)}</div>
+  <textarea id="tx" style="min-height:110px" aria-label="La tua scena" placeholder="Descrivi la tua scena: dove la metti nel palazzo, cosa succede">${esc(S.draft)}</textarea>
+  <div class="partial" id="partial">${esc(S.partial)}</div>
+  ${dict?`<div class="center" style="margin:6px 0"><button class="mic${S.listening?" on":""}" id="micbtn" data-act="mic" style="width:64px;height:64px" aria-label="Parla">${ic("mic",28,1.4)}</button><div class="muted" id="mstat">${S.listening?"Sto registrando… tocca per fermare":"Dettala a voce"}</div><div class="muted" id="micerr">${esc(S.micErr)}</div></div>`:""}
+  <div class="row"><button class="pill sm grow" data-act="imgsave">Salva</button><button class="pill sm ghost grow" data-act="imgcancel">Annulla</button></div></div>`;
+ return `<div class="note"><b>${esc(x.title)}</b>${x.mine?`<span class="tag" style="display:inline-block;margin-bottom:4px">La tua versione</span><br>${esc(x.mine)}<div class="muted" style="margin-top:6px">Proposta: ${esc(x.text)}</div>`:esc(x.text)}
+  <div><button class="link" data-act="imgedit" data-id="${esc(c.id)}" data-i="${i}">${x.mine?"Cambia la tua scena":"Fai tua questa immagine"}</button></div></div>`}
+
+V.paper=()=>{const P=S.paper||(S.paper={busy:false,err:""});
+ return `<div class="top"><button class="iconbtn" data-act="tab" data-v="library" aria-label="Indietro">${ic("back",20)}</button><div style="font-weight:500">Aggiungi paper</div><span style="width:44px"></span></div>
+ <div class="stack"><div class="card muted">Incolla il link o il testo di un paper, un articolo o un capitolo. Lo trasformo in immagini da mettere nel palazzo della memoria, frasi da riusare e dettagli per capirlo bene, con le domande per il ripasso.</div>
+ <textarea id="tx" style="min-height:180px" aria-label="Link o testo" placeholder="Incolla qui il link o il testo">${esc(S.draft)}</textarea>
+ <div class="err" id="err">${esc(P.err)}</div>
+ <button class="pill" data-act="papergo" ${P.busy?"disabled":""}>${P.busy?"Lo sto trasformando…":"Trasforma in capitolo"}</button>
+ ${P.busy?`<div class="muted" style="text-align:center">Ci vuole circa un minuto.</div>`:""}</div>`};
+
+async function paperGo(){
+ const P=S.paper||(S.paper={busy:false,err:""}),raw=(($("#tx")||{}).value||"").trim();S.draft=raw;
+ if(raw.length<20){setErr("Incolla il link o il testo.");return}
+ if(!getKey()){setErr(errCopy("no_key"));return}
+ P.busy=true;P.err="";render();
+ try{
+  let text=raw,src="";
+  if(/^https?:\/\/\S+$/.test(raw)){
+   src=raw;let r;
+   try{r=await fetch("https://r.jina.ai/"+raw)}catch(e){throw{code:"link"}}
+   if(!r.ok)throw{code:"link"};text=await r.text();if(text.length<500)throw{code:"link"};
+  }
+  const prompt=`Sei l'assistente di un'app di studio per Luigi, che usa il palazzo della memoria e altre tecniche per ricordare. Sotto c'è il testo di un paper, articolo o capitolo. Trasformalo in una scheda che lo aiuti a capirlo in fretta e a fare suo ciò che serve, senza ripetere l'articolo.
+Rispondi SOLO con un oggetto JSON di questa forma:
+{"title": "titolo chiaro in italiano, massimo 12 parole", "source": "autori, rivista o sito e anno, se il testo li riporta, altrimenti stringa vuota", "summary": "una frase che dice la tesi", "images": [{"title": "nome breve dell'immagine", "text": "la scena"}] (da 5 a 6), "phrases": ["..."] (da 4 a 6), "quotes": ["..."] (da 0 a 2), "deep": [{"title": "...", "text": "..."}] (da 4 a 6), "data": ["..."] (fino a 6), "unclear": ["..."] (da 1 a 4), "questions": [{"q": "...", "ideal": "..."}] (5)}
+Regole:
+- images: ogni immagine è una scena concreta, sensoriale, esagerata o assurda, con oggetti e azione, facile da collocare in una stanza del palazzo della memoria. Ogni scena codifica UNA sola idea del paper e finisce con mezza frase che dice quale. Niente metafore astratte.
+- phrases: frasi brevi, con carattere, che Luigi può riusare in un video o in una discussione. Parole tue, non copiate dal testo.
+- quotes: solo frasi che stanno davvero nel testo, copiate alla lettera, sotto le 15 parole l'una. Se non ce ne sono di buone, lascia la lista vuota.
+- deep: i dettagli specifici che completano il quadro dopo le immagini: metodo, numeri, nomi, risultati, limiti. Da 2 a 3 frasi ciascuno.
+- unclear: ciò che Luigi dovrebbe controllare: parti del testo che non hai visto (se il testo sembra troncato), conflitti di interesse o limiti dello studio, e ricordagli che le immagini sono proposte tue e non fanno parte del testo.
+- questions: richiamo attivo. Alcune chiedono cosa rappresenta una certa immagine, altre di spiegare un'idea con parole proprie. "ideal" è la risposta corretta in una o due frasi.
+- Non inventare nulla che non sia nel testo. Scrivi in italiano.
+
+Testo:
+"""
+${text.slice(0,60000)}
+"""`;
+  const j=await askJSON(prompt,{model:MODEL_MAIN});
+  const imgs=arr(j.images).map(x=>({title:String(x.title||""),text:String(x.text||"")})).filter(x=>x.title&&x.text).slice(0,6);
+  const qs=arr(j.questions).map(x=>({q:String(x.q||""),ideal:String(x.ideal||"")})).filter(x=>x.q&&x.ideal).slice(0,5);
+  if(!imgs.length||!qs.length)throw{code:"invalid_json"};
+  const now=Date.now(),id="p"+now.toString(36);
+  await Store.put({id,kind:"paper",book:"Paper e articoli",author:[j.source?String(j.source):"",src].filter(Boolean).join(" · "),chapter:String(j.title||"Paper").slice(0,140),confidence:1,transcript:"",
+   summary:j.summary?String(j.summary):"",images:imgs,phrases:arr(j.phrases).map(String).slice(0,6),quotes:arr(j.quotes).map(String).slice(0,2),
+   deep:arr(j.deep).map(x=>({title:String(x.title||""),text:String(x.text||"")})).filter(x=>x.title||x.text).slice(0,6),concepts:[],
+   data:arr(j.data).map(String).slice(0,6),unclear:arr(j.unclear).map(String).slice(0,4),
+   questions:qs.map((x,k)=>({id:"q"+k,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0})),createdAt:now});
+  P.busy=false;S.draft="";S.openId=id;S.confirmDel=false;S.editImg=null;logEv("paper");go("chapter");toast("Paper aggiunto");
+ }catch(e){
+  P.busy=false;P.err=e&&e.code==="link"?"Non riesco a leggere questo link. Apri la pagina, copia il testo e incollalo qui.":errCopy(e&&e.code);
+  if(S.view==="paper")render();
+ }
+}
+
 V.ask=()=>{const A=S.ask,n=S.chapters.length;
  return `<div class="top"><div><h1>Chiedi</h1><div class="sub nocap">Rispondo solo con ciò che hai registrato</div></div></div>
  <div class="stack">
@@ -483,7 +571,7 @@ const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(
 /* ---------- render ---------- */
 function render(){
  const app=$("#app");app.innerHTML=(V[S.view]||V.home)();
- const showTabs=["home","library","focus","chapter","ask","stats"].includes(S.view);
+ const showTabs=["home","library","focus","chapter","paper","ask","stats"].includes(S.view);
  const tabs=$("#tabs");tabs.hidden=!showTabs;
  tabs.innerHTML=[["home","Oggi","sun"],["library","Libri","book"],["ask","Chiedi","search"],["focus","Focus","timer"]].map(([k,l,i])=>`<button class="${S.tab===k?"on":""}" data-act="tab" data-v="${k}">${ic(i,22)}${l}</button>`).join("");
 }
@@ -621,6 +709,13 @@ document.addEventListener("click",ev=>{
  switch(a){
   case "tab":if(el.dataset.v==="ask")S.draft=S.ask.q||"";go(el.dataset.v);break;
   case "settings":go("settings");break;
+  case "paper":S.draft="";S.partial="";S.micErr="";S.paper={busy:false,err:""};go("paper");break;
+  case "papergo":paperGo();break;
+  case "imgedit":{const c=S.chapters.find(x=>x.id===el.dataset.id),i=+el.dataset.i;S.editImg={id:el.dataset.id,i};S.draft=(c&&c.images&&c.images[i]&&c.images[i].mine)||"";S.partial="";S.micErr="";render();break}
+  case "imgcancel":if(dict&&dict.active())dict.stop().catch(()=>{});S.editImg=null;S.draft="";S.partial="";render();break;
+  case "imgsave":{if(dict&&dict.active())dict.stop().catch(()=>{});const e=S.editImg,c=e&&S.chapters.find(x=>x.id===e.id);if(!c)break;const v=(($("#tx")||{}).value||"").trim();
+   const im=(c.images||[]).map((x,k)=>k===e.i?Object.assign({},x,{mine:v}):x);S.editImg=null;S.draft="";S.partial="";
+   Store.patch(c.id,{images:im}).then(()=>{toast(v?"Salvata":"Torna la proposta");render()});break}
   case "stats":go("stats");break;
   case "skipped":logEv("skipped");toast("Segnato");render();break;
   case "askgo":askLibrary();break;
@@ -647,7 +742,8 @@ document.addEventListener("click",ev=>{
   case "dropitem":{const keep=S.pending.items.map((ai,i)=>{const g=id=>($("#"+id+"-"+i)||{}).value;ai.book=g("f-book");ai.author=g("f-author");ai.chapter=g("f-chap");return ai});
    keep.splice(+el.dataset.i,1);S.pending.items=keep;render();break}
   case "save":save();break;
-  case "open":S.openId=el.dataset.id;S.confirmDel=false;go("chapter");break;
+  case "open":{S.openId=el.dataset.id;S.confirmDel=false;S.editImg=null;const c0=S.chapters.find(x=>x.id===el.dataset.id);if(c0&&c0.batch&&!c0.opened)Store.patch(c0.id,{opened:Date.now()});go("chapter");break}
+  case "done":Store.patch(el.dataset.id,{doneAt:Date.now()}).then(()=>{toast("Chiuso");loadWeekly();go("home")});break;
   case "deltoggle":S.confirmDel=!S.confirmDel;render();break;
   case "delete":Store.remove(el.dataset.id).then(()=>{toast("Capitolo eliminato");S.confirmDel=false;go("library")}).catch(()=>toast("Non sono riuscito a eliminare"));break;
   case "review":startReview(!!el.dataset.early);break;
@@ -673,7 +769,7 @@ async function askLibrary(){
  if(!getKey()){setErr(errCopy("no_key"));return}
  if(!S.chapters.length){setErr("La libreria è vuota.");return}
  A.q=q;S.draft=q;A.busy=true;A.a="";A.err="";render();
- const lib=S.chapters.map(c=>`[${c.book}${c.author?" · "+c.author:""} · capitolo ${c.chapter} · ${fmtDay(c.createdAt)}]\nSintesi: ${c.summary||""}\nConcetti: ${(c.concepts||[]).map(x=>x.title+": "+x.text).join(" | ")}\nCitazioni: ${(c.quotes||[]).join(" | ")}\nDati: ${(c.data||[]).join(" | ")}`).join("\n\n").slice(0,150000);
+ const lib=S.chapters.map(c=>`[${c.book}${c.author?" · "+c.author:""} · capitolo ${c.chapter} · ${fmtDay(c.createdAt)}]\nSintesi: ${c.summary||""}\nConcetti: ${(c.concepts||[]).map(x=>x.title+": "+x.text).join(" | ")}\nImmagini: ${(c.images||[]).map(x=>x.title+": "+(x.mine||x.text)).join(" | ")}\nFrasi: ${(c.phrases||[]).join(" | ")}\nDettagli: ${(c.deep||[]).map(x=>x.title+": "+x.text).join(" | ")}\nCitazioni: ${(c.quotes||[]).join(" | ")}\nDati: ${(c.data||[]).join(" | ")}`).join("\n\n").slice(0,150000);
  const prompt=`Sei l'assistente della libreria personale di Luigi. Sotto ci sono gli appunti che ha registrato dopo aver letto dei capitoli, nelle sue parole (non il testo dei libri).
 Rispondi alla domanda usando SOLO questi appunti. Cita sempre libro e capitolo tra parentesi, per esempio (L'arte dell'attenzione, cap. 5). Se negli appunti non c'è la risposta, dillo chiaramente e non inventare. Se gli appunti si contraddicono, segnalalo. Rispondi in italiano, in modo diretto, in massimo 150 parole.
 
@@ -762,7 +858,7 @@ window.addEventListener("hashchange",route);
    S.micErr=(state==="idle"&&reason)?micMsg(reason):"";paintRec()});
 
  }
- render();route();
+ render();route();loadWeekly();
  if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 })();
 </script>
