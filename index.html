@@ -137,6 +137,15 @@ details p{white-space:pre-wrap;margin:6px 0 0;color:var(--fg2)}
 .spin{width:44px;height:44px;border-radius:50%;border:3px solid var(--accent-soft);border-top-color:var(--accent);animation:sp 1s linear infinite;margin:0 auto}
 @keyframes sp{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.orb.on,.mic.on,.spin{animation:none}}
+
+/* rifiniture UI v5 */
+textarea,input[type=text],input[type=password],input[type=time]{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;padding:13px 16px;min-height:48px;-webkit-appearance:none;appearance:none}
+textarea{resize:none}
+input::placeholder,textarea::placeholder{color:var(--fg2);opacity:.75}
+.tabs{background:color-mix(in srgb,var(--bg1) 88%,transparent)}
+.seg button{white-space:nowrap}
+.link{min-height:44px}
+label.link{padding-left:0;padding-right:0}
 </style>
 </head><body>
 <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -455,7 +464,7 @@ V.settings=()=>{const ha=!!getKey(),ho=!!getOKey();
 <div class="stack">
 ${card("o","Chiave di trascrizione (OpenAI)",ho,"Serve a trasformare la tua voce in testo. L'audio viene inviato a OpenAI solo mentre registri. Costa circa mezzo centesimo al minuto.","", "sk-…")}
 ${card("a","Chiave AI (Anthropic)",ha,"Serve a riconoscere il libro, estrarre i concetti e valutare le risposte.","", "sk-ant-…")}
-<div class="row"><button class="link" data-act="skipkey">Continua</button></div>
+${ho&&ha?"":`<div class="row"><button class="link" data-act="skipkey">Continua</button></div>`}
 <div class="card stack" style="gap:10px"><b style="font-weight:600">Promemoria serale</b><div class="muted">Un evento ripetuto nel Calendario, con il link che apre la registrazione. L'iPhone ti chiede di confermarlo.</div><input type="time" id="rm-time" value="21:30" aria-label="Orario del promemoria" style="width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;padding:12px 16px"><button class="pill ghost" data-act="reminder">Aggiungi al Calendario</button></div>
 <div class="card stack" style="gap:10px"><b style="font-weight:600">Copia dei dati</b><div class="muted">I capitoli stanno solo su questo telefono. Se cancelli i dati del sito o cambi telefono si perdono. Esporta una copia ogni tanto e salvala in File.</div><div class="row"><button class="pill ghost grow" data-act="export">Esporta copia</button><label class="pill ghost grow" style="display:flex;align-items:center;justify-content:center;cursor:pointer">Importa copia<input type="file" id="imp" accept="application/json,.json" hidden></label></div></div></div>`};
 
