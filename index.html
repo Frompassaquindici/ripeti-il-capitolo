@@ -340,11 +340,40 @@ function checksHtml(ch){
   <div class="muted" style="margin:0 4px">${okn?(okn===1?"1 affermazione corretta, salvata":okn+" affermazioni corrette, salvate")+" come le hai dette.":"Nessuna affermazione da confermare."}${rest.length?" Qui sotto quelle da sistemare: nel capitolo salvato c'è già la versione giusta.":""}</div>
   ${rest.map(x=>`<div class="note${x.verdict==="errato"?" sand":""}"><span class="tag">${VERD[x.verdict]}</span><b style="margin-top:8px">${esc(x.claim)}</b>${esc(x.explanation)}</div>`).join("")}</div></div>`;
 }
+const ENR=S.enr||(S.enr={busy:null,tried:{},err:""});
+async function enrich(id){
+ const c=S.chapters.find(x=>x.id===id);if(!c||ENR.busy)return;
+ ENR.busy=id;ENR.tried[id]=1;ENR.err="";render();
+ try{
+  const prompt=`Sei l'assistente di un'app di studio. Luigi ha spiegato a voce ${c.book}${c.author?" di "+c.author:""}, capitolo ${c.chapter}. Questa è la trascrizione (può avere errori di riconoscimento vocale):
+"""
+${(c.transcript||"").slice(0,30000)}
+"""
+Sono già salvati: riassunto "${c.summary||""}"; concetti ${JSON.stringify(c.concepts||[])}; domande ${JSON.stringify((c.questions||[]).map(x=>({id:x.id,q:x.q,ideal:x.ideal})))}.
+Verifica ciò che Luigi ha detto confrontandolo con ciò che sai con certezza della scienza e del libro. Rispondi SOLO con JSON:
+{"checks":[{"claim":"ciò che ha detto, in poche parole","verdict":"ok"|"impreciso"|"errato"|"non_verificabile","explanation":"per impreciso ed errato la versione corretta in 2-3 frasi; per non_verificabile cosa si sa di sicuro; per ok stringa vuota"}] (da 4 a 12),
+"extra":[{"title":"...","text":"..."}] (da 2 a 4 nozioni utili e vere sui temi toccati che Luigi non ha detto, 2-4 frasi ciascuna),
+"summary":"riassunto corretto, 1-2 frasi",
+"concepts":[{"title":"...","text":"..."}] (gli stessi concetti salvati, con le informazioni sbagliate sostituite da quelle giuste),
+"questions":[{"id":"...","ideal":"risposta di riferimento corretta"}] (per ogni domanda salvata)}
+Sii prudente: "errato" solo se sei davvero sicuro; se riguarda ciò che dice il libro e non puoi saperlo usa "non_verificabile" e non inventare. Gli errori del riconoscimento vocale non sono errori di Luigi. Scrivi in italiano.`;
+  const j=await askJSON(prompt,{model:MODEL_MAIN});
+  const n=normalize({checks:j.checks,extra:j.extra});
+  if(!n.checks.length)throw {code:"invalid_json"};
+  const qs=(c.questions||[]).map(q=>{const r=arr(j.questions).find(x=>x&&x.id===q.id);return r&&r.ideal?Object.assign({},q,{ideal:String(r.ideal)}):q});
+  const cc=arr(j.concepts).map(x=>({title:String(x.title||""),text:String(x.text||"")})).filter(x=>x.title&&x.text);
+  await Store.patch(id,{checks:n.checks,deep:(c.deep||[]).concat(n.extra),summary:j.summary?String(j.summary):c.summary,concepts:cc.length>=Math.min(2,(c.concepts||[]).length)?cc:c.concepts,questions:qs});
+ }catch(e){ENR.err=errCopy(e&&e.code)}
+ ENR.busy=null;render();
+}
 V.chapter=()=>{
  const c=S.chapters.find(x=>x.id===S.openId);if(!c)return V.library();
+ const needEnr=c.kind!=="paper"&&c.transcript&&!c.checks&&getKey();
+ if(needEnr&&!ENR.busy&&!ENR.tried[c.id])setTimeout(()=>enrich(c.id),0);
  const list=(t,arr,fn)=>arr&&arr.length?`<div class="sec"><h2>${t}</h2><div class="stack" style="gap:8px">${arr.map(fn).join("")}</div></div>`:"";
  return `<div class="top"><button class="iconbtn" data-act="tab" data-v="library" aria-label="Indietro">${ic("back",20)}</button><div class="grow" style="text-align:center;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.kind==="paper"?"Paper":(/^\d+$/.test(String(c.chapter||""))?"Capitolo ":"")+esc(c.chapter||"?")}</div><span style="width:44px"></span></div>
  <div class="stack"><div><h1 style="font-size:28px">${esc(c.kind==="paper"?c.chapter:c.book)}</h1><div class="sub nocap">${esc(c.author||"")}${c.author?" · ":""}${fmtDay(c.createdAt)}</div></div>
+ ${ENR.busy===c.id?`<div class="card row" style="gap:12px"><div class="spin" style="width:22px;height:22px"></div><div class="grow" style="font-size:14px">Sto controllando ciò che hai detto e preparo le spiegazioni. Ci vuole circa un minuto.</div></div>`:needEnr&&ENR.tried[c.id]?`<div class="card sand"><div class="row"><div class="grow" style="font-size:14px">${esc(ENR.err||"Controllo non riuscito.")}</div><button class="pill sm ghost" data-act="enrichretry" data-id="${esc(c.id)}">Riprova</button></div></div>`:""}
  ${c.summary?`<div class="card">${esc(c.summary)}</div>`:""}
  ${c.images&&c.images.length?`<div class="sec"><h2>Immagini mentali</h2><div class="stack" style="gap:8px">${c.images.map((x,i)=>imgCard(c,x,i)).join("")}</div></div>`:""}
  ${list("Frasi da fare tue",c.phrases,x=>`<div class="note quote">${esc(x)}</div>`)}
@@ -856,6 +885,7 @@ document.addEventListener("click",ev=>{
   case "clearkey":try{localStorage.removeItem(el.dataset.k==="a"?"rc_key":"rc_okey")}catch(x){}toast("Chiave rimossa");render();break;
   case "skipkey":try{localStorage.setItem("rc_skip","1")}catch(e){}go("home");break;
   case "export":exportData();break;
+  case "enrichretry":delete ENR.tried[el.dataset.id];enrich(el.dataset.id);break;
   case "continuechap":S.contId=el.dataset.id;S.draft="";S.partial="";S.micErr="";go("record");break;
   case "rec":S.contId=null;S.draft="";S.partial="";S.micErr="";go("record");break;
   case "cancelrec":S.contId=null;if(dict&&dict.active())dict.stop().catch(()=>{});S.draft=($("#tx")||{}).value||S.draft;go("home");break;
