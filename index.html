@@ -337,7 +337,7 @@ function checksHtml(ch){
  const okn=ch.filter(x=>x.verdict==="ok").length,rest=ch.filter(x=>x.verdict!=="ok");
  const order={errato:0,impreciso:1,non_verificabile:2};rest.sort((a,b)=>order[a.verdict]-order[b.verdict]);
  return `<div class="sec"><h2>Controllo di ciò che hai detto</h2><div class="stack" style="gap:8px">
-  <div class="muted" style="margin:0 4px">${okn?okn+" affermazioni corrette, salvate così come le hai dette.":"Nessuna affermazione da confermare."}${rest.length?" Qui sotto quelle da sistemare: nel capitolo salvato c'è già la versione giusta.":""}</div>
+  <div class="muted" style="margin:0 4px">${okn?(okn===1?"1 affermazione corretta, salvata":okn+" affermazioni corrette, salvate")+" come le hai dette.":"Nessuna affermazione da confermare."}${rest.length?" Qui sotto quelle da sistemare: nel capitolo salvato c'è già la versione giusta.":""}</div>
   ${rest.map(x=>`<div class="note${x.verdict==="errato"?" sand":""}"><span class="tag">${VERD[x.verdict]}</span><b style="margin-top:8px">${esc(x.claim)}</b>${esc(x.explanation)}</div>`).join("")}</div></div>`;
 }
 V.chapter=()=>{
