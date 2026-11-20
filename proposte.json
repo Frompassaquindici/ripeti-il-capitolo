@@ -1,1 +1,271 @@
-{"batches":[]}
+{
+ "batches": [
+  {
+   "id": "2026-w47",
+   "from": "2026-11-20",
+   "papers": [
+    {
+     "id": "w47-trieste-gruppo",
+     "chapter": "Discutere in gruppo smaschera le fake news, riflettere da soli no",
+     "author": "Carbone, Marcatto, Ferrante · PLOS ONE, maggio 2026 · Università di Trieste",
+     "confidence": 1,
+     "transcript": "",
+     "summary": "In un esperimento preliminare su 111 studenti, solo la discussione di gruppo ha migliorato il riconoscimento delle notizie false. Riflettere da soli non è servito.",
+     "images": [
+      {
+       "title": "La pizza con la notizia sopra",
+       "text": "Su un tavolo di pizzeria arriva una pizza enorme con una notizia stampata sopra. Cinque amici la attaccano con coltelli e forchette, la annusano, la girano. Uno urla che puzza di falso. Una notizia dubbia si smaschera quando se ne discute insieme."
+      },
+      {
+       "title": "L'uomo allo specchio che si dà ragione",
+       "text": "Un uomo da solo davanti a uno specchio fissa una notizia per un'ora. Il riflesso annuisce a ogni sua frase. Alla fine esce uguale a prima. È la riflessione individuale: nessuna obiezione, nessun miglioramento."
+      },
+      {
+       "title": "Gli occhiali che restano",
+       "text": "Esci dalla stanza della discussione con un paio di occhiali nuovi sul naso. Le notizie che ti passano davanti dopo si illuminano da sole quando sono false. Il guadagno si trasferisce alle notizie giudicate dopo."
+      },
+      {
+       "title": "Il tavolo con l'amico che sbaglia",
+       "text": "Al tavolo c'è un amico che prende sempre la fischiata, convinto di avere ragione. Il tavolo gli ruota intorno e gli aggiusta il tiro senza fermarsi. Il risultato regge anche quando nel gruppo c'è chi sbaglia."
+      }
+     ],
+     "phrases": [
+      "Da solo la notizia ti dà ragione. In gruppo ti manda a quel paese, ed è lì che impari.",
+      "Riflettere da soli è parlare con chi la pensa già come te.",
+      "Al gruppo non serve avere ragione, servono le obiezioni.",
+      "Una notizia falsa si smonta meglio a tavola che in testa."
+     ],
+     "quotes": [],
+     "deep": [
+      {
+       "title": "L'esperimento",
+       "text": "111 studenti universitari giudicano notizie vere e false prima e dopo una fase intermedia. Il gruppo discute le notizie oppure ognuno riflette per conto proprio. Si misura se l'accuratezza cambia."
+      },
+      {
+       "title": "Il risultato",
+       "text": "L'accuratezza sulle notizie false migliora solo per quelle discusse in gruppo. La riflessione individuale non migliora niente."
+      },
+      {
+       "title": "Il trasferimento",
+       "text": "Il miglioramento si estende alle notizie giudicate dopo la discussione e regge anche quando nel gruppo c'è chi sbaglia."
+      },
+      {
+       "title": "Perché potrebbe funzionare",
+       "text": "Le autrici lo leggono come coerente con la teoria argomentativa del ragionamento, secondo cui ragioniamo soprattutto per valutare gli argomenti degli altri e sostenere i nostri. Funziona meglio dentro un confronto."
+      },
+      {
+       "title": "I limiti",
+       "text": "Risultato preliminare dichiarato dalle stesse autrici. Campione piccolo, solo studenti, notizie e non persone vere in carne e ossa."
+      }
+     ],
+     "concepts": [],
+     "data": [
+      "PLOS ONE 21(5), pubblicato il 27 maggio 2026, DOI 10.1371/journal.pone.0348391",
+      "111 studenti universitari"
+     ],
+     "unclear": [
+      "Dettagli presi dal report Primo in Italia del 17/11, che ha letto comunicato EurekAlert e abstract: testo completo non letto, numeri esatti di miglioramento non verificati",
+      "Le immagini mentali sono mie proposte, non fanno parte del paper"
+     ],
+     "questions": [
+      {
+       "q": "Che cosa si vede nell'immagine della pizza con la notizia sopra, e quale idea porta?",
+       "ideal": "Cinque amici che smontano una notizia. L'idea: la discussione di gruppo migliora il riconoscimento delle notizie false."
+      },
+      {
+       "q": "Perché l'uomo allo specchio non migliora?",
+       "ideal": "Riflettere da soli non porta obiezioni. Nell'esperimento la riflessione individuale non ha migliorato l'accuratezza sulle notizie false."
+      },
+      {
+       "q": "Che cosa succede alle notizie giudicate dopo la discussione?",
+       "ideal": "Il miglioramento si trasferisce anche a loro, come un paio di occhiali nuovi."
+      },
+      {
+       "q": "Il gruppo funziona solo se tutti hanno ragione?",
+       "ideal": "No. Il risultato regge anche quando nel gruppo c'è chi sbaglia."
+      },
+      {
+       "q": "Quali sono i limiti dello studio?",
+       "ideal": "Risultato preliminare, campione piccolo di studenti, notizie e non persone, testo completo non letto nel report."
+      }
+     ]
+    },
+    {
+     "id": "w47-ia-accusa",
+     "chapter": "Quando l'IA accusa, gli umani non le credono (e fanno peggio)",
+     "author": "Loconte, Monaro, Pietrini, Verschuere, Kleinberg · preprint arXiv 2512.02848, dicembre 2025",
+     "confidence": 1,
+     "transcript": "",
+     "summary": "Affiancate a un'IA accurata nel riconoscere le bugie, le persone la ignorano soprattutto quando accusa, e insieme fanno peggio dell'IA da sola.",
+     "images": [
+      {
+       "title": "Il semaforo rispettato solo col verde",
+       "text": "Un incrocio con un semaforo intelligente. Quando è verde (assolve) la folla attraversa in fila ordinata. Quando è rosso (accusa) tutti scavalcano e corrono lo stesso. È lo scarto più forte: si segue l'IA quando assolve, non quando accusa."
+      },
+      {
+       "title": "Il pilota che spegne l'autopilota",
+       "text": "Un pilota fiero si toglie le cuffie e afferra la cloche mentre l'autopilota stava volando perfetto. L'aereo scende di quota. Chi si crede più bravo dell'IA si discosta di più."
+      },
+      {
+       "title": "Il duo che suona peggio del solista",
+       "text": "Un violinista solista suona perfetto. Gli affiancano un secondo musicista, e il brano peggiora e stona. Umani più IA (0,76) valgono meno dell'IA da sola (0,90)."
+      },
+      {
+       "title": "Le mani dietro la schiena",
+       "text": "Una stanza di giudici con un laser rosso puntato sul colpevole. Tutti tengono le mani dietro la schiena e nessuno indica. Accusare costa socialmente. Questa è un'interpretazione, non un dato dello studio."
+      }
+     ],
+     "phrases": [
+      "A chi ci assolve crediamo subito, a chi ci accusa chiediamo il certificato.",
+      "Con un'IA accurata nove volte su dieci in squadra, il gruppo ha fatto peggio dell'IA da sola.",
+      "Più ti credi bravo a scoprire le bugie, meno ascolti chi le scopre meglio di te."
+     ],
+     "quotes": [],
+     "deep": [
+      {
+       "title": "L'esperimento",
+       "text": "Disegno preregistrato con 373 partecipanti. Giudicano se delle dichiarazioni sono vere o false vedendo il verdetto di un'IA, accurata al 54% oppure all'89%, con un livello di confidenza."
+      },
+      {
+       "title": "Il risultato principale",
+       "text": "Le persone si discostano molto di più dall'IA quando accusa (dice che qualcuno mente) che quando assolve (d = 0,55)."
+      },
+      {
+       "title": "Squadra peggio del solista",
+       "text": "Con il modello accurato, gli umani arrivano a un'AUC di 0,76 contro lo 0,90 dell'IA da sola: la collaborazione peggiora il risultato."
+      },
+      {
+       "title": "L'effetto della presunzione",
+       "text": "Chi si crede più bravo dell'IA si discosta di più dai suoi verdetti."
+      },
+      {
+       "title": "I limiti",
+       "text": "È un preprint, non ancora sottoposto a revisione tra pari al momento della lettura nel report. L'interazione a tre vie non è più significativa se si includono i partecipanti che avevano fallito i controlli di attenzione."
+      }
+     ],
+     "concepts": [],
+     "data": [
+      "Preprint arXiv 2512.02848, dicembre 2025",
+      "373 partecipanti, IA accurata al 54% o all'89%",
+      "AUC umani con IA 0,76, IA da sola 0,90, d = 0,55"
+     ],
+     "unclear": [
+      "Dettagli presi dal report Primo in Italia del 17/11, che ha letto il PDF completo: io non l'ho riletto",
+      "Preprint non revisionato",
+      "Le immagini sono mie proposte, e quella delle mani dietro la schiena è un'interpretazione, non un risultato"
+     ],
+     "questions": [
+      {
+       "q": "Che cosa rappresenta il semaforo rispettato solo col verde?",
+       "ideal": "Le persone seguono l'IA quando assolve e se ne discostano molto di più quando accusa (d = 0,55)."
+      },
+      {
+       "q": "Che cosa succede quando umani e IA lavorano insieme sul modello accurato?",
+       "ideal": "Gli umani con l'IA arrivano a un'AUC di 0,76, peggio dello 0,90 dell'IA da sola."
+      },
+      {
+       "q": "Che cosa rappresenta il pilota che spegne l'autopilota?",
+       "ideal": "Chi si crede più bravo dell'IA si discosta di più dai suoi verdetti."
+      },
+      {
+       "q": "Perché l'immagine delle mani dietro la schiena va presa con cautela?",
+       "ideal": "Spiega perché è difficile accusare, ma è un'interpretazione mia, non un dato dello studio."
+      },
+      {
+       "q": "Che limiti ha questo studio?",
+       "ideal": "È un preprint non revisionato, e un'interazione perde significatività se si includono chi ha fallito i controlli di attenzione."
+      }
+     ]
+    },
+    {
+     "id": "w47-sorriso-vocale",
+     "chapter": "Il sorriso nella voce arriva sul viso di chi ascolta, con tre secondi di ritardo",
+     "author": "Merchie, Ranty, Wardak, Aguillon-Hernandez, Bonnet-Brilhault, Houy-Durand, Aucouturier, Gomot · iScience, 2025",
+     "confidence": 1,
+     "transcript": "",
+     "summary": "Il sorriso vocale viene riconosciuto molto sopra il caso, e nei neurotipici il muscolo del sorriso di chi ascolta si attiva circa tre secondi dopo l'inizio della frase.",
+     "images": [
+      {
+       "title": "Il telefono con le guance",
+       "text": "Una cornetta del telefono con due guance tonde ai lati. Quando qualcuno dall'altra parte parla sorridendo, le guance si gonfiano. Il sorriso passa nella voce e si sente anche senza immagini."
+      },
+      {
+       "title": "Lo zigomo col cronometro",
+       "text": "Un ascoltatore a occhi chiusi con due elettrodi sulle guance come baffi di gatto. Un cronometro gigante sul suo zigomo scatta a tre secondi: solo allora il muscolo si accende. È l'eco ritardata."
+      },
+      {
+       "title": "La lampadina, non la manopola",
+       "text": "Sul tavolo una lampada e una manopola del volume. Il sorriso non gira la manopola: accende una lampadina più luminosa. La voce che sorride ha formanti più alte, è più luminosa, non più forte."
+      },
+      {
+       "title": "La B che diventa V",
+       "text": "Sulle labbra tirate in un sorriso una grossa lettera B si trasforma in V. In giapponese il sorriso a volte cambia le consonanti, e chi ascolta lo sente senza video. (Altro studio, vedi sotto.)"
+      }
+     ],
+     "phrases": [
+      "Il sorriso non si vede, si sente. E ti arriva in faccia con tre secondi di ritardo.",
+      "La voce che sorride è più luminosa, non più forte.",
+      "Il sorriso al telefono non è una cortesia, è un segnale che arriva davvero."
+     ],
+     "quotes": [],
+     "deep": [
+      {
+       "title": "L'esperimento",
+       "text": "21 persone neurotipiche e 20 autistiche ascoltano solo l'audio di frasi neutre, alcune modificate per suonare sorridenti. Entrambi i gruppi riconoscono il sorriso vocale molto sopra il caso, senza differenze (BF10 = 0,29)."
+      },
+      {
+       "title": "L'effetto sul viso",
+       "text": "Nei neurotipici lo zigomatico si attiva di più con le frasi sorridenti nella finestra tra 2.900 e 3.400 ms (p = 0,03, η²p = 0,07). Nel gruppo autistico no."
+      },
+      {
+       "title": "La ricetta acustica",
+       "text": "Secondo uno studio gemello con la correlazione inversa su 29 + 29 adulti, il sorriso vocale ideale corrisponde a F1 e F2 spostate verso l'alto e più energia in F2 e F4, con rappresentazione simile nei due gruppi. Punteggi di empatia più alti si associano a rappresentazioni più tipiche."
+      },
+      {
+       "title": "Il giapponese",
+       "text": "Kawahara e colleghi (Linguistics Vanguard, agosto 2026): con due doppiatori professionisti, consonanti labiodentali (B pronunciata come V) funzionano come segnale di sorriso anche controllando tono e volume. Numeri dietro paywall."
+      },
+      {
+       "title": "Come leggerlo",
+       "text": "L'analisi sul muscolo è esplorativa, l'effetto è piccolo e l'interazione gruppo per filtro non è significativa: da prendere con cautela."
+      }
+     ],
+     "concepts": [],
+     "data": [
+      "iScience 2025, DOI 10.1016/j.isci.2025.113858",
+      "21 neurotipici e 20 autistici, finestra 2.900-3.400 ms",
+      "Studio gemello Research in Autism 124:202599, DOI 10.1016/j.reia.2025.202599",
+      "Kawahara et al., Linguistics Vanguard 2026, DOI 10.1515/lingvan-2026-0011"
+     ],
+     "unclear": [
+      "Dettagli presi dal report Primo in Italia del 19/11: non ho riletto i paper",
+      "L'effetto sul muscolo è esplorativo (p = 0,03), non assoluto: l'idea di tenere il sorriso per tutta la frase è un'applicazione del report, non un risultato",
+      "Le immagini sono mie proposte"
+     ],
+     "questions": [
+      {
+       "q": "Che cosa rappresenta il cronometro sullo zigomo?",
+       "ideal": "Il muscolo del sorriso di chi ascolta si attiva circa tre secondi dopo l'inizio della frase (finestra 2.900-3.400 ms)."
+      },
+      {
+       "q": "Che differenza c'è tra la lampadina e la manopola?",
+       "ideal": "Il sorriso vocale non alza il volume: rende la voce più luminosa, con F1 e F2 più alte e più energia in F2 e F4."
+      },
+      {
+       "q": "I due gruppi riconoscono il sorriso vocale?",
+       "ideal": "Sì, neurotipici e autistici lo riconoscono molto sopra il caso, senza differenze tra loro."
+      },
+      {
+       "q": "Che cosa mostra l'immagine della B che diventa V?",
+       "ideal": "Che il sorriso sta anche nelle consonanti: in giapponese una B può diventare V, e chi ascolta senza video lo sente."
+      },
+      {
+       "q": "Quanto è solido l'effetto sul muscolo?",
+       "ideal": "Poco: analisi esplorativa, p = 0,03, effetto piccolo, e il risultato va preso con cautela."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
