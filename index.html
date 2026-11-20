@@ -442,17 +442,15 @@ function weeklyCard(){const l=S.chapters.filter(c=>c.batch&&!paperDone(c));if(!l
 async function loadWeekly(){
  try{const r=await fetch("proposte.json",{cache:"no-store"});if(!r.ok)return;const j=await r.json();
   let got=[];try{got=JSON.parse(localStorage.getItem("rc_batches")||"[]")}catch(e){}
-  for(const b of (j.batches||[])){
-   if(got.includes(b.id))continue;
-   if(b.from&&Date.now()<new Date(b.from).getTime())break;
-   if(S.chapters.some(c=>c.batch&&!paperDone(c)))break;
-   const now=Date.now();
-   (b.papers||[]).slice(0,3).forEach((p,k)=>{if(S.chapters.find(x=>x.id===p.id))return;
-    S.chapters.push(Object.assign({},p,{kind:"paper",book:"Paper e articoli",batch:b.id,createdAt:now-k,
-     questions:(p.questions||[]).map((x,n)=>({id:"q"+n,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0}))}))});
-   got.push(b.id);S.chapters.sort((a,c)=>c.createdAt-a.createdAt);Store._persist();
-   try{localStorage.setItem("rc_batches",JSON.stringify(got))}catch(e){}
-   logEv("batch",{id:b.id});if(["home","library"].includes(S.view))render();break}
+  const ok=(j.batches||[]).filter(b=>!got.includes(b.id)&&(!b.from||Date.now()>=new Date(b.from).getTime()));
+  if(!ok.length||S.chapters.some(c=>c.batch&&!paperDone(c)))return;
+  const b=ok[ok.length-1],now=Date.now();
+  (b.papers||[]).slice(0,3).forEach((p,k)=>{if(S.chapters.find(x=>x.id===p.id))return;
+   S.chapters.push(Object.assign({},p,{kind:"paper",book:"Paper e articoli",batch:b.id,createdAt:now-k,
+    questions:(p.questions||[]).map((x,n)=>({id:"q"+n,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0}))}))});
+  ok.forEach(x=>got.push(x.id));S.chapters.sort((a,c)=>c.createdAt-a.createdAt);Store._persist();
+  try{localStorage.setItem("rc_batches",JSON.stringify(got))}catch(e){}
+  logEv("batch",{id:b.id});if(["home","library"].includes(S.view))render();
  }catch(e){}
 }
 
