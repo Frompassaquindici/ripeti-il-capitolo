@@ -142,6 +142,8 @@ details p{white-space:pre-wrap;margin:6px 0 0;color:var(--fg2)}
 /* rifiniture UI v5 */
 textarea,input[type=text],input[type=password],input[type=time]{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;padding:13px 16px;min-height:48px;-webkit-appearance:none;appearance:none}
 textarea{resize:none}
+.cz input.blank{border:1.5px solid var(--accent);display:inline-block;width:auto;min-height:36px;padding:2px 10px;margin:0 2px;border-radius:12px;font-size:17px;vertical-align:baseline;text-align:center}
+.cz .okw{color:var(--good);font-weight:600}.cz .badw{color:var(--bad);font-weight:600}.cz s{opacity:.6}
 input::placeholder,textarea::placeholder{color:var(--fg2);opacity:.75}
 .tabs{background:color-mix(in srgb,var(--bg1) 88%,transparent)}
 .seg button{white-space:nowrap}
@@ -288,7 +290,7 @@ function bookList(){const m=new Map();S.chapters.forEach(c=>{const key=(c.book||
 const fmtDay=t=>new Date(t).toLocaleDateString("it-IT",{day:"numeric",month:"short"});
 
 /* ---------- navigazione ---------- */
-const TABVIEW={home:"home",library:"library",focus:"focus",chapter:"library",paper:"library",ask:"ask",stats:"home"};
+const TABVIEW={home:"home",library:"library",focus:"focus",chapter:"library",paper:"library",prova:"library",ask:"ask",stats:"home"};
 function go(v,opts){if(v==="record"&&!["record","confirm","processing"].includes(S.view)){S.recOpenAt=Date.now();S.recStartLogged=false;logEv("rec_open")}
  S.view=v;if(TABVIEW[v])S.tab=TABVIEW[v];S.err="";render();if(!(opts&&opts.keepScroll))window.scrollTo(0,0)}
 function softRender(){if(["home","library","focus","chapter"].includes(S.view))render()}
@@ -343,10 +345,74 @@ V.chapter=()=>{
  ${list("Dati",c.data,x=>`<div class="note">${esc(x)}</div>`)}
  ${c.unclear&&c.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${c.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
  ${c.kind==="paper"?"":`<label class="link" style="cursor:pointer;display:inline-flex;align-items:center">Aggiungi foto di una pagina<input type="file" accept="image/*" data-photo="c:${esc(c.id)}" hidden></label>`}
- ${c.batch&&!paperDone(c)?`<button class="pill" data-act="done" data-id="${esc(c.id)}">Segna come studiato</button>`:""}
+ ${(c.quotes&&c.quotes.length)||(c.phrases&&c.phrases.length)||(c.images&&c.images.length)?`<button class="pill" data-act="prova" data-id="${esc(c.id)}">Mettiti alla prova</button>${c.prova?`<div class="muted" style="text-align:center">Ultima prova ${fmtDay(c.prova.at)}: ${c.prova.cz?c.prova.cz.ok+" parole su "+c.prova.cz.tot+" nelle frasi, ":""}${c.prova.im.ok} immagini sapute, ${c.prova.im.part} a metà, ${c.prova.im.no} da rivedere</div>`:""}`:""}
+ ${c.batch&&!paperDone(c)?`<button class="pill ghost" data-act="done" data-id="${esc(c.id)}">Segna come studiato</button>`:""}
  ${c.transcript?`<details><summary>Cosa hai detto</summary><p>${esc(c.transcript)}</p></details>`:""}
  ${S.confirmDel?`<div class="row"><button class="pill sm ghost grow" data-act="deltoggle">Annulla</button><button class="pill sm grow" style="background:var(--bad)" data-act="delete" data-id="${esc(c.id)}">Elimina davvero</button></div>`:`<button class="link" style="color:var(--bad)" data-act="deltoggle">Elimina capitolo</button>`}
  </div>`};
+
+/* ---------- Prova subito dopo lo studio: completa, riconosci, poi spiega con parole tue ---------- */
+const nz=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^\p{L}\p{N}]/gu,"");
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function mkCloze(text,label){
+ const t=String(text||"").split("(")[0].trim();
+ const parts=t.split(/(\s+)/),cand=[];
+ parts.forEach((p,i)=>{if(nz(p).length>=5)cand.push(i)});
+ if(!cand.length||t.split(/\s+/).length<4)return null;
+ const pick=cand.length>=4?[cand[Math.floor(cand.length*.25)],cand[Math.floor(cand.length*.75)]]:[cand[Math.floor(cand.length/2)]];
+ return {type:"cloze",label,parts,blanks:[...new Set(pick)]};
+}
+function buildProva(c){
+ const cz=[];(c.quotes||[]).slice(0,2).forEach(q=>{const x=mkCloze(q,"Citazione");if(x)cz.push(x)});
+ shuffle(c.phrases||[]).slice(0,Math.max(0,Math.min(3,5-cz.length))).forEach(q=>{const x=mkCloze(q,"Frase da fare tua");if(x)cz.push(x)});
+ const im=shuffle(c.images||[]).slice(0,4).map(x=>({type:"image",title:x.title,text:x.text,mine:x.mine||""}));
+ return cz.concat(im);
+}
+function provaHead(P,i){return `<div class="top"><button class="iconbtn" data-act="provaexit" aria-label="Chiudi">${ic("x",18)}</button><div style="font-weight:500">Mettiti alla prova</div><div class="muted" style="width:44px;text-align:right">${Math.min(i+1,P.steps.length)} / ${P.steps.length}</div></div><div class="progress">${P.steps.map((_,k)=>`<i class="${k<i?"d":""}"></i>`).join("")}</div>`}
+V.prova=()=>{
+ const P=S.prova,c=P&&S.chapters.find(x=>x.id===P.id);if(!c)return V.library();
+ const head=provaHead(P,P.i);
+ if(P.i>=P.steps.length){
+  const cz=P.stats.cz,im=P.stats.im,hasQ=(c.questions||[]).length>0;
+  return head+`<div class="stack"><div class="card stack" style="gap:8px;text-align:center"><div style="font-size:26px;font-weight:600;letter-spacing:-.02em">Primo aggancio fatto</div>
+   <div class="muted">${cz.tot?`Frasi e citazioni: ${cz.ok} parole giuste su ${cz.tot}. `:""}${im.ok+im.part+im.no?`Immagini: ${im.ok} sapute, ${im.part} a metà, ${im.no} da rivedere.`:""}</div></div>
+   ${hasQ?`<div class="card">Ultimo passo: spiegalo a parole tue. Le domande tornano poi nel ripasso, a distanze sempre più lunghe.</div><button class="pill" data-act="provaexplain">Ora spiega con parole tue</button><button class="link" data-act="provaexit">Più tardi</button>`:`<button class="pill" data-act="provaexit">Chiudi</button>`}</div>`;
+ }
+ const s=P.steps[P.i];
+ if(s.type==="cloze"){
+  const rend=P.stage==="ask"?s.parts.map((p,i)=>{
+    if(!s.blanks.includes(i))return esc(p);
+    const m=p.match(/^([^\p{L}\p{N}]*)(.*?)([^\p{L}\p{N}]*)$/u);
+    return esc(m[1])+`<input type="text" class="blank" data-b="${i}" size="${Math.max(4,m[2].length)}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Parola mancante">`+esc(m[3]);
+   }).join(""):s.parts.map((p,i)=>{
+    if(!s.blanks.includes(i))return esc(p);
+    const m=p.match(/^([^\p{L}\p{N}]*)(.*?)([^\p{L}\p{N}]*)$/u),ans=(P.ans&&P.ans[i])||"",ok=nz(ans)===nz(m[2]);
+    return esc(m[1])+(ok?`<span class="okw">${esc(m[2])}</span>`:`${ans?`<s>${esc(ans)}</s> `:""}<span class="badw">${esc(m[2])}</span>`)+esc(m[3]);
+   }).join("");
+  const card=`<div class="card stack cz" style="padding:22px"><span class="tag" style="align-self:flex-start">${esc(s.label)} · completa</span><div style="font-size:21px;line-height:1.9;letter-spacing:-.01em">${rend}</div></div>`;
+  if(P.stage==="ask")return head+`<div class="stack">${card}<div class="row"><button class="pill grow" data-act="czcheck">Controlla</button><button class="link" data-act="czshow">Non lo so, mostrami</button></div></div>`;
+  const okn=s.blanks.filter(i=>{const m=s.parts[i].match(/^([^\p{L}\p{N}]*)(.*?)([^\p{L}\p{N}]*)$/u);return nz((P.ans&&P.ans[i])||"")===nz(m[2])}).length;
+  return head+`<div class="stack">${card}<div class="muted" style="text-align:center">${okn===s.blanks.length?"Tutte giuste":okn+" giuste su "+s.blanks.length}</div><button class="pill" data-act="provanext">Avanti</button></div>`;
+ }
+ const card=`<div class="card stack" style="padding:22px"><span class="tag" style="align-self:flex-start">Immagine mentale</span><div class="bigq">${esc(s.title)}</div><div class="muted">Che idea o che dato c'è dietro questa scena? Pensaci, poi mostrala.</div></div>`;
+ if(P.stage==="ask")return head+`<div class="stack">${card}<button class="pill" data-act="imgshow">Mostra la scena</button></div>`;
+ return head+`<div class="stack">${card}<div class="note">${esc(s.text)}</div>${s.mine?`<div class="note sand"><b>La tua versione</b>${esc(s.mine)}</div>`:""}
+  <div><h2 style="margin:0 4px 8px">Quanto la ricordavi?</h2><div class="rate"><button data-act="imgrate" data-r="no">Non la ricordavo</button><button data-act="imgrate" data-r="part">A metà</button><button data-act="imgrate" data-r="ok">La sapevo</button></div></div></div>`;
+};
+function provaStart(id){
+ const c=S.chapters.find(x=>x.id===id);if(!c)return;
+ const steps=buildProva(c);if(!steps.length){toast("Qui non c'è niente da provare");return}
+ S.prova={id,steps,i:0,stage:"ask",ans:{},stats:{cz:{ok:0,tot:0},im:{ok:0,part:0,no:0}}};logEv("prova_start",{id});go("prova");
+}
+function provaAdvance(){const P=S.prova;P.i++;P.stage="ask";P.ans={};
+ if(P.i>=P.steps.length){const c=S.chapters.find(x=>x.id===P.id);if(c)Store.patch(c.id,{prova:{at:Date.now(),cz:P.stats.cz.tot?P.stats.cz:null,im:P.stats.im}});logEv("prova_end",P.stats)}
+ render();window.scrollTo(0,0)}
+function czCheck(empty){
+ const P=S.prova,s=P.steps[P.i];P.ans={};
+ if(!empty)document.querySelectorAll("input.blank").forEach(el=>{P.ans[el.dataset.b]=el.value.trim()});
+ s.blanks.forEach(i=>{const m=s.parts[i].match(/^([^\p{L}\p{N}]*)(.*?)([^\p{L}\p{N}]*)$/u);P.stats.cz.tot++;if(nz(P.ans[i])===nz(m[2]))P.stats.cz.ok++});
+ P.stage="check";render();
+}
 
 V.record=()=>`<div class="top"><button class="iconbtn" data-act="cancelrec" aria-label="Chiudi">${ic("x",18)}</button><div style="font-weight:500">Ripeti il capitolo</div><span style="width:44px"></span></div>
  <div class="stack">
@@ -716,6 +782,14 @@ document.addEventListener("click",ev=>{
   case "imgsave":{if(dict&&dict.active())dict.stop().catch(()=>{});const e=S.editImg,c=e&&S.chapters.find(x=>x.id===e.id);if(!c)break;const v=(($("#tx")||{}).value||"").trim();
    const im=(c.images||[]).map((x,k)=>k===e.i?Object.assign({},x,{mine:v}):x);S.editImg=null;S.draft="";S.partial="";
    Store.patch(c.id,{images:im}).then(()=>{toast(v?"Salvata":"Torna la proposta");render()});break}
+  case "prova":provaStart(el.dataset.id);break;
+  case "czcheck":czCheck(false);break;
+  case "czshow":czCheck(true);break;
+  case "provanext":provaAdvance();break;
+  case "imgshow":S.prova.stage="check";render();break;
+  case "imgrate":{const P=S.prova;P.stats.im[el.dataset.r]++;provaAdvance();break}
+  case "provaexit":S.prova=null;go("chapter");break;
+  case "provaexplain":{const c=S.chapters.find(x=>x.id===S.prova.id);S.prova=null;if(!c)break;S.rev={items:(c.questions||[]).map(q=>({c,q})),i:0,stage:"answer",res:null,counts:{ok:0,part:0,no:0}};S.draft="";S.partial="";S.micErr="";go("review");break}
   case "stats":go("stats");break;
   case "skipped":logEv("skipped");toast("Segnato");render();break;
   case "askgo":askLibrary();break;
