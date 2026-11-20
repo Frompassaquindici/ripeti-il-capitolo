@@ -331,6 +331,15 @@ V.library=()=>{
   ${b.chapters.map(c=>`<button class="item" style="box-shadow:none;padding:11px 14px;border-radius:16px" data-act="open" data-id="${esc(c.id)}"><span class="grow"><b style="font-size:15px">${/^\d+$/.test(String(c.chapter||""))?"Capitolo ":""}${esc(c.chapter||"?")}</b><span class="muted">${fmtDay(c.createdAt)} · ${(c.images||[]).length?(c.images.length)+" immagini · ":""}${(c.concepts||[]).length} concetti · ${(c.questions||[]).length} domande</span></span>${ic("chev",16)}</button>`).join("")}</div>`).join(""):
  `<div class="card"><b style="font-weight:600">La libreria è vuota</b><div class="muted" style="margin-top:2px">Ogni capitolo che racconti a voce compare qui con concetti, citazioni e dati.</div></div>`}</div>`};
 
+const VERD={ok:"Corretto",impreciso:"Da precisare",errato:"Da correggere",non_verificabile:"Non verificabile"};
+function checksHtml(ch){
+ ch=ch||[];if(!ch.length)return "";
+ const okn=ch.filter(x=>x.verdict==="ok").length,rest=ch.filter(x=>x.verdict!=="ok");
+ const order={errato:0,impreciso:1,non_verificabile:2};rest.sort((a,b)=>order[a.verdict]-order[b.verdict]);
+ return `<div class="sec"><h2>Controllo di ciò che hai detto</h2><div class="stack" style="gap:8px">
+  <div class="muted" style="margin:0 4px">${okn?okn+" affermazioni corrette, salvate così come le hai dette.":"Nessuna affermazione da confermare."}${rest.length?" Qui sotto quelle da sistemare: nel capitolo salvato c'è già la versione giusta.":""}</div>
+  ${rest.map(x=>`<div class="note${x.verdict==="errato"?" sand":""}"><span class="tag">${VERD[x.verdict]}</span><b style="margin-top:8px">${esc(x.claim)}</b>${esc(x.explanation)}</div>`).join("")}</div></div>`;
+}
 V.chapter=()=>{
  const c=S.chapters.find(x=>x.id===S.openId);if(!c)return V.library();
  const list=(t,arr,fn)=>arr&&arr.length?`<div class="sec"><h2>${t}</h2><div class="stack" style="gap:8px">${arr.map(fn).join("")}</div></div>`:"";
@@ -340,12 +349,14 @@ V.chapter=()=>{
  ${c.images&&c.images.length?`<div class="sec"><h2>Immagini mentali</h2><div class="stack" style="gap:8px">${c.images.map((x,i)=>imgCard(c,x,i)).join("")}</div></div>`:""}
  ${list("Frasi da fare tue",c.phrases,x=>`<div class="note quote">${esc(x)}</div>`)}
  ${list("Citazioni",c.quotes,x=>`<div class="note quote">${esc(x)}</div>`)}
+ ${checksHtml(c.checks)}
  ${list("Per capire meglio",c.deep,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
  ${list("Concetti",c.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
  ${list("Dati",c.data,x=>`<div class="note">${esc(x)}</div>`)}
  ${c.unclear&&c.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${c.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
+ ${c.kind==="paper"?"":`<button class="pill ghost" data-act="continuechap" data-id="${esc(c.id)}">Continua questo capitolo</button>`}
  ${c.kind==="paper"?"":`<label class="link" style="cursor:pointer;display:inline-flex;align-items:center">Aggiungi foto di una pagina<input type="file" accept="image/*" data-photo="c:${esc(c.id)}" hidden></label>`}
- ${(c.quotes&&c.quotes.length)||(c.phrases&&c.phrases.length)||(c.images&&c.images.length)?`<button class="pill" data-act="prova" data-id="${esc(c.id)}">Mettiti alla prova</button>${c.prova?`<div class="muted" style="text-align:center">Ultima prova ${fmtDay(c.prova.at)}: ${c.prova.cz?c.prova.cz.ok+" parole su "+c.prova.cz.tot+" nelle frasi, ":""}${c.prova.im.ok} immagini sapute, ${c.prova.im.part} a metà, ${c.prova.im.no} da rivedere</div>`:""}`:""}
+ ${(c.quotes&&c.quotes.length)||(c.phrases&&c.phrases.length)||(c.images&&c.images.length)||(c.concepts&&c.concepts.length)?`<button class="pill" data-act="prova" data-id="${esc(c.id)}">Mettiti alla prova</button>${c.prova?`<div class="muted" style="text-align:center">Ultima prova ${fmtDay(c.prova.at)}: ${c.prova.cz?c.prova.cz.ok+" parole su "+c.prova.cz.tot+" nelle frasi, ":""}${c.prova.im.ok} immagini sapute, ${c.prova.im.part} a metà, ${c.prova.im.no} da rivedere</div>`:""}`:""}
  ${c.batch&&!paperDone(c)?`<button class="pill ghost" data-act="done" data-id="${esc(c.id)}">Segna come studiato</button>`:""}
  ${c.transcript?`<details><summary>Cosa hai detto</summary><p>${esc(c.transcript)}</p></details>`:""}
  ${S.confirmDel?`<div class="row"><button class="pill sm ghost grow" data-act="deltoggle">Annulla</button><button class="pill sm grow" style="background:var(--bad)" data-act="delete" data-id="${esc(c.id)}">Elimina davvero</button></div>`:`<button class="link" style="color:var(--bad)" data-act="deltoggle">Elimina capitolo</button>`}
@@ -366,7 +377,9 @@ function buildProva(c){
  const cz=[];(c.quotes||[]).slice(0,2).forEach(q=>{const x=mkCloze(q,"Citazione");if(x)cz.push(x)});
  shuffle(c.phrases||[]).slice(0,Math.max(0,Math.min(3,5-cz.length))).forEach(q=>{const x=mkCloze(q,"Frase da fare tua");if(x)cz.push(x)});
  const im=shuffle(c.images||[]).slice(0,4).map(x=>({type:"image",title:x.title,text:x.text,mine:x.mine||""}));
- return cz.concat(im);
+ const room=Math.max(0,6-im.length);
+ const cn=shuffle(c.concepts||[]).slice(0,room).map(x=>({type:"image",lab:"Concetto",title:x.title,text:x.text,mine:""}));
+ return cz.concat(im,cn);
 }
 function provaHead(P,i){return `<div class="top"><button class="iconbtn" data-act="provaexit" aria-label="Chiudi">${ic("x",18)}</button><div style="font-weight:500">Mettiti alla prova</div><div class="muted" style="width:44px;text-align:right">${Math.min(i+1,P.steps.length)} / ${P.steps.length}</div></div><div class="progress">${P.steps.map((_,k)=>`<i class="${k<i?"d":""}"></i>`).join("")}</div>`}
 V.prova=()=>{
@@ -375,7 +388,7 @@ V.prova=()=>{
  if(P.i>=P.steps.length){
   const cz=P.stats.cz,im=P.stats.im,hasQ=(c.questions||[]).length>0;
   return head+`<div class="stack"><div class="card stack" style="gap:8px;text-align:center"><div style="font-size:26px;font-weight:600;letter-spacing:-.02em">Primo aggancio fatto</div>
-   <div class="muted">${cz.tot?`Frasi e citazioni: ${cz.ok} parole giuste su ${cz.tot}. `:""}${im.ok+im.part+im.no?`Immagini: ${im.ok} sapute, ${im.part} a metà, ${im.no} da rivedere.`:""}</div></div>
+   <div class="muted">${cz.tot?`Frasi e citazioni: ${cz.ok} parole giuste su ${cz.tot}. `:""}${im.ok+im.part+im.no?`Da ricordare: ${im.ok} sapute, ${im.part} a metà, ${im.no} da rivedere.`:""}</div></div>
    ${hasQ?`<div class="card">Ultimo passo: spiegalo a parole tue. Le domande tornano poi nel ripasso, a distanze sempre più lunghe.</div><button class="pill" data-act="provaexplain">Ora spiega con parole tue</button><button class="link" data-act="provaexit">Più tardi</button>`:`<button class="pill" data-act="provaexit">Chiudi</button>`}</div>`;
  }
  const s=P.steps[P.i];
@@ -394,8 +407,8 @@ V.prova=()=>{
   const okn=s.blanks.filter(i=>{const m=s.parts[i].match(/^([^\p{L}\p{N}]*)(.*?)([^\p{L}\p{N}]*)$/u);return nz((P.ans&&P.ans[i])||"")===nz(m[2])}).length;
   return head+`<div class="stack">${card}<div class="muted" style="text-align:center">${okn===s.blanks.length?"Tutte giuste":okn+" giuste su "+s.blanks.length}</div><button class="pill" data-act="provanext">Avanti</button></div>`;
  }
- const card=`<div class="card stack" style="padding:22px"><span class="tag" style="align-self:flex-start">Immagine mentale</span><div class="bigq">${esc(s.title)}</div><div class="muted">Che idea o che dato c'è dietro questa scena? Pensaci, poi mostrala.</div></div>`;
- if(P.stage==="ask")return head+`<div class="stack">${card}<button class="pill" data-act="imgshow">Mostra la scena</button></div>`;
+ const card=`<div class="card stack" style="padding:22px"><span class="tag" style="align-self:flex-start">${s.lab||"Immagine mentale"}</span><div class="bigq">${esc(s.title)}</div><div class="muted">${s.lab?"Spiegalo a voce o a mente, con parole tue. Poi mostra la risposta.":"Che idea o che dato c'è dietro questa scena? Pensaci, poi mostrala."}</div></div>`;
+ if(P.stage==="ask")return head+`<div class="stack">${card}<button class="pill" data-act="imgshow">${s.lab?"Mostra la risposta":"Mostra la scena"}</button></div>`;
  return head+`<div class="stack">${card}<div class="note">${esc(s.text)}</div>${s.mine?`<div class="note sand"><b>La tua versione</b>${esc(s.mine)}</div>`:""}
   <div><h2 style="margin:0 4px 8px">Quanto la ricordavi?</h2><div class="rate"><button data-act="imgrate" data-r="no">Non la ricordavo</button><button data-act="imgrate" data-r="part">A metà</button><button data-act="imgrate" data-r="ok">La sapevo</button></div></div></div>`;
 };
@@ -416,7 +429,7 @@ function czCheck(empty){
 
 V.record=()=>`<div class="top"><button class="iconbtn" data-act="cancelrec" aria-label="Chiudi">${ic("x",18)}</button><div style="font-weight:500">Ripeti il capitolo</div><span style="width:44px"></span></div>
  <div class="stack">
- <div class="muted" style="margin:0 4px">Racconta come a un amico: titolo del libro, capitolo, cosa dice. Più dici, meglio funziona.</div>
+ ${S.contId&&S.chapters.find(x=>x.id===S.contId)?`<div class="card" style="font-size:14px">Continui <b style="font-weight:600">${esc(S.chapters.find(x=>x.id===S.contId).book)}</b>, capitolo ${esc(S.chapters.find(x=>x.id===S.contId).chapter)}. Racconta solo la parte nuova: non devi ripetere il titolo.</div>`:`<div class="muted" style="margin:0 4px">Racconta come a un amico: titolo del libro, capitolo, cosa dice. Più dici, meglio funziona.</div>`}
  <textarea id="tx" aria-label="La tua spiegazione" placeholder="Nel capitolo 5 de L'arte dell'attenzione l'autore spiega che…">${esc(S.draft)}</textarea>
  <div class="partial" id="partial">${esc(S.partial)}</div>
  <div class="center">${dict?`<button class="mic${S.listening?" on":""}" id="micbtn" data-act="mic" aria-label="Parla">${ic("mic",38,1.4)}</button><div class="muted" id="mstat">${S.listening?"Sto registrando… tocca per fermare":"Tocca per parlare"}</div>`:`<div class="muted" style="text-align:center">La registrazione audio non è disponibile su questo browser. Usa il microfono della tastiera.</div>`}
@@ -435,6 +448,12 @@ V.confirm=()=>{
  const one=(ai,i)=>{
   const conf=typeof ai.confidence==="number"?Math.round(ai.confidence*100):null;
   const alts=(ai.alternatives||[]).filter(Boolean);
+  if(p.cont){const cc=S.chapters.find(x=>x.id===p.cont)||{};return `<div class="stack" data-item="${i}"><div class="card">Stai completando <b style="font-weight:600">${esc(cc.book||"")}</b>, capitolo ${esc(cc.chapter||"")}. Resta un capitolo solo: questa parte viene aggiunta.</div>
+  ${ai.summary?`<div class="card">${esc(ai.summary)}</div>`:""}
+  ${checksHtml(ai.checks)}
+  ${sec("Concetti nuovi",ai.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
+  ${sec("Per capire meglio",ai.extra,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
+  ${ai.questions&&ai.questions.length?`<div class="muted" style="margin:0 4px">${ai.questions.length} nuove domande per il ripasso, la prima domani.</div>`:""}</div>`}
   return `<div class="stack" data-item="${i}">
   <div class="card stack" style="gap:12px"><div class="row"><b style="font-size:17px;font-weight:600" class="grow">${n>1?"Capitolo "+(i+1)+" di "+n:(ai.book?"È questo il libro?":"Di che libro parli?")}</b>${conf!==null?`<span class="tag">${conf}% sicuro</span>`:""}${n>1?`<button class="link" data-act="dropitem" data-i="${i}" style="color:var(--bad)">Togli</button>`:""}</div>
    <div><label for="f-book-${i}">Titolo</label><input type="text" id="f-book-${i}" value="${esc(ai.book||"")}" autocomplete="off"></div>
@@ -445,10 +464,11 @@ V.confirm=()=>{
   </div>
   <label class="link" style="cursor:pointer;display:inline-flex;align-items:center">Aggiungi foto di una pagina<input type="file" accept="image/*" data-photo="${i}" hidden></label>
   ${ai.summary?`<div class="card">${esc(ai.summary)}</div>`:""}
+  ${checksHtml(ai.checks)}
   ${sec("Concetti",ai.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
+  ${sec("Per capire meglio",ai.extra,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
   ${sec("Citazioni",ai.quotes,x=>`<div class="note quote">${esc(x)}</div>`)}
   ${sec("Dati",ai.data,x=>`<div class="note">${esc(x)}</div>`)}
-  ${ai.unclear&&ai.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${ai.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
   ${ai.questions&&ai.questions.length?`<div class="muted" style="margin:0 4px">${ai.questions.length} domande pronte per il ripasso, la prima domani.</div>`:""}
   </div>`};
  return `<div class="top"><button class="iconbtn" data-act="backrec" aria-label="Torna alla registrazione">${ic("back",20)}</button><div style="font-weight:500">Conferma</div><span style="width:44px"></span></div>
@@ -456,9 +476,9 @@ V.confirm=()=>{
  ${p.fail?`<div class="card sand"><div class="row"><div class="grow" style="font-size:14px">${esc(p.fail)}</div><button class="pill sm ghost" data-act="retry">Riprova</button></div></div>`:""}
  ${n>1?`<div class="card" style="font-size:14px">Ho trovato ${n} capitoli nella registrazione. Controlla ogni scheda: puoi correggere titolo e capitolo o toglierne una.</div>`:""}
  ${p.items.map(one).join("")}
- <div class="muted" style="margin:0 4px">L'AI lavora solo su ciò che hai detto, non sul testo del libro: se hai sbagliato qualcosa, resta sbagliato.</div>
+ <div class="muted" style="margin:0 4px">Il controllo si basa sulle conoscenze dell'AI, non sul testo del libro: dove non è sicura lo dice, e non salva niente di inventato.</div>
  <div class="err" id="err"></div>
- <button class="pill" data-act="save">${n>1?"Salva "+n+" capitoli":"Salva nella libreria"}</button></div>`};
+ <button class="pill" data-act="save">${p.cont?"Aggiungi al capitolo":n>1?"Salva "+n+" capitoli":"Salva nella libreria"}</button></div>`};
 
 V.review=()=>{
  const R=S.rev;
@@ -671,21 +691,40 @@ function normalize(a){
   summary:a.summary?String(a.summary):"",
   concepts:arr(a.concepts).map(x=>({title:String(x.title||""),text:String(x.text||"")})).filter(x=>x.title||x.text).slice(0,8),
   quotes:arr(a.quotes).map(String).slice(0,6),data:arr(a.data).map(String).slice(0,8),unclear:arr(a.unclear).map(String).slice(0,5),
-  questions:arr(a.questions).map(x=>({q:String(x.q||""),ideal:String(x.ideal||"")})).filter(x=>x.q&&x.ideal).slice(0,5)};
+  questions:arr(a.questions).map(x=>({q:String(x.q||""),ideal:String(x.ideal||"")})).filter(x=>x.q&&x.ideal).slice(0,5),
+  checks:arr(a.checks).map(x=>({claim:String(x.claim||""),verdict:["ok","impreciso","errato","non_verificabile"].includes(x.verdict)?x.verdict:"non_verificabile",explanation:String(x.explanation||"")})).filter(x=>x.claim).slice(0,14),
+  extra:arr(a.extra).map(x=>({title:String(x.title||""),text:String(x.text||"")})).filter(x=>x.title&&x.text).slice(0,5)};
 }
 async function process(text){
  S.draft=text;S.err="";go("processing");
  let items=null,fail="";
+ const cont=S.contId&&S.chapters.find(x=>x.id===S.contId);
  if(!getKey())fail=errCopy("no_key");
  else{
   S.ctl=new AbortController();
   const known=bookList().map(b=>b.book).join(" | ")||"nessuno";
-  const prompt=`Sei l'assistente di un'app di studio. Luigi ha appena letto uno o più capitoli e li ha spiegati a voce in un'unica registrazione. Sotto c'è la trascrizione, che può contenere errori di riconoscimento vocale.
+  const checkRules=`CONTROLLO DEI FATTI. Luigi sta studiando e vuole che tu verifichi ciò che ha detto, non che lo trascriva e basta. Per ogni affermazione di contenuto che ha fatto, confrontala con ciò che sai con certezza della scienza, della storia e del libro. Metti in "checks" da 4 a 12 voci: {"claim": "ciò che ha detto, in poche parole", "verdict": "ok" se è corretto, "impreciso" se è vero a metà o semplificato, "errato" se è sbagliato, "non_verificabile" se non puoi stabilirlo con certezza, "explanation": per impreciso ed errato la versione corretta spiegata chiaramente in 2-3 frasi; per non_verificabile cosa si sa di sicuro sul tema; per ok lascia stringa vuota}. Sii prudente: segna "errato" solo se sei davvero sicuro. Se un'affermazione riguarda ciò che dice il libro e non puoi saperlo, usa "non_verificabile" e non inventare. Errori del riconoscimento vocale (parole storpiate) non sono errori di Luigi: correggili in silenzio. Poi in "extra" da 2 a 4 voci {"title","text"} con nozioni utili e vere sui temi toccati, che Luigi non ha detto ma che lo aiutano a capirli meglio (2-4 frasi ciascuna, con esempi o esperimenti noti solo se sei sicuro che esistono). "concepts", "summary", "quotes" e "questions" devono contenere informazioni CORRETTE: se Luigi ha detto una cosa sbagliata, scrivi la versione giusta, mai quella sbagliata. "unclear" resta sempre [].`;
+  let prompt;
+  if(cont){
+   prompt=`Sei l'assistente di un'app di studio. Luigi sta COMPLETANDO un capitolo che aveva già registrato: ${cont.book}${cont.author?" di "+cont.author:""}, capitolo ${cont.chapter}. Sotto c'è la nuova parte che ha letto e spiegato a voce (può contenere errori di riconoscimento vocale). È lo stesso capitolo: non cambiare libro né capitolo e non dividere in più capitoli.
+Riassunto finora: ${cont.summary||"(nessuno)"}
+Concetti già salvati: ${(cont.concepts||[]).map(x=>x.title).join("; ")||"nessuno"}.
+Estrai SOLO il materiale nuovo, senza ripetere i concetti già salvati.
+${checkRules}
+Rispondi SOLO con un oggetto JSON: {"chapters":[{"summary": "riassunto aggiornato dell'INTERO capitolo in 1-2 frasi, includendo la parte nuova", "concepts": [{"title":"...","text":"..."}] (da 2 a 5, solo nuovi), "quotes": ["..."] (solo frasi pronunciate come citazioni), "data": ["..."], "unclear": [], "checks": [...], "extra": [...], "questions": [{"q": "domanda di richiamo attivo, che richiede di spiegare", "ideal": "risposta corretta"}] (da 2 a 4, sulla parte nuova)}]}
+Scrivi in italiano.
+
+Trascrizione della nuova parte:
+"""
+${text.slice(0,30000)}
+"""`;
+  }else prompt=`Sei l'assistente di un'app di studio. Luigi ha appena letto uno o più capitoli e li ha spiegati a voce in un'unica registrazione. Sotto c'è la trascrizione, che può contenere errori di riconoscimento vocale.
 Libri già in libreria: ${known}.
-Se nella registrazione parla di più capitoli, o di più libri, dividila in un elemento per capitolo, nell'ordine in cui li ha detti. Ogni elemento contiene solo ciò che riguarda quel capitolo. Se parla di un solo capitolo, restituisci un solo elemento. Non creare più elementi per lo stesso capitolo.
+Se nella registrazione parla di più capitoli, o di più libri, dividila in un elemento per capitolo, nell'ordine in cui li ha detti. Ogni elemento contiene solo ciò che riguarda quel capitolo. Se parla di un solo capitolo, restituisci un solo elemento. Non creare più elementi per lo stesso capitolo. Se parla di una parte di un capitolo (ha letto solo alcune pagine), è comunque un solo capitolo.
+${checkRules}
 Rispondi SOLO con un oggetto JSON di questa forma:
-{"chapters": [ {"book": titolo o null, "author": autore o null, "chapter": numero o titolo del capitolo come stringa, o null, "confidence": numero da 0 a 1 su quanto sei sicuro di libro e capitolo, "alternatives": [fino a 2 titoli alternativi plausibili], "summary": "una frase", "concepts": [{"title": "...", "text": "..."}] (da 3 a 6), "quotes": ["..."] (solo frasi che Luigi ha pronunciato come citazioni), "data": ["..."] (numeri, date, nomi propri citati), "unclear": ["..."] (passaggi vaghi o possibilmente imprecisi, che non si possono controllare senza il libro), "questions": [{"q": "domanda di richiamo attivo, che richiede di spiegare", "ideal": "risposta corretta basata SOLO su ciò che Luigi ha detto"}] (da 3 a 5)} ]}
-Regole: non aggiungere informazioni che non sono nella trascrizione. Se libro o capitolo non emergono chiaramente dal testo, usa null e una confidence bassa: non indovinare. Se il libro è lo stesso dell'elemento precedente e non viene ripetuto, usa lo stesso titolo. Scrivi in italiano.
+{"chapters": [ {"book": titolo o null, "author": autore o null, "chapter": numero o titolo del capitolo come stringa, o null, "confidence": numero da 0 a 1 su quanto sei sicuro di libro e capitolo, "alternatives": [fino a 2 titoli alternativi plausibili], "summary": "una frase", "concepts": [{"title": "...", "text": "..."}] (da 3 a 6), "quotes": ["..."] (solo frasi che Luigi ha pronunciato come citazioni), "data": ["..."] (numeri, date, nomi propri citati), "unclear": [], "checks": [...], "extra": [...], "questions": [{"q": "domanda di richiamo attivo, che richiede di spiegare", "ideal": "risposta corretta (con le correzioni, se Luigi aveva sbagliato)"}] (da 3 a 5)} ]}
+Se libro o capitolo non emergono chiaramente dal testo, usa null e una confidence bassa: non indovinare. Se il libro è lo stesso dell'elemento precedente e non viene ripetuto, usa lo stesso titolo. Scrivi in italiano.
 
 Trascrizione:
 """
@@ -694,11 +733,11 @@ ${text.slice(0,30000)}
   try{
    const j=await askJSON(prompt,{signal:S.ctl.signal,model:MODEL_MAIN});
    const list=Array.isArray(j.chapters)?j.chapters:(j&&typeof j==="object"&&(j.book!==undefined||j.concepts)?[j]:[]);
-   items=list.map(normalize).filter(Boolean).slice(0,8);
+   items=list.map(normalize).filter(Boolean).slice(0,cont?1:8);
    if(!items.length){items=null;fail=errCopy("invalid_json")}
   }catch(e){if(e&&e.code==="cancelled"){go("record");return}fail=errCopy(e&&e.code)}
  }
- S.pending={transcript:text,items:items||[normalize({})],fail};
+ S.pending={transcript:text,items:items||[normalize({})],fail,cont:cont?cont.id:null};
  go("confirm");
 }
 async function grade(){
@@ -735,6 +774,21 @@ async function rate(r){
 }
 async function save(){
  const p=S.pending,docs=[],now=Date.now();
+ if(p.cont){
+  const c=S.chapters.find(x=>x.id===p.cont),ai=p.items[0];
+  if(!c||!ai){S.pending=null;go("home");return}
+  const b=document.querySelector('[data-act="save"]');if(b)b.disabled=true;
+  const k=now.toString(36);
+  try{await Store.patch(c.id,{
+   transcript:(c.transcript?c.transcript+"\n\n":"")+p.transcript,summary:ai.summary||c.summary,
+   concepts:(c.concepts||[]).concat(ai.concepts||[]),quotes:(c.quotes||[]).concat(ai.quotes||[]),data:(c.data||[]).concat(ai.data||[]),
+   checks:(c.checks||[]).concat(ai.checks||[]),deep:(c.deep||[]).concat(ai.extra||[]),
+   questions:(c.questions||[]).concat((ai.questions||[]).map((x,n)=>({id:"q"+k+n,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0}))),
+   parts:(c.parts||1)+1})}
+  catch(e){if(b)b.disabled=false;setErr("Non sono riuscito a salvare. Riprova.");return}
+  S.pending=null;S.contId=null;S.draft="";S.partial="";S.openId=c.id;logEv("continued",{id:c.id});
+  toast("Capitolo completato");go("chapter");return;
+ }
  for(let i=0;i<p.items.length;i++){
   const ai=p.items[i];
   const book=($("#f-book-"+i)||{}).value.trim(),author=($("#f-author-"+i)||{}).value.trim(),chapter=($("#f-chap-"+i)||{}).value.trim();
@@ -743,7 +797,7 @@ async function save(){
   if(!chapter){setErr(tag+"scrivi il numero o il titolo del capitolo.");return}
   const id="c"+(now+i).toString(36);
   docs.push({id,book,author,chapter,confidence:ai.confidence==null?0:ai.confidence,transcript:p.transcript,summary:ai.summary||"",
-   concepts:ai.concepts||[],quotes:ai.quotes||[],data:ai.data||[],unclear:ai.unclear||[],
+   concepts:ai.concepts||[],quotes:ai.quotes||[],data:ai.data||[],unclear:[],checks:ai.checks||[],deep:ai.extra||[],parts:1,
    questions:(ai.questions||[]).map((x,k)=>({id:"q"+k,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0})),createdAt:now+i});
  }
  const b=document.querySelector('[data-act="save"]');if(b)b.disabled=true;
@@ -802,8 +856,9 @@ document.addEventListener("click",ev=>{
   case "clearkey":try{localStorage.removeItem(el.dataset.k==="a"?"rc_key":"rc_okey")}catch(x){}toast("Chiave rimossa");render();break;
   case "skipkey":try{localStorage.setItem("rc_skip","1")}catch(e){}go("home");break;
   case "export":exportData();break;
-  case "rec":S.draft="";S.partial="";S.micErr="";go("record");break;
-  case "cancelrec":if(dict&&dict.active())dict.stop().catch(()=>{});S.draft=($("#tx")||{}).value||S.draft;go("home");break;
+  case "continuechap":S.contId=el.dataset.id;S.draft="";S.partial="";S.micErr="";go("record");break;
+  case "rec":S.contId=null;S.draft="";S.partial="";S.micErr="";go("record");break;
+  case "cancelrec":S.contId=null;if(dict&&dict.active())dict.stop().catch(()=>{});S.draft=($("#tx")||{}).value||S.draft;go("home");break;
   case "process":{
    (async()=>{if(dict&&dict.active())await dict.stop().catch(()=>{});
     const t=(($("#tx")||{}).value||"").trim();
