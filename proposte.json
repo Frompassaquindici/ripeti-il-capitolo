@@ -268,100 +268,101 @@
    ]
   },
   {
-   "id": "2026-w47b",
+   "id": "2026-w47c",
    "from": "2026-11-20",
    "papers": [
     {
-     "id": "w47b-seneca-amico",
-     "chapter": "Chi è amico ama, ma chi ama non è per forza amico",
-     "author": "Seneca · Epistulae morales ad Lucilium, 35.1 · classico latino",
+     "id": "w47c-quintiliano-vir-bonus",
+     "chapter": "Per persuadere bene devi essere una persona di cui ci si può fidare",
+     "author": "Catone il Censore, ripreso da Quintiliano · Institutio oratoria, 12.1.1 · classico latino",
      "confidence": 1,
      "transcript": "",
-     "summary": "Seneca scrive a Lucilio che amore e amicizia non sono la stessa cosa: l'amicizia giova sempre, l'amore a volte fa anche male. Una frase breve per distinguere chi ti vuole bene da chi ti fa bene.",
+     "summary": "La definizione dell'oratore che Quintiliano riprende da Catone: vir bonus dicendi peritus, un uomo onesto esperto nel parlare. La tecnica da sola non basta: senza onestà, la parola diventa un'arma.",
      "images": [
       {
-       "title": "Il cartello a due porte",
-       "text": "Un portone con due porte: sopra una c'è scritto AMICO, sopra l'altra AMANTE. Chi entra dalla seconda non passa per forza dalla prima. Ricordati la regola: l'amore non è il biglietto per l'amicizia."
+       "title": "L'arma in mano al furioso",
+       "text": "Un uomo che urla con in mano una spada lucente chiamata ELOQUENZA. Chi guarda sta già indietreggiando. Se la sua parola non ha una virtù dietro, è un'arma in mano a un matto."
       },
       {
-       "title": "La medicina e il fuoco",
-       "text": "Su un tavolo una medicina e un fiammifero acceso. La medicina giova sempre, il fuoco scalda ma a volte brucia. Amicizia = medicina, amore = fuoco: a volte fa male, e va bene così."
+       "title": "La bilancia con due piatti",
+       "text": "Su un piatto un libro di tecniche, sull'altro una persona onesta. Si equilibrano solo se ci sono entrambi: tecnica sola o virtù sola pendono."
       },
       {
-       "title": "La spunta che manca",
-       "text": "Una lista con due colonne: 'ti amo' e 'ti giovo'. Una persona ha la spunta solo nella prima. L'amico è quello con la spunta in tutte e due, sempre."
+       "title": "Il marchio sulla fronte",
+       "text": "Un oratore con un timbro sulla fronte: VIR BONUS. Il pubblico lo legge prima che apra bocca, e per questo gli crede."
       },
       {
-       "title": "Lucilio che legge in treno",
-       "text": "Un uomo seduto con una lettera aperta, e il suo amico Seneca che gli parla dal foglio. Immagina la frase sussurrata a voce bassa: è una predica fatta da amico, non da giudice."
+       "title": "Il maestro con il registro",
+       "text": "Quintiliano, maestro di retorica a Roma, con un registro dove segna le virtù dei suoi allievi prima dei loro discorsi. Prima forma l'uomo, poi la voce."
       }
      ],
      "phrases": [
-      "Chi ti ama non è per forza tuo amico. L'amico invece ti fa sempre bene.",
-      "L'amicizia giova sempre, l'amore a volte fa anche male.",
-      "Prima di chiamare qualcuno amico, chiediti se ti giova o se ti scalda soltanto.",
-      "Un amico non è chi prova qualcosa per te, è chi ti fa bene nel tempo."
+      "Un buon comunicatore è prima di tutto una persona di cui ci si può fidare.",
+      "La tecnica senza onestà è un'arma in mano a un furioso.",
+      "Vir bonus dicendi peritus: un uomo onesto, che sa parlare.",
+      "Persuadere bene non è ingannare meglio."
      ],
      "quotes": [
-      "Qui amicus est amat; qui amat non utique amicus est; itaque amicitia semper prodest, amor aliquando etiam nocet. (Ep. 35.1) Chi è amico ama; chi ama non è per forza amico; perciò l'amicizia giova sempre, l'amore a volte fa anche male."
+      "Vir bonus dicendi peritus. (Catone, ripreso da Quintiliano, Inst. 12.1.1) Un uomo onesto esperto nel parlare.",
+      "Quarum virtutum expertibus si dicendi copiam tradiderimus, non eos quidem oratores effecerimus, sed furentibus quaedam arma dederimus. (Cicerone, De oratore III, 55) Se diamo l'abbondanza del dire a chi è privo di queste virtù, non faremo degli oratori, ma daremo armi a dei furiosi."
      ],
      "deep": [
       {
-       "title": "Il contesto",
-       "text": "Seneca scrive a Lucilio, più giovane, e gli dice che lo vuole amico: finché Lucilio non si migliora, secondo lui lo ama ma non è ancora un amico."
+       "title": "La definizione",
+       "text": "L'idea risale a Catone. Quintiliano la riprende nell'ultimo libro dell'Institutio oratoria, dove dice che l'oratore perfetto non può esistere se non nella persona di un uomo onesto."
       },
       {
-       "title": "Cosa intende per amicizia",
-       "text": "Per Seneca l'amicizia è un rapporto che fa bene all'altro e lo rende migliore. L'amore può essere anche solo un sentimento, e non garantisce questo effetto."
+       "title": "Cicerone la pensava uguale",
+       "text": "Nel De oratore Cicerone avverte che dare la capacità di parlare a chi non ha virtù significa dare armi a dei furiosi."
       },
       {
-       "title": "Come usarla oggi",
-       "text": "Quando qualcuno ti dice 'ti voglio bene' ma ti fa stare peggio, o quando vuoi capire se un rapporto è davvero un'amicizia. Anche in coppia e in famiglia: vale la differenza tra l'affetto e il fare bene."
+       "title": "Cosa cambia per te",
+       "text": "Per un coach la fiducia è la parte tecnica. Le tecniche di persuasione funzionano di più, e durano di più, se chi parla è coerente e onesto."
       },
       {
-       "title": "Equivoco da evitare",
-       "text": "Non vuol dire che l'amore sia sbagliato. Dice solo che da solo non basta a fare un amico. La frase è spesso trasformata in slogan sulle relazioni e perde la sfumatura."
+       "title": "Dove usarla",
+       "text": "Quando devi decidere se usare una leva persuasiva: chiediti se la useresti anche con la persona che ami, e se ti starebbe bene che la vedesse."
       },
       {
-       "title": "Per fare tua la frase",
-       "text": "Ripetila in latino e in italiano. Ti basta ricordare la costruzione: amicus ama, ma amans non è amicus. Il ritmo è fatto apposta per essere ricordato."
+       "title": "Equivoco",
+       "text": "Non vuol dire che serve essere perfetti, ma che la fiducia viene prima della tecnica. La frase non dice come si misura la virtù."
       }
      ],
      "concepts": [],
      "data": [
-      "Seneca, Epistulae morales ad Lucilium, 35.1",
-      "Testo verificato sul commento latino di Jacques Bailly (UVM) e sull'antologia Manipulus florum",
-      "Traduzione italiana mia: da rileggere con una traduzione stampata se la citi in pubblico"
+      "Quintiliano, Institutio oratoria 12.1.1",
+      "De oratore III, 55 (citato nell'articolo 'Quintilian and the Vir Bonus', Journal of Roman Studies)",
+      "Traduzioni italiane mie: da confrontare con un'edizione stampata se le citi in pubblico"
      ],
      "unclear": [
-      "Il resto della lettera non l'ho riletto: qui c'è solo il primo paragrafo",
-      "La traduzione è mia, non è di un'edizione italiana"
+      "Ho verificato le frasi latine su un articolo accademico, non sul testo integrale",
+      "La riga 'applicazione per il coach' è mia, non dei classici"
      ],
      "questions": [
       {
-       "q": "Che cosa distingue l'amico da chi ti ama, per Seneca?",
-       "ideal": "Chi ama non è per forza amico: l'amicizia giova sempre, l'amore a volte fa anche male."
+       "q": "Cosa significa vir bonus dicendi peritus?",
+       "ideal": "Un uomo onesto esperto nel parlare: la definizione dell'oratore di Catone, ripresa da Quintiliano."
       },
       {
-       "q": "Dove si trova la frase e chi la scrive?",
-       "ideal": "Seneca, Epistulae morales ad Lucilium, lettera 35, paragrafo 1."
+       "q": "Dove la riprende Quintiliano?",
+       "ideal": "Nell'Institutio oratoria, libro 12, paragrafo 1.1."
       },
       {
-       "q": "Come la useresti con una persona che dice di volerti bene ma ti fa stare male?",
-       "ideal": "Con calma: voler bene non basta, un amico è uno che ti fa bene nel tempo. Descrivi un comportamento concreto."
+       "q": "Cosa dice Cicerone nel De oratore III, 55?",
+       "ideal": "Che dare abbondanza di parola a chi manca di virtù significa dare armi a dei furiosi."
       },
       {
-       "q": "Come la ripeti in latino?",
-       "ideal": "Qui amicus est amat; qui amat non utique amicus est; itaque amicitia semper prodest, amor aliquando etiam nocet."
+       "q": "Perché per un coach conta?",
+       "ideal": "Perché la fiducia viene prima della tecnica: senza onestà la persuasione dura meno."
       },
       {
-       "q": "Che equivoco bisogna evitare?",
-       "ideal": "Pensare che dica che l'amore è sbagliato: dice solo che da solo non basta a fare un amico."
+       "q": "Che equivoco evitare?",
+       "ideal": "Che serva essere perfetti: la frase dice che la fiducia viene prima, non che bisogna essere impeccabili."
       }
      ]
     },
     {
-     "id": "w47b-thin-slices",
+     "id": "w47c-thin-slices",
      "chapter": "Bastano pochi secondi di comportamento per leggere una persona",
      "author": "Murphy, Hall · Frontiers in Psychology, 2021 (rassegna) e Slepian, Bogart, Ambady · Annual Review of Clinical Psychology, 2014",
      "confidence": 1,
@@ -447,88 +448,88 @@
      ]
     },
     {
-     "id": "w47b-sguardo-diretto",
-     "chapter": "Lo sguardo diretto accende il corpo, anche se è un robot",
-     "author": "Kiilavuori, Peltola, Sariola, Hietanen · Biological Psychology, 2022",
+     "id": "w47c-persuasione-accoppiamento",
+     "chapter": "Quando persuadi bene, i cervelli si sincronizzano: e prevede il sì meglio delle risposte a voce",
+     "author": "Li, Luo, Wang, Li · Cerebral Cortex, 2023",
      "confidence": 1,
      "transcript": "",
-     "summary": "Quando qualcuno ci guarda dritto negli occhi, il corpo reagisce con più attivazione e con espressioni di affetto positivo, anche se chi guarda è un robot umanoide. Contava poco se i partecipanti credevano di essere visti.",
+     "summary": "In una situazione naturale a due, quando il persuasore usa argomenti persuasivi aumenta l'accoppiamento neurale con chi ascolta. E questo accoppiamento prevede se l'altro si adeguerà meglio dei questionari.",
      "images": [
       {
-       "title": "Lo sguardo come interruttore",
-       "text": "Un interruttore sul muro con due occhi dipinti sopra. Quando gli occhi si girano verso di te, la stanza si illumina. Lo sguardo diretto accende qualcosa nel corpo."
+       "title": "I due cervelli con il filo",
+       "text": "Due teste con un filo luminoso che le collega. Quando il persuasore dice l'argomento giusto, il filo si illumina. Il filo è l'accoppiamento neurale."
       },
       {
-       "title": "Il robot che arrossisce",
-       "text": "Un robot umanoide con le guance rosse che ti guarda dritto. Anche lui ti fa sorridere un po' senza che tu te ne accorga."
+       "title": "Il sì scritto sulla fronte",
+       "text": "Chi ascolta ha una luce sulla fronte: verde se dirà sì. La luce si accende prima che lui lo dica, e prima del suo questionario."
       },
       {
-       "title": "La spia sulla mano",
-       "text": "Sulla mano sinistra una spia che si accende appena incrocia uno sguardo: è la conduttanza della pelle, una reazione che non controlli."
+       "title": "Il cielo artico",
+       "text": "Due persone su un ghiacciaio che discutono cosa salvare dal campo. Il compito è un gioco di sopravvivenza: scelgono oggetti insieme e uno convince l'altro."
       },
       {
-       "title": "Lo specchio doppio",
-       "text": "Una finestra da cui credi di non essere visto. Anche così, se lo sguardo è diretto, il corpo reagisce. L'effetto è un po' più piccolo, ma c'è."
+       "title": "Il primo argomento che apre",
+       "text": "Una porta con una maniglia a forma di argomento. Il primo argomento mirato è la chiave che apre: dopo, il resto passa più facile."
       }
      ],
      "phrases": [
-      "Lo sguardo diretto non è neutro: accende il corpo prima di accendere il ragionamento.",
-      "Anche un robot che ti guarda dritto ti fa sorridere un po'.",
-      "Distogliere lo sguardo spegne qualcosa, guardare dritto lo accende.",
-      "Credere di essere guardati cambia l'intensità, non l'effetto."
+      "Persuadere bene si sente nel cervello dell'altro prima che nelle sue parole.",
+      "Gli argomenti mirati sincronizzano chi ascolta con te.",
+      "Il sì si prevede dal cervello meglio che dal questionario.",
+      "Il primo argomento giusto è quello che apre la porta."
      ],
      "quotes": [],
      "deep": [
       {
        "title": "L'esperimento",
-       "text": "Studio preregistrato: i ricercatori misurano conduttanza cutanea, EMG del zigomatico e del corrugatore ed EEG frontale mentre un robot umanoide o un modello umano guarda dritto o altrove."
+       "text": "Coppie di persuasore e ricevente fanno insieme un compito modificato, l'Arctic Survival Task, mentre un sistema di fNIRS a due teste misura l'attività cerebrale di entrambi."
       },
       {
-       "title": "Il risultato",
-       "text": "Con lo sguardo diretto, rispetto a quello distolto, c'è più attivazione autonomica e più risposta facciale legata all'affetto positivo. Succede con il robot e con l'umano, a prescindere dalla credenza."
+       "title": "Il risultato principale",
+       "text": "Con gli argomenti persuasivi, rispetto a quelli non persuasivi, l'accoppiamento neurale cresce in aree come il giro temporale superiore sinistro e il giro frontale superiore."
       },
       {
-       "title": "Il ruolo della credenza",
-       "text": "Credere o meno di essere visti cambia l'intensità delle risposte, meno per il robot che per l'umano."
+       "title": "La direzione",
+       "text": "Gli indici di G-causalità mostrano la direzione del flusso di informazione tra persuasore e ricevente."
       },
       {
-       "title": "Cosa non si vede",
-       "text": "Nell'asimmetria EEG frontale l'effetto della direzione dello sguardo non è significativo."
+       "title": "Il punto forte",
+       "text": "L'accoppiamento neurale prevede gli esiti della persuasione, cioè se il ricevente si adegua, meglio delle misure classiche di autovalutazione."
       },
       {
-       "title": "Come usarlo",
-       "text": "Lo sguardo diretto è un segnale forte: usalo a dosi, per creare vicinanza. Se vuoi alleggerire, distogli lo sguardo ogni tanto."
+       "title": "Limite",
+       "text": "Studio di laboratorio con un compito particolare, e io ho letto solo l'abstract: niente numeri sul campione né sulle dimensioni dell'effetto."
       }
      ],
      "concepts": [],
      "data": [
-      "Biol Psychol 2022;175:108451, DOI 10.1016/j.biopsycho.2022.108451",
-      "Studio preregistrato con robot umanoide e modello umano"
+      "Cereb Cortex 2023;33(11):6818-6833, DOI 10.1093/cercor/bhad003",
+      "Protocollo: naturalistic dyadic persuasion paradigm con fNIRS a due teste"
      ],
      "unclear": [
-      "Ho letto solo l'abstract: niente dimensione del campione né numeri",
-      "Il consiglio sull'uso dello sguardo è una mia applicazione, non una conclusione dello studio"
+      "Ho letto solo l'abstract: niente numeri",
+      "Il consiglio di usare il primo argomento mirato è una mia lettura, non un test dello studio"
      ],
      "questions": [
       {
-       "q": "Che cosa succede al corpo con lo sguardo diretto?",
-       "ideal": "Più attivazione autonomica e più risposte facciali di affetto positivo rispetto allo sguardo distolto."
+       "q": "Cosa misurano nei due partecipanti?",
+       "ideal": "L'attività cerebrale di entrambi insieme, con fNIRS a due teste durante un compito di sopravvivenza artica."
       },
       {
-       "q": "Vale anche per un robot?",
-       "ideal": "Sì, risposte simili per robot umanoide e modello umano."
+       "q": "Che cosa aumenta con gli argomenti persuasivi?",
+       "ideal": "L'accoppiamento neurale tra persuasore e ricevente."
       },
       {
-       "q": "Che ruolo ha la credenza di essere visti?",
-       "ideal": "Cambia la grandezza delle risposte, meno per il robot che per l'umano, ma l'effetto resta."
+       "q": "Cosa prevede l'accoppiamento?",
+       "ideal": "L'esito della persuasione, cioè se il ricevente si adegua, meglio delle misure di autovalutazione."
       },
       {
-       "q": "Quali misure usano?",
-       "ideal": "Conduttanza cutanea, EMG di zigomatico e corrugatore, EEG frontale."
+       "q": "Dove si vede l'effetto?",
+       "ideal": "Nel giro temporale superiore sinistro e nel giro frontale superiore, tra le altre aree."
       },
       {
-       "q": "Dove non si vede l'effetto?",
-       "ideal": "Nell'asimmetria EEG frontale: la direzione dello sguardo non è significativa."
+       "q": "Perché non è una prova definitiva?",
+       "ideal": "È un compito di laboratorio e ho letto solo l'abstract, senza numeri sul campione."
       }
      ]
     }
@@ -536,8 +537,11 @@
   }
  ],
  "ritirati": [
-  "w47-trieste-gruppo",
   "w47-ia-accusa",
-  "w47-sorriso-vocale"
+  "w47-sorriso-vocale",
+  "w47-trieste-gruppo",
+  "w47b-seneca-amico",
+  "w47b-sguardo-diretto",
+  "w47b-thin-slices"
  ]
 }
