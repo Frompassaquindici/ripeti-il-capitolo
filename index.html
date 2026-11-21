@@ -280,7 +280,7 @@ function micMsg(c){return {not_granted:"Microfono non consentito. Abilitalo per 
  empty:"Non ho sentito niente. Riprova più vicino al microfono."}[c]||"Registrazione non riuscita. Riprova o scrivi nel riquadro."}
 /* ---------- calcoli ---------- */
 function allQ(){const a=[];S.chapters.forEach(c=>(c.questions||[]).forEach(q=>a.push({c,q})));return a}
-function dueList(){const n=Date.now();return allQ().filter(x=>x.q.due<=n).sort((a,b)=>a.q.due-b.q.due)}
+function dueList(){const n=Date.now();return allQ().filter(x=>x.q.due<=n&&!(x.c.kind==="paper"&&!x.q.tries&&!paperDone(x.c))).sort((a,b)=>a.q.due-b.q.due)}
 function streak(){
  const days=new Set();const k=t=>{const d=new Date(t);return d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()};
  S.chapters.forEach(c=>{days.add(k(c.createdAt));(c.questions||[]).forEach(q=>{if(q.last)days.add(k(q.last))})});
@@ -290,7 +290,7 @@ function bookList(){const m=new Map();S.chapters.forEach(c=>{const key=(c.book||
 const fmtDay=t=>new Date(t).toLocaleDateString("it-IT",{day:"numeric",month:"short"});
 
 /* ---------- navigazione ---------- */
-const TABVIEW={home:"home",library:"library",focus:"focus",chapter:"library",paper:"library",prova:"library",ask:"ask",stats:"home"};
+const TABVIEW={light:"home",home:"home",library:"library",focus:"focus",chapter:"library",paper:"library",prova:"library",ask:"ask",stats:"home"};
 function go(v,opts){if(v==="record"&&!["record","confirm","processing"].includes(S.view)){S.recOpenAt=Date.now();S.recStartLogged=false;logEv("rec_open")}
  S.view=v;if(TABVIEW[v])S.tab=TABVIEW[v];S.err="";render();if(!(opts&&opts.keepScroll))window.scrollTo(0,0)}
 function softRender(){if(["home","library","focus","chapter"].includes(S.view))render()}
@@ -305,7 +305,7 @@ V.home=()=>{
  const week=S.chapters.filter(c=>c.createdAt>Date.now()-7*DAY).length;
  let rev;
  if(!S.loaded)rev=`<div class="card muted">Carico la libreria…</div>`;
- else if(due.length)rev=`<div class="card sand"><div class="row"><div class="grow"><b style="font-size:17px;font-weight:600">${due.length} ${due.length===1?"domanda da ripassare":"domande da ripassare"}</b><div style="font-size:14px;margin-top:2px">Rispondi a voce, senza guardare gli appunti.</div></div><button class="pill sm ghost" data-act="review">Ripassa</button></div></div>`;
+ else if(due.length)rev=`<div class="card sand"><div class="row"><div class="grow"><b style="font-size:17px;font-weight:600">${due.length} ${due.length===1?"domanda da ripassare":"domande da ripassare"}</b><div style="font-size:14px;margin-top:2px">Rispondi a voce, senza guardare gli appunti.</div></div><button class="pill sm ghost" data-act="review">Ripassa</button></div><button class="link" style="margin-top:8px" data-act="light">Sono stanco: versione leggera, solo tocchi</button></div>`;
  else if(n)rev=`<div class="card"><div class="row"><div class="grow"><b style="font-weight:600">Niente da ripassare oggi</b><div class="muted">Le domande tornano a intervalli crescenti.</div></div><button class="link" data-act="review" data-early="1">Ripassa in anticipo</button></div></div>`;
  else rev=`<div class="card"><b style="font-weight:600">Inizia da un capitolo</b><div class="muted" style="margin-top:2px">Finisci un capitolo, premi il pulsante e raccontalo a voce. L'app ricava concetti e domande da ripassare nei giorni dopo.</div></div>`;
  const banner=S.banner?`<div class="card sand"><div class="row"><div class="grow"><b style="font-weight:600">Sessione finita</b><div style="font-size:14px">Ripeti subito il capitolo, finché è fresco.</div></div><button class="pill sm ghost" data-act="rec">Ripeti</button></div></div>`:"";
@@ -905,6 +905,10 @@ document.addEventListener("click",ev=>{
   case "done":Store.patch(el.dataset.id,{doneAt:Date.now()}).then(()=>{toast("Chiuso");loadWeekly();go("home")});break;
   case "deltoggle":S.confirmDel=!S.confirmDel;render();break;
   case "delete":Store.remove(el.dataset.id).then(()=>{toast("Capitolo eliminato");S.confirmDel=false;go("library")}).catch(()=>toast("Non sono riuscito a eliminare"));break;
+  case "light":startLight();break;
+  case "lightpick":lightPick(+el.dataset.k);break;
+  case "lightnext":LT.i++;LT.picked=null;render();window.scrollTo(0,0);break;
+  case "endlight":go("home");break;
   case "review":startReview(!!el.dataset.early);break;
   case "grade":grade();break;
   case "reveal":if(dict&&dict.active())dict.stop().catch(()=>{});S.rev.res={verdict:null,err:""};S.rev.stage="result";render();break;
@@ -989,6 +993,40 @@ async function exportData(){
  try{const f=new File([data],name,{type:"application/json"});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return}}catch(e){if(e&&e.name==="AbortError")return}
  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));a.download=name;document.body.appendChild(a);a.click();a.remove();
 }
+const LT=S.lt||(S.lt={});
+async function startLight(){
+ let items=dueList().slice(0,5);if(!items.length)items=allQ().sort((a,b)=>a.q.due-b.q.due).slice(0,5);
+ if(!items.length)return;
+ if(!getKey()){toast("Manca la chiave AI");return}
+ Object.assign(LT,{busy:true,err:"",items:[],i:0,picked:null,counts:{ok:0,no:0}});go("light");
+ try{
+  const prompt=`Crea un quiz a scelta multipla per ripassare. Per ogni domanda dai: la risposta giusta riassunta in una frase breve (massimo 18 parole, basata SOLO sulla risposta di riferimento) e 2 risposte sbagliate ma plausibili, della stessa lunghezza e dello stesso stile, che un lettore distratto potrebbe scambiare per giuste (stesso argomento, un dettaglio chiave cambiato). Le sbagliate non devono essere in nessun modo vere.
+${items.map((x,k)=>`${k}. Domanda: ${x.q.q}\nRisposta di riferimento: ${x.q.ideal}`).join("\n")}
+Rispondi SOLO con JSON: {"items":[{"n":0,"giusta":"...","sbagliate":["...","..."]}]}. Italiano.`;
+  const j=await askJSON(prompt,{model:MODEL_FAST});
+  LT.items=items.map((x,k)=>{const r=arr(j.items).find(y=>y&&+y.n===k);if(!r||!r.giusta||arr(r.sbagliate).length<2)return null;
+   const opts=shuffle([{t:String(r.giusta),ok:true},...arr(r.sbagliate).slice(0,2).map(t=>({t:String(t),ok:false}))]);return {c:x.c,q:x.q,opts}}).filter(Boolean);
+  if(!LT.items.length)throw {code:"invalid_json"};
+ }catch(e){LT.err=errCopy(e&&e.code)}
+ LT.busy=false;render();
+}
+async function lightPick(k){
+ if(LT.picked!=null)return;LT.picked=k;const it=LT.items[LT.i],ok=it.opts[k].ok;LT.counts[ok?"ok":"no"]++;render();
+ const q=it.q;let step=q.step||0;
+ const days=ok?Math.max(1,Math.round(INT[step]/2)):INT[0];if(!ok)step=0;
+ const nq=(it.c.questions||[]).map(x=>x.id===q.id?Object.assign({},x,{step,due:Date.now()+days*DAY,last:Date.now(),tries:(x.tries||0)+1}):x);
+ try{await Store.patch(it.c.id,{questions:nq})}catch(e){toast("Non sono riuscito a salvare")}
+}
+V.light=()=>{
+ const top=`<div class="top"><button class="iconbtn" data-act="endlight" aria-label="Chiudi">${ic("x",18)}</button><div style="font-weight:500">Ripasso leggero</div><div class="muted" style="width:44px;text-align:right">${LT.items&&LT.items.length?Math.min(LT.i+1,LT.items.length)+" / "+LT.items.length:""}</div></div>`;
+ if(LT.busy)return top+`<div class="stack" style="text-align:center;margin-top:60px;gap:18px"><div class="spin"></div><div class="muted">Preparo le domande a scelta…</div></div>`;
+ if(LT.err)return top+`<div class="stack"><div class="card sand">${esc(LT.err)}</div><button class="pill" data-act="light">Riprova</button></div>`;
+ if(LT.i>=LT.items.length)return top+`<div class="stack"><div class="card stack" style="gap:6px;text-align:center"><div style="font-size:26px;font-weight:600;letter-spacing:-.02em">Fatto</div><div class="muted">${LT.counts.ok} giuste su ${LT.items.length}. Riconoscere la risposta conta la metà di saperla dire: le giuste tornano a metà dell'intervallo, le sbagliate domani.</div></div><button class="pill" data-act="endlight">Torna a Oggi</button></div>`;
+ const it=LT.items[LT.i],p=LT.picked;
+ return top+`<div class="stack"><div class="card stack" style="padding:22px"><span class="tag" style="align-self:flex-start">${esc(it.c.kind==="paper"?"Paper":it.c.book)}</span><div class="bigq">${esc(it.q.q)}</div></div>
+ ${it.opts.map((o,k)=>`<button class="item" style="text-align:left;${p!=null&&o.ok?"outline:2px solid var(--accent)":p===k?"outline:2px solid var(--bad)":""}" data-act="lightpick" data-k="${k}"><span class="grow" style="font-size:16px">${esc(o.t)}</span></button>`).join("")}
+ ${p!=null?`<div class="note"><b>${it.opts[p].ok?"Giusto":"Non proprio"}</b>${esc(it.q.ideal)}</div><button class="pill" data-act="lightnext">Avanti</button>`:""}</div>`;
+};
 function startReview(early){
  let items=dueList();
  if(!items.length&&early)items=allQ().sort((a,b)=>a.q.due-b.q.due);
