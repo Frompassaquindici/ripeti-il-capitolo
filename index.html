@@ -1003,12 +1003,16 @@ async function startLight(cid){
  if(!getKey()){toast("Manca la chiave AI");return}
  Object.assign(LT,{busy:true,err:"",items:[],i:0,picked:null,counts:{ok:0,no:0}});go("light");
  try{
-  const prompt=`Crea un quiz a scelta multipla per ripassare. Per ogni domanda dai: la risposta giusta riassunta in una frase breve (massimo 18 parole, basata SOLO sulla risposta di riferimento) e 2 risposte sbagliate ma plausibili, della stessa lunghezza e dello stesso stile, che un lettore distratto potrebbe scambiare per giuste (stesso argomento, un dettaglio chiave cambiato). Le sbagliate non devono essere in nessun modo vere.
+  const prompt=`Crea un quiz a scelta multipla DIFFICILE per ripassare. Per ogni domanda dai: "giusta", la risposta corretta in una frase di 12-20 parole basata SOLO sulla risposta di riferimento, e 3 risposte "sbagliate" costruite così:
+- stessa lunghezza, stesso tono, stessa struttura della giusta: la giusta NON deve essere la più lunga, né la più dettagliata, né l'unica con un termine tecnico;
+- ognuna è la giusta con UN solo elemento chiave sostituito o invertito (un meccanismo scambiato con uno vicino, una causa con un effetto, un "più" con un "meno", un dato o un nome simile), oppure è un errore tipico che una persona che ha capito solo a metà farebbe;
+- devono suonare vere e usare le stesse parole del tema, ma essere sbagliate rispetto alla risposta di riferimento;
+- mai risposte assurde, generiche o ovvie.
 ${items.map((x,k)=>`${k}. Domanda: ${x.q.q}\nRisposta di riferimento: ${x.q.ideal}`).join("\n")}
-Rispondi SOLO con JSON: {"items":[{"n":0,"giusta":"...","sbagliate":["...","..."]}]}. Italiano.`;
-  const j=await askJSON(prompt,{model:MODEL_FAST});
+Rispondi SOLO con JSON: {"items":[{"n":0,"giusta":"...","sbagliate":["...","...","..."]}]}. Italiano.`;
+  const j=await askJSON(prompt,{model:MODEL_MAIN});
   LT.items=items.map((x,k)=>{const r=arr(j.items).find(y=>y&&+y.n===k);if(!r||!r.giusta||arr(r.sbagliate).length<2)return null;
-   const opts=shuffle([{t:String(r.giusta),ok:true},...arr(r.sbagliate).slice(0,2).map(t=>({t:String(t),ok:false}))]);return {c:x.c,q:x.q,opts}}).filter(Boolean);
+   const opts=shuffle([{t:String(r.giusta),ok:true},...arr(r.sbagliate).slice(0,3).map(t=>({t:String(t),ok:false}))]);return {c:x.c,q:x.q,opts}}).filter(Boolean);
   if(!LT.items.length)throw {code:"invalid_json"};
  }catch(e){LT.err=errCopy(e&&e.code)}
  LT.busy=false;render();
