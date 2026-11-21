@@ -383,6 +383,7 @@ V.chapter=()=>{
  ${list("Concetti",c.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
  ${list("Dati",c.data,x=>`<div class="note">${esc(x)}</div>`)}
  ${c.unclear&&c.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${c.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
+ ${(c.questions||[]).length?`<div class="row"><button class="pill grow" data-act="chapreview" data-id="${esc(c.id)}">Ripassa a voce</button><button class="pill ghost grow" data-act="light" data-id="${esc(c.id)}">Ripassa a tocchi</button></div>`:""}
  ${c.kind==="paper"?"":`<button class="pill ghost" data-act="continuechap" data-id="${esc(c.id)}">Continua questo capitolo</button>`}
  ${c.kind==="paper"?"":`<label class="link" style="cursor:pointer;display:inline-flex;align-items:center">Aggiungi foto di una pagina<input type="file" accept="image/*" data-photo="c:${esc(c.id)}" hidden></label>`}
  ${(c.quotes&&c.quotes.length)||(c.phrases&&c.phrases.length)||(c.images&&c.images.length)||(c.concepts&&c.concepts.length)?`<button class="pill" data-act="prova" data-id="${esc(c.id)}">Mettiti alla prova</button>${c.prova?`<div class="muted" style="text-align:center">Ultima prova ${fmtDay(c.prova.at)}: ${c.prova.cz?c.prova.cz.ok+" parole su "+c.prova.cz.tot+" nelle frasi, ":""}${c.prova.im.ok} immagini sapute, ${c.prova.im.part} a metà, ${c.prova.im.no} da rivedere</div>`:""}`:""}
@@ -905,7 +906,8 @@ document.addEventListener("click",ev=>{
   case "done":Store.patch(el.dataset.id,{doneAt:Date.now()}).then(()=>{toast("Chiuso");loadWeekly();go("home")});break;
   case "deltoggle":S.confirmDel=!S.confirmDel;render();break;
   case "delete":Store.remove(el.dataset.id).then(()=>{toast("Capitolo eliminato");S.confirmDel=false;go("library")}).catch(()=>toast("Non sono riuscito a eliminare"));break;
-  case "light":startLight();break;
+  case "light":startLight(el.dataset.id);break;
+  case "chapreview":{const c=S.chapters.find(x=>x.id===el.dataset.id);if(!c)break;S.rev={items:(c.questions||[]).map(q=>({c,q})),i:0,stage:"answer",res:null,counts:{ok:0,part:0,no:0}};S.draft="";S.partial="";S.micErr="";go("review");break}
   case "lightpick":lightPick(+el.dataset.k);break;
   case "lightnext":LT.i++;LT.picked=null;render();window.scrollTo(0,0);break;
   case "endlight":go("home");break;
@@ -994,8 +996,9 @@ async function exportData(){
  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));a.download=name;document.body.appendChild(a);a.click();a.remove();
 }
 const LT=S.lt||(S.lt={});
-async function startLight(){
- let items=dueList().slice(0,5);if(!items.length)items=allQ().sort((a,b)=>a.q.due-b.q.due).slice(0,5);
+async function startLight(cid){
+ let items=cid?allQ().filter(x=>x.c.id===cid).sort((a,b)=>a.q.due-b.q.due).slice(0,5):dueList().slice(0,5);
+ if(!items.length&&!cid)items=allQ().sort((a,b)=>a.q.due-b.q.due).slice(0,5);
  if(!items.length)return;
  if(!getKey()){toast("Manca la chiave AI");return}
  Object.assign(LT,{busy:true,err:"",items:[],i:0,picked:null,counts:{ok:0,no:0}});go("light");
