@@ -49,6 +49,16 @@
    "id": "w47x-persuasione-accoppiamento",
    "doi": "10.1093/cercor/bhad003",
    "titolo": "Accoppiamento neurale nella persuasione (Li et al., Cereb Cortex 2023, solo abstract letto, non usare finché non si legge il testo)"
+  },
+  {
+   "id": "w48-liking-gap",
+   "doi": "10.1177/0956797618783714",
+   "titolo": "Il liking gap (Boothby et al., Psychological Science 2018)"
+  },
+  {
+   "id": "w48-voce-impressioni",
+   "doi": "10.1073/pnas.2318361121",
+   "titolo": "Voce e impressioni nel cervello (Lavan et al., PNAS 2024)"
   }
  ],
  "batches": [
@@ -592,6 +602,217 @@
       {
        "q": "Che risultato non ha confermato le ipotesi?",
        "ideal": "Il P300 davanti ai dolci non è diminuito dopo l'ascolto, è aumentato, e non si è legato alla disponibilità a pagare."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "2026-w48",
+   "from": "2026-11-23",
+   "papers": [
+    {
+     "id": "w48-liking-gap",
+     "chapter": "Dopo una conversazione piaci più di quanto pensi: il liking gap",
+     "author": "Boothby, Cooney, Sandstrom, Clark · Psychological Science, 2018",
+     "confidence": 1,
+     "transcript": "",
+     "summary": "Dopo aver parlato con uno sconosciuto, le persone sottostimano sistematicamente quanto l'altro le apprezzi e si sia divertito: l'altro ti ha giudicato meglio di come ti giudichi tu.",
+     "images": [
+      {
+       "title": "Il tribunale in bagno",
+       "text": "Entri in un bagno e trovi un giudice con parrucca che ti legge un verdetto durissimo su come hai parlato. Fuori, lo sconosciuto di prima ti applaude con un cartello 7 su 7. Qui codifichi il liking gap: il giudice interno è più severo dell'altro."
+      },
+      {
+       "title": "Due termometri in una tazza",
+       "text": "Una tazza fumante con due termometri. Quello che segna il tuo giudizio sull'altro è a 5,82, quello che segna cosa credi pensi lui di te è a 5,17. Il vapore forma la parola 'sotto'. Questa scena codifica i due numeri dello Studio 1a."
+      },
+      {
+       "title": "Il cartello che nessuno legge",
+       "text": "Lo sconosciuto sorride, annuisce, si sporge in avanti e ti sventola un cartello 'mi piaci'. Tu guardi il pavimento e ti conti gli errori. Codifica lo Studio 1b: i segnali di apprezzamento c'erano ma venivano ignorati."
+      },
+      {
+       "title": "Il registratore di errori",
+       "text": "Hai in tasca un registratore a cassetta che riavvolge solo le tue gaffe, con un nastro lungo tre metri. Quello dell'altro riavvolge solo le cose belle che hai detto, ed è vuoto. Codifica lo Studio 2: pensieri su te stesso più negativi di quelli sull'altro."
+      },
+      {
+       "title": "La colla della stanza",
+       "text": "Nel corridoio di un dormitorio, ogni mattina arrivano coinquilini con un cartello e il cartello sbagliato resta appeso per mesi. A maggio una squadra lo stacca con una spatola. Codifica lo Studio 5: il gap è durato mesi e a maggio è sparito."
+      },
+      {
+       "title": "L'aereo che peggiora",
+       "text": "Prima del volo (la conversazione) il cartello 'non gli piaccio' pende storto. Dopo l'atterraggio pende ancora più storto, e un passeggero ride perché il pilota è in realtà contentissimo. Codifica lo Studio 4: dopo aver parlato il gap cresce."
+      }
+     ],
+     "phrases": [
+      "Il giudice più severo della tua conversazione sei tu, e l'altro quasi sempre ti ha dato di più.",
+      "Tutti escono da una chiacchierata convinti di aver fatto peggio di come è andata, e l'altro pure.",
+      "Se dopo un primo incontro ti torturi, ricorda che i dati dicono che sei piaciuto più di quanto credi.",
+      "Il primo messaggio dopo un incontro non è invadente: l'altro probabilmente sta aspettando che lo faccia tu.",
+      "Non devi essere brillante. Devi solo parlare, perché una conversazione con un estraneo va meglio di come la prevedi."
+     ],
+     "quotes": [
+      "A conversation with a stranger, it seems, is better than people predict. (Boothby et al. 2018, Studio 4)",
+      "the liking gap persisted for several months (Boothby et al. 2018, Studio 5)"
+     ],
+     "deep": [
+      {
+       "title": "Disegno e Studio 1a",
+       "text": "Trentasei persone, estranei dello stesso sesso a coppie, parlano cinque minuti con una lista di domande rompighiaccio. Dopo, in stanze separate, valutano quanto piace loro l'altro e quanto pensano di piacere. Piacere reale 5,82, piacere percepito 5,17 su 7 (b = -0,65, p < .001)."
+      },
+      {
+       "title": "Chi sbaglia di più",
+       "text": "Nello Studio 1a la timidezza modera il gap (p = .003): per i più timidi la differenza è 1,14 punti, per i meno timidi 0,25 e non significativa. Autostima, sensibilità al rifiuto e narcisismo non lo moderano."
+      },
+      {
+       "title": "Il segnale c'è ma viene ignorato (Studio 1b)",
+       "text": "Due codificatori che non conoscono l'ipotesi guardano 15 video. L'apprezzamento osservato prevede il piacere reale (b = 0,71) ma non quello che la persona crede di suscitare (b = 0,38, non significativo). Gli autori: i segnali c'erano ma venivano trascurati."
+      },
+      {
+       "title": "Perché succede (Studio 2)",
+       "text": "Ottantaquattro studenti. Dopo la conversazione elencano i pensieri su come l'altro li ha visti: più negativi dei pensieri su come loro hanno visto l'altro. La negatività dei pensieri media parte del gap (effetto indiretto -0,14, CI [-0,22, -0,07])."
+      },
+      {
+       "title": "Più a lungo, nel mondo reale, nel tempo (Studi 3-5)",
+       "text": "Studio 3: 102 persone, conversazioni da 2 a 45 minuti, il gap resta. Studio 4: 100 partecipanti a workshop nel Regno Unito, gap 0,37 prima e 0,68 dopo la conversazione. Studio 5: 102 matricole in dormitorio per un anno, gap presente per mesi e sparito all'ultima rilevazione di maggio."
+      },
+      {
+       "title": "Applicazione pratica (applicazione mia)",
+       "text": "Da coach: chi arriva dicendo 'ho fatto una brutta figura' sta molto probabilmente leggendo male il suo effetto sugli altri. Puoi usarlo per ricalibrare clienti ansiosi sui primi incontri. È una lettura mia, gli autori non testano interventi."
+      },
+      {
+       "title": "Limiti dello studio",
+       "text": "Gli autori dichiarano che le ragioni di fondo restano aperte: perché i pensieri su di sé sono così negativi e perché non si corregge la stima. Il gap sparisce a maggio nello Studio 5 per ragioni solo ipotizzate. Gli studi non sono preregistrati, i materiali non sono pubblici, la mediazione è basata su autovalutazioni, i campioni sono limitati dalla disponibilità dei partecipanti."
+      }
+     ],
+     "concepts": [],
+     "data": [
+      "Psychological Science 2018, 29(11), 1742-1756. DOI 10.1177/0956797618783714",
+      "Studio 1a: 36 partecipanti, 5 minuti, piacere reale 5,82 contro percepito 5,17 su 7",
+      "Studio 2: 84 partecipanti, effetto indiretto -0,14, CI [-0,22, -0,07]",
+      "Studio 3: 102 partecipanti, conversazioni da 2 a 45 minuti",
+      "Studio 4: 100 partecipanti, gap 0,37 prima e 0,68 dopo la conversazione",
+      "Studio 5: 102 matricole, gap per mesi e non significativo all'ultima rilevazione"
+     ],
+     "unclear": [],
+     "questions": [
+      {
+       "q": "Cos'è il liking gap?",
+       "ideal": "La tendenza a sottostimare quanto l'altro ti apprezzi e si sia divertito dopo una conversazione: piaci più di quanto pensi."
+      },
+      {
+       "q": "Cosa rappresenta la scena del giudice con la parrucca nel bagno e lo sconosciuto che applaude?",
+       "ideal": "Il giudizio interno severo su di sé contro il giudizio reale dell'altro, più positivo: il cuore del liking gap."
+      },
+      {
+       "q": "Cosa mostra lo Studio 1b con il cartello che nessuno legge?",
+       "ideal": "Che l'apprezzamento dell'altro è osservabile nel video e predice il suo piacere reale, ma chi parla non lo usa per stimare quanto piace."
+      },
+      {
+       "q": "Spiega con parole tue perché secondo lo Studio 2 nasce il gap.",
+       "ideal": "I pensieri sul proprio effetto sono più negativi di quelli sull'altro, e questa negatività spiega una parte del gap."
+      },
+      {
+       "q": "Quali limiti dichiarano gli autori?",
+       "ideal": "Restano aperti il perché dei pensieri così negativi e perché non si correggono; il gap sparisce a maggio nello Studio 5 senza una spiegazione testata; niente preregistrazione, mediazione per autovalutazione, campioni limitati."
+      }
+     ]
+    },
+    {
+     "id": "w48-voce-impressioni",
+     "chapter": "Il cervello ascolta una voce e ti giudica in meno di un decimo di secondo",
+     "author": "Lavan, Rinke, Scharinger · PNAS, 2024",
+     "confidence": 1,
+     "transcript": "",
+     "summary": "Già circa 80 millisecondi dopo l'inizio di una voce, l'EEG contiene tracce di giudizi su età, genere, salute, dominanza, fiducia, istruzione e professionalità, e questi giudizi sono molto legati tra loro.",
+     "images": [
+      {
+       "title": "Il cronometro nell'orecchio",
+       "text": "Un cronometro enorme infilato in un orecchio: scatta a 80 e si ferma a 80 millisecondi, mentre una voce entra. Codifica il dato: dopo circa 80 ms compaiono già tracce di impressioni."
+      },
+      {
+       "title": "Cinquantatré virgola uno al banco",
+       "text": "Su un bancone di salumeria una bilancia segna 53,1 e il banconista grida 'decodifica!'. Il picco della capacità di distinguere le voci è a 154 ms con 53,1% di accuratezza. Questa scena codifica solo quel numero."
+      },
+      {
+       "title": "La fila di sei cartelli appiccicosi",
+       "text": "Sei cartelli (salute, dominanza, fiducia, istruzione, professionalità, attrattiva) incollati l'uno all'altro come una catena di caramelle. Se tiri uno si muovono tutti. Codifica l'effetto alone: le impressioni sono molto correlate."
+      },
+      {
+       "title": "Il vocalizzo da 400 millisecondi",
+       "text": "Un cantante lirico apre la bocca e tiene una sola vocale lunga come un bip. Nessuna parola, solo suono. Codifica il disegno: vocali /a/ /i/ /u/ da 400 ms, senza contenuto linguistico."
+      },
+      {
+       "title": "La gara di nuoto invisibile",
+       "text": "Genere ed età nuotano in corsia uno e due e toccano per primi (circa 120 ms), la fiducia arriva a fine piscina asciugandosi tardi. Codifica la sequenza: le caratteristiche fisiche emergono prima di quelle di tratto e sociali."
+      },
+      {
+       "title": "Il filtro che si dissolve",
+       "text": "Un barista filtra del caffè e nel filtro restano solo tre granelli: genere, età, dominanza. Salute, attrattiva e istruzione non lasciano granelli. Codifica il Modello 3: restano rappresentazioni indipendenti solo per alcune caratteristiche."
+      }
+     ],
+     "phrases": [
+      "La tua voce parla prima di te: il cervello dell'altro ha già un'idea prima che finisci la prima sillaba.",
+      "Il primo suono non decide tutto, ma imposta il quadro. Dopo si lavora per correggerlo.",
+      "Quando giudichi qualcuno dalla voce, ricordati che stai giudicando anche il tuo stesso alone.",
+      "Fiducia, dominanza e professionalità viaggiano insieme: sembra competente, sembra affidabile. Non è logica, è alone.",
+      "Prima delle parole c'è il timbro. Cura l'attacco, perché è quello che arriva per primo."
+     ],
+     "quotes": [
+      "When we hear a voice, we hear a person (Lavan et al. 2024)",
+      "representations emerge early (~80 ms after stimulus onset) (Lavan et al. 2024, abstract)"
+     ],
+     "deep": [
+      {
+       "title": "Disegno dello studio",
+       "text": "EEG a 32 elettrodi su 32 partecipanti (età media 25,22, 21 donne, madrelingua tedesca). Ascoltano 96 registrazioni da 400 ms: 32 voci, tre vocali ciascuna, con un compito di controllo di tipo 1-back. In una seconda sessione valutano ogni voce su genere, età, salute, attrattiva, dominanza, fiducia, istruzione, professionalità."
+      },
+      {
+       "title": "Risultati principali",
+       "text": "Le voci diverse si distinguono nell'EEG già a 66 ms, con picco a 154 ms (accuratezza media 53,1%, d = 1,23). Le rappresentazioni delle caratteristiche emergono da circa 80-102 ms. Nelle valutazioni, due componenti spiegano l'83,7% della varianza, e fiducia e dominanza stanno nella stessa."
+      },
+      {
+       "title": "Le impressioni sono intrecciate",
+       "text": "Dopo aver tolto acustica e tutte le altre caratteristiche (Modello 3) restano rappresentazioni indipendenti per genere (127-181 ms), età, dominanza (384-432 ms) e professionalità (367-535 ms); per fiducia solo 647-700 ms. Nessuna per salute, attrattiva e istruzione. Gli autori la leggono come tracce di un possibile meccanismo dell'effetto alone."
+      },
+      {
+       "title": "Applicazione pratica (applicazione mia)",
+       "text": "Per un coach la voce è parte del primo messaggio: lavori su attacco, timbro e calma nei primi secondi, perché l'impressione parte lì. Gli autori però non testano interventi e non studiano parole né discorsi, quindi è una mia lettura."
+      },
+      {
+       "title": "Limiti dello studio",
+       "text": "Gli autori usano solo vocali sostenute da 400 ms, senza parole né stile di parlato, quindi non sappiamo quanto un'impressione iniziale venga cambiata da ciò che si dice nei secondi successivi. Definiscono 'altamente speculativa' l'interpretazione sulla gerarchia causale tra caratteristiche. Il campione è di 32 persone di madrelingua tedesca."
+      }
+     ],
+     "concepts": [],
+     "data": [
+      "PNAS 2024, 121(26), e2318361121. DOI 10.1073/pnas.2318361121",
+      "32 partecipanti, 96 registrazioni di vocali da 400 ms, EEG a 32 elettrodi",
+      "Decodifica delle voci da 66 ms, picco a 154 ms, 53,1%, d = 1,23",
+      "Rappresentazioni delle caratteristiche da circa 80-102 ms",
+      "Due componenti principali spiegano l'83,7% della varianza dei giudizi"
+     ],
+     "unclear": [],
+     "questions": [
+      {
+       "q": "Da quando compaiono nell'EEG le tracce delle impressioni sulla voce?",
+       "ideal": "Da circa 80 millisecondi dopo l'inizio della voce."
+      },
+      {
+       "q": "Cosa rappresenta la fila di cartelli appiccicosi?",
+       "ideal": "L'effetto alone: i giudizi su salute, dominanza, fiducia, istruzione e professionalità sono molto correlati tra loro."
+      },
+      {
+       "q": "Spiega con parole tue cosa significa 'rappresentazione indipendente' nel Modello 3.",
+       "ideal": "Una traccia neurale della caratteristica che resta dopo aver tolto l'acustica e tutte le altre caratteristiche valutate."
+      },
+      {
+       "q": "Quali caratteristiche emergono prima e quali dopo nelle rappresentazioni indipendenti?",
+       "ideal": "Genere ed età prima (circa 120 ms); dominanza, professionalità e fiducia più tardi (da circa 360 ms in poi)."
+      },
+      {
+       "q": "Quali limiti dichiarano gli autori?",
+       "ideal": "Solo vocali da 400 ms senza parole, impressioni iniziali che cambiano nel tempo, interpretazione causale speculativa, 32 partecipanti tedeschi."
       }
      ]
     }
