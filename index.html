@@ -193,10 +193,10 @@ const Store={
   SEED.forEach(s=>{if(done.includes(s.id))return;done.push(s.id);ch=true;if(S.chapters.find(x=>x.id===s.id))return;
    S.chapters.push(Object.assign({},s,{createdAt:now,questions:s.questions.map((x,k)=>({id:"q"+k,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0}))}))});
   if(ch){S.chapters.sort((a,b)=>b.createdAt-a.createdAt);this._persist();localStorage.setItem("rc_seeded",JSON.stringify(done))}}catch(e){}},
- _persist(){try{localStorage.setItem("rc_chapters",JSON.stringify(S.chapters))}catch(e){toast("Memoria piena: esporta una copia")}},
- async put(c){S.chapters=[c,...S.chapters.filter(x=>x.id!==c.id)].sort((a,b)=>b.createdAt-a.createdAt);this._persist()},
- async patch(id,p){const c=S.chapters.find(x=>x.id===id);if(c)Object.assign(c,p);this._persist()},
- async remove(id){S.chapters=S.chapters.filter(x=>x.id!==id);this._persist()}};
+ _persist(quiet){try{localStorage.setItem("rc_chapters",JSON.stringify(S.chapters))}catch(e){toast("Memoria piena: esporta una copia")}if(!quiet&&window.Sync)Sync.schedule()},
+ async put(c){c.u=Date.now();S.chapters=[c,...S.chapters.filter(x=>x.id!==c.id)].sort((a,b)=>b.createdAt-a.createdAt);this._persist()},
+ async patch(id,p){const c=S.chapters.find(x=>x.id===id);if(c){Object.assign(c,p);c.u=Date.now()}this._persist()},
+ async remove(id){S.chapters=S.chapters.filter(x=>x.id!==id);try{const d=JSON.parse(localStorage.getItem("rc_del")||"[]").filter(x=>x.id!==id);d.push({id,at:Date.now()});localStorage.setItem("rc_del",JSON.stringify(d.slice(-300)))}catch(e){}this._persist()}};
 
 /* ---------- AI: chiamata diretta all'API Anthropic con la chiave salvata sul telefono ---------- */
 const MODEL_MAIN="claude-sonnet-5-5",MODEL_FAST="claude-haiku-5-5";
@@ -686,6 +686,7 @@ ${card("o","Chiave di trascrizione (OpenAI)",ho,"Serve a trasformare la tua voce
 ${card("a","Chiave AI (Anthropic)",ha,"Serve a riconoscere il libro, estrarre i concetti e valutare le risposte.","", "sk-ant-…")}
 ${ho&&ha?"":`<div class="row"><button class="link" data-act="skipkey">Continua</button></div>`}
 <div class="card stack" style="gap:10px"><b style="font-weight:600">Promemoria serale</b><div class="muted">Un evento ripetuto nel Calendario, con il link che apre la registrazione. L'iPhone ti chiede di confermarlo.</div><input type="time" id="rm-time" value="21:30" aria-label="Orario del promemoria" style="width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;padding:12px 16px"><button class="pill ghost" data-act="reminder">Aggiungi al Calendario</button></div>
+<div class="card stack" style="gap:10px"><b style="font-weight:600">Sincronizza computer e telefono</b>${Sync.tok()?`<div class="muted">Attiva. I capitoli si aggiornano da soli tra i dispositivi collegati con lo stesso token.${Sync.last||+(localStorage.getItem("rc_gsync")||0)?" Ultima sincronizzazione: "+new Date(Sync.last||+localStorage.getItem("rc_gsync")).toLocaleString("it-IT",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})+".":""}</div>${Sync.msg?`<div class="err">${esc(Sync.msg)}</div>`:""}<div class="row"><button class="pill grow" data-act="ghsync">Sincronizza ora</button><button class="link" data-act="ghclear" style="color:var(--bad)">Disattiva</button></div>`:`<div class="muted">Un solo passaggio, uguale su ogni dispositivo. 1) Apri <a href="https://github.com/settings/tokens/new?scopes=gist&description=ripeti-il-capitolo" target="_blank" rel="noopener" style="color:var(--accent)">questa pagina di GitHub</a>. 2) In "Expiration" scegli "No expiration" e premi in fondo "Generate token". 3) Copia il codice che inizia con ghp_ e incollalo qui sotto. Il token dà accesso solo ai tuoi gist, non ai tuoi repository. I capitoli stanno in un file nascosto (non pubblico, ma chi ha il link può leggerlo).</div><input type="password" id="k-g" placeholder="ghp_…" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Token GitHub"><div class="err" id="err-g"></div><button class="pill" data-act="ghsave">Attiva la sincronizzazione</button>`}</div>
 <div class="card stack" style="gap:10px"><b style="font-weight:600">Copia dei dati</b><div class="muted">I capitoli stanno solo su questo telefono. Se cancelli i dati del sito o cambi telefono si perdono. Esporta una copia ogni tanto e salvala in File.</div><div class="row"><button class="pill ghost grow" data-act="export">Esporta copia</button><label class="pill ghost grow" style="display:flex;align-items:center;justify-content:center;cursor:pointer">Importa copia<input type="file" id="imp" accept="application/json,.json" hidden></label></div></div></div>`};
 
 const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
@@ -1055,6 +1056,58 @@ function route(){
 }
 window.addEventListener("hashchange",route);
 
+/* ---------- sincronizzazione tra dispositivi (gist segreto su GitHub) ---------- */
+const lsj=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||"")||d}catch(e){return d}};
+const Sync={t:null,busy:false,msg:"",last:0,
+ tok(){try{return localStorage.getItem("rc_gh")||""}catch(e){return ""}},
+ gid(){try{return localStorage.getItem("rc_gid")||""}catch(e){return ""}},
+ async api(path,opt){opt=opt||{};
+  let r;try{r=await fetch("https://api.github.com"+path,{method:opt.method||"GET",headers:{Authorization:"Bearer "+this.tok(),Accept:"application/vnd.github+json","Content-Type":"application/json"},body:opt.body?JSON.stringify(opt.body):undefined})}catch(e){throw{code:"network"}}
+  if(r.status===401||r.status===403)throw{code:"gh_auth"};if(!r.ok)throw{code:"gh_"+r.status};return r.json()},
+ async findGist(){for(let p=1;p<=3;p++){const l=await this.api("/gists?per_page=100&page="+p);const g=l.find(x=>x.description==="ripeti-il-capitolo-dati");if(g)return g.id;if(l.length<100)break}return ""},
+ async readRemote(){const g=await this.api("/gists/"+this.gid());const f=g.files&&g.files["ripeti.json"];if(!f)return null;
+  let t=f.content;if(f.truncated){const r=await fetch(f.raw_url);t=await r.text()}return {txt:t,obj:JSON.parse(t)}},
+ better(a,b){const ua=a.u||0,ub=b.u||0;if(ua!==ub)return ua>ub?a:b;const t=c=>(c.questions||[]).reduce((n,q)=>n+(q.tries||0),0);return t(b)>t(a)?b:a},
+ build(r){
+  const del={};[...lsj("rc_del",[]),...((r&&r.del)||[])].forEach(x=>{if(x&&x.id&&(!del[x.id]||del[x.id]<x.at))del[x.id]=x.at});
+  const m=new Map();S.chapters.forEach(c=>m.set(c.id,c));
+  ((r&&r.chapters)||[]).forEach(c=>{if(!c||!c.id)return;m.set(c.id,m.has(c.id)?this.better(m.get(c.id),c):c)});
+  const chs=[...m.values()].filter(c=>!(del[c.id]&&del[c.id]>=(c.u||0))).sort((a,b)=>b.createdAt-a.createdAt);
+  const un=(k,rk)=>[...new Set([...lsj(k,[]),...((r&&r[rk])||[])])].sort();
+  return {v:1,chapters:chs,del:Object.keys(del).sort().map(id=>({id,at:del[id]})),batches:un("rc_batches","batches"),sost:un("rc_sost","sost"),seeded:un("rc_seeded","seeded")}},
+ async run(){
+  if(!this.tok()||this.busy)return;this.busy=true;this.msg="";
+  try{
+   if(!this.gid()){const id=await this.findGist();if(id)localStorage.setItem("rc_gid",id)}
+   let rem=null;if(this.gid())rem=await this.readRemote();
+   const m=this.build(rem&&rem.obj);
+   const mk=JSON.stringify(m.chapters.map(c=>c.id+":"+(c.u||0)));
+   const lk=JSON.stringify(S.chapters.slice().sort((a,b)=>b.createdAt-a.createdAt).map(c=>c.id+":"+(c.u||0)));
+   const changed=mk!==lk||m.chapters.some(c=>!S.chapters.includes(c));
+   if(changed){S.chapters=m.chapters;Store._persist(true)}
+   try{localStorage.setItem("rc_batches",JSON.stringify(m.batches));localStorage.setItem("rc_sost",JSON.stringify(m.sost));localStorage.setItem("rc_seeded",JSON.stringify(m.seeded));localStorage.setItem("rc_del",JSON.stringify(m.del))}catch(e){}
+   const txt=JSON.stringify(m);
+   if(!rem||rem.txt!==txt){
+    const body={files:{"ripeti.json":{content:txt}}};
+    if(this.gid())await this.api("/gists/"+this.gid(),{method:"PATCH",body});
+    else{const g=await this.api("/gists",{method:"POST",body:Object.assign({description:"ripeti-il-capitolo-dati",public:false},body)});localStorage.setItem("rc_gid",g.id)}
+   }
+   this.last=Date.now();try{localStorage.setItem("rc_gsync",String(this.last))}catch(e){}
+   if(changed&&["home","library","chapter","settings"].includes(S.view))render();
+  }catch(e){this.msg=e&&e.code==="gh_auth"?"Il token GitHub non è valido o è scaduto. Creane uno nuovo.":e&&e.code==="network"?"Nessuna connessione, riprovo più tardi.":"Sincronizzazione non riuscita ("+((e&&e.code)||"errore")+"). Riprovo più tardi."}
+  this.busy=false;if(S.view==="settings")render();
+ },
+ schedule(){if(!this.tok())return;clearTimeout(this.t);this.t=setTimeout(()=>this.run(),4000)}};
+window.Sync=Sync;
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&Sync.tok()&&Date.now()-Sync.last>20000)Sync.run()});
+document.addEventListener("click",ev=>{const el=ev.target.closest("[data-act]");if(!el)return;const a=el.dataset.act;
+ if(a==="ghsave"){const v=(($("#k-g")||{}).value||"").trim(),e=$("#err-g");
+  if(!/^(ghp_|github_pat_|gho_)/.test(v)||v.length<30){if(e)e.textContent="Non sembra un token GitHub: deve iniziare con ghp_ ed essere lungo.";return}
+  try{localStorage.setItem("rc_gh",v)}catch(x){if(e)e.textContent="Non riesco a salvarlo su questo browser.";return}
+  toast("Sincronizzo…");Sync.run().then(()=>{toast(Sync.msg||"Sincronizzato")});render()}
+ else if(a==="ghsync"){toast("Sincronizzo…");Sync.run().then(()=>toast(Sync.msg||"Sincronizzato"))}
+ else if(a==="ghclear"){try{localStorage.removeItem("rc_gh");localStorage.removeItem("rc_gid")}catch(x){}toast("Sincronizzazione disattivata");render()}});
+
 /* ---------- avvio ---------- */
 (function(){
  Store.init();
@@ -1068,7 +1121,7 @@ window.addEventListener("hashchange",route);
    S.micErr=(state==="idle"&&reason)?micMsg(reason):"";paintRec()});
 
  }
- render();route();loadWeekly();
+ render();route();loadWeekly();if(Sync.tok())setTimeout(()=>Sync.run(),1500);
  if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 })();
 </script>
