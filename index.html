@@ -380,6 +380,7 @@ V.chapter=()=>{
  ${list("Citazioni",c.quotes,x=>`<div class="note quote">${esc(x)}</div>`)}
  ${checksHtml(c.checks)}
  ${list("Per capire meglio",c.deep,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
+ ${c.tools&&c.tools.length?`<div class="sec"><h2>Strumenti da usare</h2><div class="stack" style="gap:8px">${c.tools.map(t=>`<div class="note"><b>${esc(t.title)}</b>${t.when?`<span class="muted" style="display:block;margin-bottom:6px">Quando: ${esc(t.when)}</span>`:""}<ol style="margin:0;padding-left:20px;display:grid;gap:4px">${(t.steps||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ol>${t.note?`<span class="muted" style="display:block;margin-top:8px">${esc(t.note)}</span>`:""}</div>`).join("")}</div></div>`:""}
  ${list("Concetti",c.concepts,x=>`<div class="note"><b>${esc(x.title)}</b>${esc(x.text)}</div>`)}
  ${list("Dati",c.data,x=>`<div class="note">${esc(x)}</div>`)}
  ${c.unclear&&c.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${c.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
@@ -560,6 +561,11 @@ async function loadWeekly(){
   let got=[];try{got=JSON.parse(localStorage.getItem("rc_batches")||"[]")}catch(e){}
   const ret=j.ritirati||[],n0=S.chapters.length;
   S.chapters=S.chapters.filter(c=>!(ret.includes(c.id)&&!paperDone(c)));if(S.chapters.length!==n0){Store._persist();if(["home","library"].includes(S.view))render();}
+  let sd=[];try{sd=JSON.parse(localStorage.getItem("rc_sost")||"[]")}catch(e){}
+  let chg=false;(j.sostituzioni||[]).forEach(x=>{const key=x.id+":"+x.v;if(sd.includes(key))return;const c=S.chapters.find(y=>y.id===x.id);if(!c)return;
+   const p=Object.assign({},x.patch);if(p.questions){const nw=Date.now();p.questions=p.questions.map((q,n)=>({id:"q"+n,q:q.q,ideal:q.ideal,step:0,due:nw+INT[0]*DAY,last:0,tries:0}));delete c.doneAt;delete c.prova}
+   Object.assign(c,p);sd.push(key);chg=true});
+  if(chg){Store._persist();try{localStorage.setItem("rc_sost",JSON.stringify(sd))}catch(e){}if(["home","library","chapter"].includes(S.view))render()}
   const ok=(j.batches||[]).map(b=>Object.assign({},b,{papers:(b.papers||[]).filter(p=>!ret.includes(p.id))})).filter(b=>b.papers.length&&!got.includes(b.id)&&(!b.from||Date.now()>=new Date(b.from).getTime()));
   if(!ok.length||S.chapters.some(c=>c.batch&&!paperDone(c)))return;
   const b=ok[ok.length-1],now=Date.now();

@@ -418,98 +418,173 @@
        "q": "Che equivoco evitare?",
        "ideal": "Che serva essere perfetti: la frase dice che la fiducia viene prima, non che bisogna essere impeccabili."
       }
+     ],
+     "tools": [
+      {
+       "title": "Il test dei due filtri prima di una leva persuasiva",
+       "when": "Quando stai per usare urgenza, scarsità, prova sociale o qualunque leva su una persona.",
+       "steps": [
+        "Dai un nome alla leva che stai per usare, ad alta voce o per iscritto.",
+        "Primo filtro: la useresti con una persona a cui vuoi bene?",
+        "Secondo filtro: ti starebbe bene che la persona vedesse esattamente come la stai usando?",
+        "Se uno dei due filtri dice no, riformula dicendo apertamente cosa vuoi e perché."
+       ],
+       "note": "Applicazione mia, ricavata dal principio di Catone, Cicerone e Quintiliano: la fiducia viene prima della tecnica. I classici non danno questo test."
+      },
+      {
+       "title": "La frase da tenere pronta",
+       "when": "Quando qualcuno ti chiede di insegnargli a convincere.",
+       "steps": [
+        "Dì: 'Vir bonus dicendi peritus', l'uomo onesto esperto nel parlare.",
+        "Spiega in una riga: la tecnica da sola, senza onestà, è un'arma.",
+        "Porta un esempio vicino a chi hai davanti: un venditore che ti ha convinto una volta e poi ti ha perso per sempre."
+       ],
+       "note": "Per l'uso in conversazione. L'esempio lo scegli tu: non attribuirti esperienze che non hai."
+      }
      ]
     },
     {
      "id": "w47d-thin-slices",
-     "chapter": "Bastano pochi minuti di comportamento per leggere una persona, ma non tutto si legge uguale",
-     "author": "Murphy e Hall · Frontiers in Psychology, 2021 (rassegna sulle thin slices)",
+     "chapter": "Cos'è una thin slice: cosa leggi davvero di una persona in pochi minuti",
+     "author": "Murphy e Hall · Frontiers in Psychology, 2021 (rassegna sulle thin slices, con i dati di Ambady, Carney, Hall e altri)",
      "confidence": 1,
      "transcript": "",
-     "summary": "Una fetta sottile è un breve estratto di comportamento, di solito sotto i 5 minuti. Funziona bene per alcuni segnali, come lo sguardo, e male per altri, come quanto parla una persona. Le fette prese dal centro di un'interazione valgono più di quelle dell'inizio.",
+     "summary": "Una thin slice è un breve estratto di comportamento, di solito sotto i 5 minuti. Da una fetta si leggono bene i segnali stabili (sguardo, cenni del capo, sorrisi) e male quelli che cambiano da un momento all'altro (quanto parla). La fetta migliore sta nel centro dell'interazione, e due o tre fette insieme valgono quasi quanto cinque minuti.",
      "images": [
       {
-       "title": "Il prosciutto affettato",
-       "text": "Un salumiere affetta una coscia di prosciutto: ogni fetta è sottile, ma la prima e l'ultima sono più secche. La fetta migliore è quella presa dal centro: il centro di una conversazione dice più dei primi secondi."
+       "title": "Il tagliere con tre fette",
+       "text": "Sul tagliere di un bar ci sono tre fette di mortadella prese da punti diversi del salume: ne bastano due o tre per sapere com'è tutto il resto. Due o tre fette insieme rappresentano bene l'interazione intera."
       },
       {
-       "title": "Il faro dello sguardo",
-       "text": "Un faro che gira sul mare: ogni volta che ripassa, illumina nello stesso punto. Lo sguardo è il segnale più stabile: una fetta basta per capire come guarda una persona."
+       "title": "Il faro che non cambia mai",
+       "text": "Un faro sulla scogliera illumina sempre lo stesso scoglio a ogni giro. Lo sguardo è il segnale più stabile da una fetta all'altra."
       },
       {
-       "title": "Il cronometro che mente",
-       "text": "Una persona che parla con un cronometro in bocca: un minuto parla tanto, il minuto dopo quasi niente. Quanto parla cambia da fetta a fetta, quindi una fetta non lo rappresenta."
+       "title": "Il cronometro impazzito",
+       "text": "Un cronometro che corre a scatti: un minuto tutto in avanti, il minuto dopo fermo. Quanto parla una persona cambia da fetta a fetta, quindi una fetta non lo rappresenta."
       },
       {
-       "title": "La sveglia a 5 secondi",
-       "text": "Una sveglia che suona dopo soli 5 secondi di faccia sconosciuta e ti dice già qualcosa su estroversione e coscienziosità. Non dice quasi niente sulla gradevolezza."
+       "title": "La porta girevole al secondo cinque",
+       "text": "Una porta girevole che dopo soli cinque secondi ti lancia fuori già con un cartellino su estroversione e coscienziosità, ma con il cartellino della gradevolezza ancora in bianco. A 5 secondi si è sopra il caso per quasi tutti i tratti, tranne la gradevolezza."
+      },
+      {
+       "title": "Il cuoco che assaggia al centro",
+       "text": "Un cuoco assaggia il sugo solo dal centro della pentola, mai dal bordo che si è bruciato. Le fette prese dal centro dell'interazione valgono più di quelle dell'inizio e della fine."
+      },
+      {
+       "title": "Il sorriso di cartone contro quello vero",
+       "text": "Un sorriso di cartone posato si riconosce in un lampo, uno vero e spontaneo resta confuso anche dopo molto tempo. Le espressioni posate si leggono in un quinto di secondo, quelle spontanee sono difficili anche con esposizioni lunghe."
       }
      ],
      "phrases": [
-      "Pochi minuti di comportamento bastano per un primo quadro, ma i primi secondi sono il pezzo meno affidabile.",
-      "Lo sguardo si legge in una fetta. Quanto parla una persona, no.",
-      "Se vuoi capire come è fatta una persona, guarda il centro della conversazione, non l'apertura.",
-      "Una fetta sottile è una buona ipotesi, non una sentenza."
+      "I primi secondi mi dicono qualcosa, ma il pezzo che conta è il centro della conversazione.",
+      "Non giudico uno da quanto parla: è il segnale che cambia di più da un minuto all'altro.",
+      "Una fetta è un'ipotesi, tre fette che dicono la stessa cosa cominciano a essere un'informazione.",
+      "Riconoscere un sorriso finto è facile, leggere uno spontaneo è un altro mestiere."
      ],
      "quotes": [],
      "deep": [
       {
-       "title": "Che cos'è",
-       "text": "Un breve estratto di un flusso di comportamento, di solito sotto i 5 minuti. Il termine viene da Ambady e Rosenthal, che in una meta-analisi mostrarono che dalle fette si possono prevedere altre variabili."
+       "title": "Che cos'è davvero",
+       "text": "Un breve estratto di un flusso di comportamento, di solito sotto i 5 minuti. Il termine lo coniano Ambady e Rosenthal nel 1992 con una meta-analisi sulle correlazioni tra comportamento osservato in estratti e risultati come depressione, efficacia degli insegnanti o soddisfazione dei pazienti. Gli estratti brevi si usavano già prima: nel 1974 clip mute da 2 minuti per riconoscere la depressione, nel 1980 clip da 1 e 2 minuti per distinguere chi diceva il vero."
       },
       {
-       "title": "Cosa funziona",
-       "text": "Gaze, cenni del capo e sorrisi sono abbastanza stabili da una fetta all'altra. In uno studio su 15 minuti di interazione, due fette da 1 minuto bastavano per rappresentare tutti questi comportamenti. Il tempo in cui una persona parla invece varia molto e una fetta non lo rappresenta."
+       "title": "Perché in teoria funziona",
+       "text": "Si regge su due idee. La coerenza comportamentale: i tratti di una persona si esprimono con una certa regolarità in situazioni diverse. E il modello a lente di Brunswik: un segnale (per esempio il sorriso) è legato all'impressione che ti fai e, a parte, alla caratteristica reale della persona. Non è detto che le due cose coincidano, ed è lì che si sbaglia."
+      },
+      {
+       "title": "Cosa si ripete da una fetta all'altra",
+       "text": "In quattro studi con fette da 30 secondi o 1 minuto, prese da interazioni di 5-9 minuti, lo sguardo era il comportamento più stabile. Gesti, cenni del capo, tocchi di sé e sorrisi arrivavano a livelli ragionevoli. Il tempo di parola no: non c'era alcuna prova che una fetta ne prevedesse un'altra."
+      },
+      {
+       "title": "Una fetta o più fette",
+       "text": "In un esperimento con 50 persone in conversazioni da 15 minuti, una fetta da 1 minuto rappresentava bene sguardo, cenni, gesti e sorrisi, ma non i tocchi di sé. Sommando due fette scelte a caso, tutti i comportamenti arrivavano a un livello accettabile. In più studi, 2 minuti predicevano quasi quanto 5 minuti interi."
       },
       {
        "title": "Dove prendere la fetta",
-       "text": "Le fette prese dal centro di un'interazione rappresentano meglio il tutto di quelle dell'inizio o della fine. In un'analisi su colloqui clinici, le fette dopo i primi 5 minuti erano le migliori."
+       "text": "Le fette dal centro dell'interazione rappresentano il tutto meglio di quelle dell'inizio o della fine. In uno studio su colloqui di counseling, fette da 5 minuti prese dopo i primi 5 minuti avevano la validità più alta. Gli autori consigliano di evitare l'inizio."
       },
       {
-       "title": "Quanto durano",
-       "text": "Per i tratti di personalità, le persone sono sopra il caso già a 5 secondi per quasi tutti i Big Five, con l'eccezione della gradevolezza. Passare da 60 a 300 secondi migliora poco. Per predire altre variabili, 2 minuti erano quasi bravi quanto 5."
+       "title": "Cinque secondi, ma dipende dal tratto",
+       "text": "Nello studio di Carney e colleghi (fette di 5, 20, 45, 60 e 300 secondi) la precisione era sopra il caso già a 5 secondi per tutti i tratti Big Five tranne la gradevolezza. Passare da 60 a 300 secondi aggiungeva poco. Con clip molto più lunghe, 25-30 minuti erano più precisi di 5-10 minuti, ma 5-10 e 15-20 erano quasi alla pari, e 3 ore di interazione non battevano 50 minuti."
       },
       {
-       "title": "Quanto conta la prima impressione",
-       "text": "Quasi un terzo dei responsabili delle assunzioni dice di decidere se un candidato va bene nei primi 5 minuti. Per i giudizi su orientamento sessuale, la precisione è sopra il caso con foto da 50 millisecondi, ma non da 33."
+       "title": "Emozioni: posate o spontanee",
+       "text": "Le emozioni di base, mostrate in modo posato, si riconoscono già con esposizioni di un quinto di secondo. Le espressioni spontanee sono molto più difficili da giudicare, anche con esposizioni più lunghe. Quindi la regola 'bastano pochi istanti' vale per i segnali chiari, non per quelli veri e sfumati."
       },
       {
-       "title": "Quando non funziona",
-       "text": "In uno studio su madri e figli sordi, fette da 3 minuti di gioco non rappresentavano 18 minuti di interazione. La conclusione degli autori è che le fette vanno scelte in base a cosa misuri."
+       "title": "Cosa succede nel mondo reale",
+       "text": "In visite mediche e in chiamate di assistenza tecnica, il primo minuto o due dell'interazione prevedeva esiti importanti come la soddisfazione. Ma nei dati sulle visite, la sola prima fetta da 1 minuto prevedeva peggio dei 3 minuti insieme per diverse variabili. Quasi un terzo dei responsabili delle assunzioni dice di decidere se un candidato è adatto entro i primi 5 minuti."
       },
       {
        "title": "Limiti dello studio",
-       "text": "È una rassegna, non un esperimento. La gran parte delle ricerche riguarda persone bianche, europee o americane, giovani adulti o bambini. Pochi studi hanno guardato culture diverse."
+       "text": "È una rassegna, non un esperimento, e gli autori scrivono che molte scelte dei ricercatori su durata e posizione della fetta sono 'un atto di fede'. Con madri e figli sordi, fette da 3 minuti di gioco non rappresentavano i 18 minuti interi. In un testo scritto, l'ultima fetta non dava alcuna precisione sul nevroticismo. La lunghezza giusta cambia con ciò che si misura."
       }
      ],
      "concepts": [],
      "data": [
       "Murphy NA, Hall JA. Front Psychol 2021;12:667326, DOI 10.3389/fpsyg.2021.667326",
-      "Letto il testo completo",
-      "Hall e colleghi: tre fette da 1 minuto in un'intervista medica di 15, correlazioni tra 0,60 e 0,82",
-      "Carney e colleghi: Big Five a 5, 20, 45, 60 e 300 secondi"
+      "Rassegna, testo completo letto",
+      "Murphy 2005: 50 persone, conversazioni da 15 minuti, fette da 1 minuto",
+      "Carney e colleghi: Big Five a 5, 20, 45, 60 e 300 secondi",
+      "Hall e colleghi 2009: tre fette da 1 minuto in visite mediche da 15, correlazioni tra 0,60 e 0,82"
      ],
      "unclear": [],
      "questions": [
       {
-       "q": "Cosa sono le thin slices e di che durata sono di solito?",
-       "ideal": "Brevi estratti di un flusso di comportamento, di solito sotto i 5 minuti."
+       "q": "Che cos'è una thin slice e chi ha coniato il termine?",
+       "ideal": "Un breve estratto di comportamento, di solito sotto i 5 minuti. Il termine è di Ambady e Rosenthal, 1992, da una meta-analisi."
       },
       {
-       "q": "Quali segnali si leggono bene da una fetta e quali no?",
-       "ideal": "Bene sguardo, cenni del capo e sorrisi. Male il tempo di parola e, in genere, i gesti."
+       "q": "Quali segnali si ripetono da una fetta all'altra e quale no?",
+       "ideal": "Lo sguardo è il più stabile, e gesti, cenni, tocchi di sé e sorrisi arrivano a livelli ragionevoli. Il tempo di parola non si ripete."
       },
       {
-       "q": "Da dove conviene prendere la fetta?",
-       "ideal": "Dal centro dell'interazione: quelle dell'inizio e della fine rappresentano peggio il tutto."
+       "q": "Da dove conviene prendere la fetta e perché non dall'inizio?",
+       "ideal": "Dal centro dell'interazione. Le fette dell'inizio e della fine rappresentano peggio il tutto, e per i colloqui di counseling le fette dopo i primi 5 minuti erano le migliori."
       },
       {
-       "q": "Dopo quanto tempo si è già sopra il caso nel giudicare la personalità?",
-       "ideal": "Già a 5 secondi per quasi tutti i tratti, tranne la gradevolezza. Dopo 60 secondi il guadagno è piccolo."
+       "q": "Cosa dice lo studio di Carney sulla personalità a 5 secondi e su 60 contro 300 secondi?",
+       "ideal": "A 5 secondi si è già sopra il caso per tutti i tratti Big Five tranne la gradevolezza. Passare da 60 a 300 secondi aggiunge poco."
       },
       {
-       "q": "Quando una fetta può ingannare?",
-       "ideal": "Quando il comportamento varia molto nel tempo, come il tempo di parola, o con popolazioni particolari, come nello studio su madri e figli sordi."
+       "q": "Quali limiti hanno questi risultati e come si usa una fetta in pratica?",
+       "ideal": "La lunghezza giusta cambia con ciò che si misura, e in alcuni contesti, come madri e figli sordi, la fetta non rappresenta il tutto. In pratica una fetta è un'ipotesi: meglio due o tre fette dal centro, e poi verificare."
+      }
+     ],
+     "tools": [
+      {
+       "title": "La lettura in tre finestre",
+       "when": "Prima conversazione, call, colloquio, primo incontro con un cliente.",
+       "steps": [
+        "Non decidere nei primi secondi: sono la parte meno rappresentativa. Aspetta di aver superato i primi minuti.",
+        "Scegli 2 o 3 finestre da uno o due minuti in momenti diversi, dal centro della conversazione in poi.",
+        "In ogni finestra guarda solo segnali stabili: dove guarda, se annuisce, se sorride.",
+        "Se almeno 2 finestre su 3 dicono la stessa cosa, hai un'ipotesi di lavoro. Se dicono cose diverse, non hai niente."
+       ],
+       "note": "Applicazione mia, ricavata da questi risultati: due fette sommate rappresentavano bene sguardo, cenni, gesti e sorrisi, e le fette migliori stanno nel centro."
+      },
+      {
+       "title": "Segnali da leggere e segnali da lasciare stare",
+       "when": "Quando stai per trarre una conclusione su una persona da quello che hai visto.",
+       "steps": [
+        "Affidabili da una fetta: sguardo, cenni del capo, sorrisi.",
+        "Inaffidabili da una fetta: quanto parla, spesso i gesti. Non concludere niente da un minuto in cui parla poco o tanto.",
+        "Espressioni spontanee e sfumate: serve più tempo e più contesto. Quelle posate le leggi subito, ma dicono poco.",
+        "Gradevolezza: nei primi secondi è il tratto che si legge peggio. Non giudicare se uno è simpatico o affidabile da un colpo d'occhio."
+       ],
+       "note": "Elenco tratto dai risultati su rappresentatività e accuratezza. La scelta di cosa leggere in conversazione è un'applicazione mia."
+      },
+      {
+       "title": "Dal segnale all'ipotesi, con verifica",
+       "when": "Ogni volta che ti fai un'idea su qualcuno e ci devi costruire sopra una decisione.",
+       "steps": [
+        "Scrivi (anche a mente) in due parti: 'ho visto' e 'ipotizzo'. Per esempio: ho visto che evita lo sguardo quando parla di soldi, ipotizzo che sia a disagio sul tema.",
+        "Ricorda che il segnale e la realtà possono non coincidere: nel modello di Brunswik il segnale è legato all'impressione e, a parte, alla caratteristica vera.",
+        "Fai una domanda o proponi qualcosa che metta alla prova l'ipotesi.",
+        "Aggiorna: tieni l'ipotesi solo se la risposta la conferma."
+       ],
+       "note": "Applicazione mia. Gli autori non testano interventi per leggere le persone: descrivono quanto sono affidabili gli estratti brevi."
       }
      ]
     },
@@ -602,6 +677,29 @@
       {
        "q": "Che risultato non ha confermato le ipotesi?",
        "ideal": "Il P300 davanti ai dolci non è diminuito dopo l'ascolto, è aumentato, e non si è legato alla disponibilità a pagare."
+      }
+     ],
+     "tools": [
+      {
+       "title": "Dal rischio astratto al corpo",
+       "when": "Quando vuoi convincere qualcuno a cambiare un'abitudine con una spiegazione.",
+       "steps": [
+        "Scegli il rischio di cui parli e trasformalo in una conseguenza fisica concreta, in una frase sola.",
+        "Usa immagini del corpo che cambia, come nello studio: pelle e acne da una parte, pressione e cuore dall'altra.",
+        "Lascia perdere statistiche generiche: nello studio i momenti in cui l'esperto parlava di effetti sul corpo erano quelli che prevedevano chi si lasciava convincere.",
+        "Chiudi con una domanda sul beneficio che per quella persona conta di più."
+       ],
+       "note": "Applicazione mia. Lo studio è su 45 studenti e un solo tema (lo zucchero): mostra che certi passaggi prevedono la persuasione, non che questa tecnica funzioni su tutti."
+      },
+      {
+       "title": "Calibrare chi ti ascolta",
+       "when": "Prima di scegliere come presentare un consiglio.",
+       "steps": [
+        "Osserva quanto la persona tende a conformarsi a ciò che dicono gli altri: chi si conforma di più, nello studio, ha cambiato di più la sua offerta.",
+        "Se la persona è conformista, gioca sul 'cosa fanno gli esperti' e su esempi di persone simili a lei.",
+        "Se è indipendente, parti dai suoi obiettivi e lascia che sia lei a trarre la conclusione."
+       ],
+       "note": "Applicazione mia. La correlazione con il conformismo era di -0,30, quindi un legame debole."
       }
      ]
     }
@@ -716,6 +814,29 @@
        "q": "Quali limiti dichiarano gli autori?",
        "ideal": "Restano aperti il perché dei pensieri così negativi e perché non si correggono; il gap sparisce a maggio nello Studio 5 senza una spiegazione testata; niente preregistrazione, mediazione per autovalutazione, campioni limitati."
       }
+     ],
+     "tools": [
+      {
+       "title": "La ricalibratura dopo un primo incontro",
+       "when": "Un cliente o un amico arriva dicendo 'ho fatto una brutta figura'.",
+       "steps": [
+        "Chiedi: da 1 a 7, quanto pensi di piacere all'altra persona?",
+        "Poi: quali segnali di apprezzamento hai visto? Sorrisi, domande a te, la conversazione che si allunga.",
+        "Fagli scrivere almeno tre segnali concreti: nello studio i segnali c'erano, ma venivano trascurati.",
+        "Chiedi se i pensieri su come l'altro l'ha vista sono più duri di quelli su come lui ha visto l'altro. Quasi sempre lo sono."
+       ],
+       "note": "Applicazione mia. Gli autori non testano interventi. Il divario è risultato più forte nelle persone più timide."
+      },
+      {
+       "title": "Il messaggio dopo la conversazione",
+       "when": "Hai appena parlato con una persona nuova e non sai se è andata bene.",
+       "steps": [
+        "Prima di rimuginare, scrivi tre cose concrete che l'altra persona ha fatto e che indicano interesse.",
+        "Se il dubbio resta, scrivile un messaggio breve e specifico su qualcosa di cui avete parlato.",
+        "Ricorda il dato: dopo una conversazione l'altro ti apprezza più di quanto pensi."
+       ],
+       "note": "Applicazione mia."
+      }
      ]
     },
     {
@@ -814,6 +935,19 @@
        "q": "Quali limiti dichiarano gli autori?",
        "ideal": "Solo vocali da 400 ms senza parole, impressioni iniziali che cambiano nel tempo, interpretazione causale speculativa, 32 partecipanti tedeschi."
       }
+     ],
+     "tools": [
+      {
+       "title": "Il controllo dell'attacco",
+       "when": "Prima di una call, di un video, di un intervento in cui conta la prima impressione.",
+       "steps": [
+        "Registra tre aperture diverse della stessa frase, per esempio 'Buongiorno, sono Luigi'.",
+        "Riascoltale senza guardare niente e dai un voto da 1 a 5 a dominanza e affidabilità.",
+        "Scegli quella che dà l'impressione che vuoi e ripetila fino a farla uscire naturale.",
+        "Respira prima di parlare: l'attacco parte dal primo suono."
+       ],
+       "note": "Applicazione mia. Lo studio usa vocali sostenute da 400 millisecondi e non testa interventi: non dice come cambiare una voce né quanto contano le parole dopo."
+      }
      ]
     }
    ]
@@ -829,5 +963,257 @@
   "w47c-persuasione-accoppiamento",
   "w47c-quintiliano-vir-bonus",
   "w47c-thin-slices"
+ ],
+ "sostituzioni": [
+  {
+   "id": "w47d-thin-slices",
+   "v": 1,
+   "patch": {
+    "chapter": "Cos'è una thin slice: cosa leggi davvero di una persona in pochi minuti",
+    "author": "Murphy e Hall · Frontiers in Psychology, 2021 (rassegna sulle thin slices, con i dati di Ambady, Carney, Hall e altri)",
+    "summary": "Una thin slice è un breve estratto di comportamento, di solito sotto i 5 minuti. Da una fetta si leggono bene i segnali stabili (sguardo, cenni del capo, sorrisi) e male quelli che cambiano da un momento all'altro (quanto parla). La fetta migliore sta nel centro dell'interazione, e due o tre fette insieme valgono quasi quanto cinque minuti.",
+    "images": [
+     {
+      "title": "Il tagliere con tre fette",
+      "text": "Sul tagliere di un bar ci sono tre fette di mortadella prese da punti diversi del salume: ne bastano due o tre per sapere com'è tutto il resto. Due o tre fette insieme rappresentano bene l'interazione intera."
+     },
+     {
+      "title": "Il faro che non cambia mai",
+      "text": "Un faro sulla scogliera illumina sempre lo stesso scoglio a ogni giro. Lo sguardo è il segnale più stabile da una fetta all'altra."
+     },
+     {
+      "title": "Il cronometro impazzito",
+      "text": "Un cronometro che corre a scatti: un minuto tutto in avanti, il minuto dopo fermo. Quanto parla una persona cambia da fetta a fetta, quindi una fetta non lo rappresenta."
+     },
+     {
+      "title": "La porta girevole al secondo cinque",
+      "text": "Una porta girevole che dopo soli cinque secondi ti lancia fuori già con un cartellino su estroversione e coscienziosità, ma con il cartellino della gradevolezza ancora in bianco. A 5 secondi si è sopra il caso per quasi tutti i tratti, tranne la gradevolezza."
+     },
+     {
+      "title": "Il cuoco che assaggia al centro",
+      "text": "Un cuoco assaggia il sugo solo dal centro della pentola, mai dal bordo che si è bruciato. Le fette prese dal centro dell'interazione valgono più di quelle dell'inizio e della fine."
+     },
+     {
+      "title": "Il sorriso di cartone contro quello vero",
+      "text": "Un sorriso di cartone posato si riconosce in un lampo, uno vero e spontaneo resta confuso anche dopo molto tempo. Le espressioni posate si leggono in un quinto di secondo, quelle spontanee sono difficili anche con esposizioni lunghe."
+     }
+    ],
+    "phrases": [
+     "I primi secondi mi dicono qualcosa, ma il pezzo che conta è il centro della conversazione.",
+     "Non giudico uno da quanto parla: è il segnale che cambia di più da un minuto all'altro.",
+     "Una fetta è un'ipotesi, tre fette che dicono la stessa cosa cominciano a essere un'informazione.",
+     "Riconoscere un sorriso finto è facile, leggere uno spontaneo è un altro mestiere."
+    ],
+    "quotes": [],
+    "deep": [
+     {
+      "title": "Che cos'è davvero",
+      "text": "Un breve estratto di un flusso di comportamento, di solito sotto i 5 minuti. Il termine lo coniano Ambady e Rosenthal nel 1992 con una meta-analisi sulle correlazioni tra comportamento osservato in estratti e risultati come depressione, efficacia degli insegnanti o soddisfazione dei pazienti. Gli estratti brevi si usavano già prima: nel 1974 clip mute da 2 minuti per riconoscere la depressione, nel 1980 clip da 1 e 2 minuti per distinguere chi diceva il vero."
+     },
+     {
+      "title": "Perché in teoria funziona",
+      "text": "Si regge su due idee. La coerenza comportamentale: i tratti di una persona si esprimono con una certa regolarità in situazioni diverse. E il modello a lente di Brunswik: un segnale (per esempio il sorriso) è legato all'impressione che ti fai e, a parte, alla caratteristica reale della persona. Non è detto che le due cose coincidano, ed è lì che si sbaglia."
+     },
+     {
+      "title": "Cosa si ripete da una fetta all'altra",
+      "text": "In quattro studi con fette da 30 secondi o 1 minuto, prese da interazioni di 5-9 minuti, lo sguardo era il comportamento più stabile. Gesti, cenni del capo, tocchi di sé e sorrisi arrivavano a livelli ragionevoli. Il tempo di parola no: non c'era alcuna prova che una fetta ne prevedesse un'altra."
+     },
+     {
+      "title": "Una fetta o più fette",
+      "text": "In un esperimento con 50 persone in conversazioni da 15 minuti, una fetta da 1 minuto rappresentava bene sguardo, cenni, gesti e sorrisi, ma non i tocchi di sé. Sommando due fette scelte a caso, tutti i comportamenti arrivavano a un livello accettabile. In più studi, 2 minuti predicevano quasi quanto 5 minuti interi."
+     },
+     {
+      "title": "Dove prendere la fetta",
+      "text": "Le fette dal centro dell'interazione rappresentano il tutto meglio di quelle dell'inizio o della fine. In uno studio su colloqui di counseling, fette da 5 minuti prese dopo i primi 5 minuti avevano la validità più alta. Gli autori consigliano di evitare l'inizio."
+     },
+     {
+      "title": "Cinque secondi, ma dipende dal tratto",
+      "text": "Nello studio di Carney e colleghi (fette di 5, 20, 45, 60 e 300 secondi) la precisione era sopra il caso già a 5 secondi per tutti i tratti Big Five tranne la gradevolezza. Passare da 60 a 300 secondi aggiungeva poco. Con clip molto più lunghe, 25-30 minuti erano più precisi di 5-10 minuti, ma 5-10 e 15-20 erano quasi alla pari, e 3 ore di interazione non battevano 50 minuti."
+     },
+     {
+      "title": "Emozioni: posate o spontanee",
+      "text": "Le emozioni di base, mostrate in modo posato, si riconoscono già con esposizioni di un quinto di secondo. Le espressioni spontanee sono molto più difficili da giudicare, anche con esposizioni più lunghe. Quindi la regola 'bastano pochi istanti' vale per i segnali chiari, non per quelli veri e sfumati."
+     },
+     {
+      "title": "Cosa succede nel mondo reale",
+      "text": "In visite mediche e in chiamate di assistenza tecnica, il primo minuto o due dell'interazione prevedeva esiti importanti come la soddisfazione. Ma nei dati sulle visite, la sola prima fetta da 1 minuto prevedeva peggio dei 3 minuti insieme per diverse variabili. Quasi un terzo dei responsabili delle assunzioni dice di decidere se un candidato è adatto entro i primi 5 minuti."
+     },
+     {
+      "title": "Limiti dello studio",
+      "text": "È una rassegna, non un esperimento, e gli autori scrivono che molte scelte dei ricercatori su durata e posizione della fetta sono 'un atto di fede'. Con madri e figli sordi, fette da 3 minuti di gioco non rappresentavano i 18 minuti interi. In un testo scritto, l'ultima fetta non dava alcuna precisione sul nevroticismo. La lunghezza giusta cambia con ciò che si misura."
+     }
+    ],
+    "tools": [
+     {
+      "title": "La lettura in tre finestre",
+      "when": "Prima conversazione, call, colloquio, primo incontro con un cliente.",
+      "steps": [
+       "Non decidere nei primi secondi: sono la parte meno rappresentativa. Aspetta di aver superato i primi minuti.",
+       "Scegli 2 o 3 finestre da uno o due minuti in momenti diversi, dal centro della conversazione in poi.",
+       "In ogni finestra guarda solo segnali stabili: dove guarda, se annuisce, se sorride.",
+       "Se almeno 2 finestre su 3 dicono la stessa cosa, hai un'ipotesi di lavoro. Se dicono cose diverse, non hai niente."
+      ],
+      "note": "Applicazione mia, ricavata da questi risultati: due fette sommate rappresentavano bene sguardo, cenni, gesti e sorrisi, e le fette migliori stanno nel centro."
+     },
+     {
+      "title": "Segnali da leggere e segnali da lasciare stare",
+      "when": "Quando stai per trarre una conclusione su una persona da quello che hai visto.",
+      "steps": [
+       "Affidabili da una fetta: sguardo, cenni del capo, sorrisi.",
+       "Inaffidabili da una fetta: quanto parla, spesso i gesti. Non concludere niente da un minuto in cui parla poco o tanto.",
+       "Espressioni spontanee e sfumate: serve più tempo e più contesto. Quelle posate le leggi subito, ma dicono poco.",
+       "Gradevolezza: nei primi secondi è il tratto che si legge peggio. Non giudicare se uno è simpatico o affidabile da un colpo d'occhio."
+      ],
+      "note": "Elenco tratto dai risultati su rappresentatività e accuratezza. La scelta di cosa leggere in conversazione è un'applicazione mia."
+     },
+     {
+      "title": "Dal segnale all'ipotesi, con verifica",
+      "when": "Ogni volta che ti fai un'idea su qualcuno e ci devi costruire sopra una decisione.",
+      "steps": [
+       "Scrivi (anche a mente) in due parti: 'ho visto' e 'ipotizzo'. Per esempio: ho visto che evita lo sguardo quando parla di soldi, ipotizzo che sia a disagio sul tema.",
+       "Ricorda che il segnale e la realtà possono non coincidere: nel modello di Brunswik il segnale è legato all'impressione e, a parte, alla caratteristica vera.",
+       "Fai una domanda o proponi qualcosa che metta alla prova l'ipotesi.",
+       "Aggiorna: tieni l'ipotesi solo se la risposta la conferma."
+      ],
+      "note": "Applicazione mia. Gli autori non testano interventi per leggere le persone: descrivono quanto sono affidabili gli estratti brevi."
+     }
+    ],
+    "data": [
+     "Murphy NA, Hall JA. Front Psychol 2021;12:667326, DOI 10.3389/fpsyg.2021.667326",
+     "Rassegna, testo completo letto",
+     "Murphy 2005: 50 persone, conversazioni da 15 minuti, fette da 1 minuto",
+     "Carney e colleghi: Big Five a 5, 20, 45, 60 e 300 secondi",
+     "Hall e colleghi 2009: tre fette da 1 minuto in visite mediche da 15, correlazioni tra 0,60 e 0,82"
+    ],
+    "questions": [
+     {
+      "q": "Che cos'è una thin slice e chi ha coniato il termine?",
+      "ideal": "Un breve estratto di comportamento, di solito sotto i 5 minuti. Il termine è di Ambady e Rosenthal, 1992, da una meta-analisi."
+     },
+     {
+      "q": "Quali segnali si ripetono da una fetta all'altra e quale no?",
+      "ideal": "Lo sguardo è il più stabile, e gesti, cenni, tocchi di sé e sorrisi arrivano a livelli ragionevoli. Il tempo di parola non si ripete."
+     },
+     {
+      "q": "Da dove conviene prendere la fetta e perché non dall'inizio?",
+      "ideal": "Dal centro dell'interazione. Le fette dell'inizio e della fine rappresentano peggio il tutto, e per i colloqui di counseling le fette dopo i primi 5 minuti erano le migliori."
+     },
+     {
+      "q": "Cosa dice lo studio di Carney sulla personalità a 5 secondi e su 60 contro 300 secondi?",
+      "ideal": "A 5 secondi si è già sopra il caso per tutti i tratti Big Five tranne la gradevolezza. Passare da 60 a 300 secondi aggiunge poco."
+     },
+     {
+      "q": "Quali limiti hanno questi risultati e come si usa una fetta in pratica?",
+      "ideal": "La lunghezza giusta cambia con ciò che si misura, e in alcuni contesti, come madri e figli sordi, la fetta non rappresenta il tutto. In pratica una fetta è un'ipotesi: meglio due o tre fette dal centro, e poi verificare."
+     }
+    ]
+   }
+  },
+  {
+   "id": "w47d-quintiliano-vir-bonus",
+   "v": 1,
+   "patch": {
+    "tools": [
+     {
+      "title": "Il test dei due filtri prima di una leva persuasiva",
+      "when": "Quando stai per usare urgenza, scarsità, prova sociale o qualunque leva su una persona.",
+      "steps": [
+       "Dai un nome alla leva che stai per usare, ad alta voce o per iscritto.",
+       "Primo filtro: la useresti con una persona a cui vuoi bene?",
+       "Secondo filtro: ti starebbe bene che la persona vedesse esattamente come la stai usando?",
+       "Se uno dei due filtri dice no, riformula dicendo apertamente cosa vuoi e perché."
+      ],
+      "note": "Applicazione mia, ricavata dal principio di Catone, Cicerone e Quintiliano: la fiducia viene prima della tecnica. I classici non danno questo test."
+     },
+     {
+      "title": "La frase da tenere pronta",
+      "when": "Quando qualcuno ti chiede di insegnargli a convincere.",
+      "steps": [
+       "Dì: 'Vir bonus dicendi peritus', l'uomo onesto esperto nel parlare.",
+       "Spiega in una riga: la tecnica da sola, senza onestà, è un'arma.",
+       "Porta un esempio vicino a chi hai davanti: un venditore che ti ha convinto una volta e poi ti ha perso per sempre."
+      ],
+      "note": "Per l'uso in conversazione. L'esempio lo scegli tu: non attribuirti esperienze che non hai."
+     }
+    ]
+   }
+  },
+  {
+   "id": "w47d-persuasione-esperto",
+   "v": 1,
+   "patch": {
+    "tools": [
+     {
+      "title": "Dal rischio astratto al corpo",
+      "when": "Quando vuoi convincere qualcuno a cambiare un'abitudine con una spiegazione.",
+      "steps": [
+       "Scegli il rischio di cui parli e trasformalo in una conseguenza fisica concreta, in una frase sola.",
+       "Usa immagini del corpo che cambia, come nello studio: pelle e acne da una parte, pressione e cuore dall'altra.",
+       "Lascia perdere statistiche generiche: nello studio i momenti in cui l'esperto parlava di effetti sul corpo erano quelli che prevedevano chi si lasciava convincere.",
+       "Chiudi con una domanda sul beneficio che per quella persona conta di più."
+      ],
+      "note": "Applicazione mia. Lo studio è su 45 studenti e un solo tema (lo zucchero): mostra che certi passaggi prevedono la persuasione, non che questa tecnica funzioni su tutti."
+     },
+     {
+      "title": "Calibrare chi ti ascolta",
+      "when": "Prima di scegliere come presentare un consiglio.",
+      "steps": [
+       "Osserva quanto la persona tende a conformarsi a ciò che dicono gli altri: chi si conforma di più, nello studio, ha cambiato di più la sua offerta.",
+       "Se la persona è conformista, gioca sul 'cosa fanno gli esperti' e su esempi di persone simili a lei.",
+       "Se è indipendente, parti dai suoi obiettivi e lascia che sia lei a trarre la conclusione."
+      ],
+      "note": "Applicazione mia. La correlazione con il conformismo era di -0,30, quindi un legame debole."
+     }
+    ]
+   }
+  },
+  {
+   "id": "w48-liking-gap",
+   "v": 1,
+   "patch": {
+    "tools": [
+     {
+      "title": "La ricalibratura dopo un primo incontro",
+      "when": "Un cliente o un amico arriva dicendo 'ho fatto una brutta figura'.",
+      "steps": [
+       "Chiedi: da 1 a 7, quanto pensi di piacere all'altra persona?",
+       "Poi: quali segnali di apprezzamento hai visto? Sorrisi, domande a te, la conversazione che si allunga.",
+       "Fagli scrivere almeno tre segnali concreti: nello studio i segnali c'erano, ma venivano trascurati.",
+       "Chiedi se i pensieri su come l'altro l'ha vista sono più duri di quelli su come lui ha visto l'altro. Quasi sempre lo sono."
+      ],
+      "note": "Applicazione mia. Gli autori non testano interventi. Il divario è risultato più forte nelle persone più timide."
+     },
+     {
+      "title": "Il messaggio dopo la conversazione",
+      "when": "Hai appena parlato con una persona nuova e non sai se è andata bene.",
+      "steps": [
+       "Prima di rimuginare, scrivi tre cose concrete che l'altra persona ha fatto e che indicano interesse.",
+       "Se il dubbio resta, scrivile un messaggio breve e specifico su qualcosa di cui avete parlato.",
+       "Ricorda il dato: dopo una conversazione l'altro ti apprezza più di quanto pensi."
+      ],
+      "note": "Applicazione mia."
+     }
+    ]
+   }
+  },
+  {
+   "id": "w48-voce-impressioni",
+   "v": 1,
+   "patch": {
+    "tools": [
+     {
+      "title": "Il controllo dell'attacco",
+      "when": "Prima di una call, di un video, di un intervento in cui conta la prima impressione.",
+      "steps": [
+       "Registra tre aperture diverse della stessa frase, per esempio 'Buongiorno, sono Luigi'.",
+       "Riascoltale senza guardare niente e dai un voto da 1 a 5 a dominanza e affidabilità.",
+       "Scegli quella che dà l'impressione che vuoi e ripetila fino a farla uscire naturale.",
+       "Respira prima di parlare: l'attacco parte dal primo suono."
+      ],
+      "note": "Applicazione mia. Lo studio usa vocali sostenute da 400 millisecondi e non testa interventi: non dice come cambiare una voce né quanto contano le parole dopo."
+     }
+    ]
+   }
+  }
  ]
 }
