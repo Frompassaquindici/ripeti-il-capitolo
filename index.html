@@ -372,8 +372,8 @@ V.chapter=()=>{
  const needEnr=c.kind!=="paper"&&c.transcript&&!c.checks&&getKey();
  if(needEnr&&!ENR.busy&&!ENR.tried[c.id])setTimeout(()=>enrich(c.id),0);
  const list=(t,arr,fn)=>arr&&arr.length?`<div class="sec"><h2>${t}</h2><div class="stack" style="gap:8px">${arr.map(fn).join("")}</div></div>`:"";
- return `<div class="top"><button class="iconbtn" data-act="tab" data-v="library" aria-label="Indietro">${ic("back",20)}</button><div class="grow" style="text-align:center;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.kind==="paper"?"Paper":(/^\d+$/.test(String(c.chapter||""))?"Capitolo ":"")+esc(c.chapter||"?")}</div><span style="width:44px"></span></div>
- <div class="stack"><div><h1 style="font-size:28px">${esc(c.kind==="paper"?c.chapter:c.book)}</h1><div class="sub nocap">${esc(c.author||"")}${c.author?" · ":""}${fmtDay(c.createdAt)}</div></div>
+ return `<div class="top"><button class="iconbtn" data-act="tab" data-v="library" aria-label="Indietro">${ic("back",20)}</button><div class="grow" style="text-align:center;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.kind==="paper"?"Paper":c.kind==="wow"?"Wow":(/^\d+$/.test(String(c.chapter||""))?"Capitolo ":"")+esc(c.chapter||"?")}</div><span style="width:44px"></span></div>
+ <div class="stack"><div><h1 style="font-size:28px">${esc(c.kind==="paper"||c.kind==="wow"?c.chapter:c.book)}</h1><div class="sub nocap">${esc(c.author||"")}${c.author?" · ":""}${fmtDay(c.createdAt)}</div></div>
  ${ENR.busy===c.id?`<div class="card row" style="gap:12px"><div class="spin" style="width:22px;height:22px"></div><div class="grow" style="font-size:14px">Sto controllando ciò che hai detto e preparo le spiegazioni. Ci vuole circa un minuto.</div></div>`:needEnr&&ENR.tried[c.id]?`<div class="card sand"><div class="row"><div class="grow" style="font-size:14px">${esc(ENR.err||"Controllo non riuscito.")}</div><button class="pill sm ghost" data-act="enrichretry" data-id="${esc(c.id)}">Riprova</button></div></div>`:""}
  ${c.summary?`<div class="card">${esc(c.summary)}</div>`:""}
  ${c.images&&c.images.length?`<div class="sec"><h2>Immagini mentali</h2><div class="stack" style="gap:8px">${c.images.map((x,i)=>imgCard(c,x,i)).join("")}</div></div>`:""}
@@ -386,8 +386,8 @@ V.chapter=()=>{
  ${list("Dati",c.data,x=>`<div class="note">${esc(x)}</div>`)}
  ${c.unclear&&c.unclear.length?`<div class="sec"><h2>Da controllare sul libro</h2><div class="stack" style="gap:8px">${c.unclear.map(x=>`<div class="note sand">${esc(x)}</div>`).join("")}</div></div>`:""}
  ${(c.questions||[]).length?`<div class="row"><button class="pill grow" data-act="chapreview" data-id="${esc(c.id)}">Ripassa a voce</button><button class="pill ghost grow" data-act="light" data-id="${esc(c.id)}">Ripassa a tocchi</button></div>`:""}
- ${c.kind==="paper"?"":`<button class="pill ghost" data-act="continuechap" data-id="${esc(c.id)}">Continua questo capitolo</button>`}
- ${c.kind==="paper"?"":`<label class="link" style="cursor:pointer;display:inline-flex;align-items:center">Aggiungi foto di una pagina<input type="file" accept="image/*" data-photo="c:${esc(c.id)}" hidden></label>`}
+ ${c.kind==="paper"||c.kind==="wow"?"":`<button class="pill ghost" data-act="continuechap" data-id="${esc(c.id)}">Continua questo capitolo</button>`}
+ ${c.kind==="paper"||c.kind==="wow"?"":`<label class="link" style="cursor:pointer;display:inline-flex;align-items:center">Aggiungi foto di una pagina<input type="file" accept="image/*" data-photo="c:${esc(c.id)}" hidden></label>`}
  ${(c.quotes&&c.quotes.length)||(c.phrases&&c.phrases.length)||(c.images&&c.images.length)||(c.concepts&&c.concepts.length)?`<button class="pill" data-act="prova" data-id="${esc(c.id)}">Mettiti alla prova</button>${c.prova?`<div class="muted" style="text-align:center">Ultima prova ${fmtDay(c.prova.at)}: ${c.prova.cz?c.prova.cz.ok+" parole su "+c.prova.cz.tot+" nelle frasi, ":""}${c.prova.im.ok} immagini sapute, ${c.prova.im.part} a metà, ${c.prova.im.no} da rivedere</div>`:""}`:""}
  ${c.kind==="paper"?fbCard(c):""}
  ${c.batch&&!paperDone(c)?`<button class="pill ghost" data-act="done" data-id="${esc(c.id)}">Segna come studiato</button>`:""}
@@ -653,10 +653,20 @@ function fbCard(c){const f=fbAll()[c.id],need=S.needFb===c.id;
 function fbSave(id,v){const c=S.chapters.find(x=>x.id===id);if(!c)return;const n=(($("#fbn")||{}).value||"").trim().slice(0,300),m=fbAll();
  m[id]={id,title:c.chapter||"",author:c.author||"",v,note:n,at:Date.now()};try{localStorage.setItem(FBK,JSON.stringify(m))}catch(e){}
  S.needFb=null;toast("Registrato");render();if(window.Sync&&Sync.tok())Sync.schedule()}
+function seedWow(){try{let done=lsj("rc_seeded",[]),ch=false;const now=Date.now(),qs=(c)=>{const l=[];
+  l.push({q:"Come lo giochi con le persone? "+c.title,ideal:[c.say,c.scene].filter(Boolean).join(" ")});
+  if(c.why)l.push({q:"Perché funziona? "+c.title,ideal:c.why});
+  if(c.facts&&c.facts.length)l.push({q:"Quali numeri e fatti reggono questa cosa? "+c.title,ideal:c.facts.join(" ")});
+  if(c.warn)l.push({q:"Qual è il limite? "+c.title,ideal:c.warn});return l};
+ WOW.forEach(c=>{const k="wow:"+c.id;if(done.includes(k))return;done.push(k);ch=true;if(S.chapters.find(x=>x.id===c.id))return;
+  const deep=[];if(c.scene)deep.push({title:"Come lo giochi con loro",text:c.scene});if(c.steps&&c.steps.length)deep.push({title:"Come si fa",text:c.steps.map((x,i)=>(i+1)+". "+x).join(" ")});if(c.why)deep.push({title:"Perché funziona",text:c.why});if(c.warn)deep.push({title:"Limiti",text:c.warn});
+  S.chapters.push({id:c.id,kind:"wow",book:"Wow",author:WOWK[c.kind]||"",chapter:c.title,confidence:1,transcript:"",summary:c.say,images:[],phrases:[c.say],quotes:[],deep,concepts:[],data:[].concat(c.facts||[],c.src?["Fonte: "+c.src]:[]),unclear:[],createdAt:now,
+   questions:qs(c).map((x,n)=>({id:"q"+n,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0}))})});
+ if(ch){S.chapters.sort((a,b)=>b.createdAt-a.createdAt);Store._persist();localStorage.setItem("rc_seeded",JSON.stringify(done));if(["home","library"].includes(S.view))render()}}catch(e){}}
 const WOWK={trucco:"Trucco",mentalismo:"Mentalismo",frase:"Frase",mito:"Mito smontato"};
 let WOW=[];try{WOW=JSON.parse(localStorage.getItem("rc_wow")||"[]")}catch(e){}
 async function loadWow(){try{const r=await fetch("wow.json",{cache:"no-store"});if(!r.ok)return;const j=await r.json();
- if(Array.isArray(j.cards)&&j.cards.length){WOW=j.cards;try{localStorage.setItem("rc_wow",JSON.stringify(WOW))}catch(e){}if(S.view==="wow")render()}}catch(e){}}
+ if(Array.isArray(j.cards)&&j.cards.length){WOW=j.cards;seedWow();try{localStorage.setItem("rc_wow",JSON.stringify(WOW))}catch(e){}if(S.view==="wow")render()}}catch(e){}}
 V.wow=()=>{const f=S.wowF||"tutti",L=WOW.filter(c=>f==="tutti"||c.kind===f);
  const li=a=>(a||[]).map(x=>`<li>${esc(x)}</li>`).join("");
  return `<div class="top"><div><h1>Wow</h1><div class="sub nocap">Da fare con le persone a cui tieni. Tutto verificato</div></div></div>
@@ -671,6 +681,7 @@ V.wow=()=>{const f=S.wowF||"tutti",L=WOW.filter(c=>f==="tutti"||c.kind===f);
   <div class="note"><b>Perché funziona</b>${esc(c.why)}</div>
   ${c.facts&&c.facts.length?`<div class="note"><b>Numeri e fatti</b><ul style="margin:4px 0 0 18px;padding:0">${li(c.facts)}</ul></div>`:""}
   ${c.warn?`<div class="note"><b>Limiti</b>${esc(c.warn)}</div>`:""}
+  ${S.chapters.find(x=>x.id===c.id)?`<button class="pill ghost" data-act="open" data-id="${esc(c.id)}">Ripassa questa</button>`:""}
   <div class="muted" style="font-size:12px">Fonte: ${esc(c.src||"")}</div></div></details>`).join("")}
  </div>`};
 
