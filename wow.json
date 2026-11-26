@@ -1,5 +1,5 @@
 {
- "v": 2,
+ "v": 3,
  "cards": [
   {
    "id": "wow-occhi-specchio",
@@ -19,7 +19,8 @@
     "Duffy e Lombroso (Nature, 1968) hanno mostrato attività elettrica che indica la soppressione già prima che parta il movimento, quindi la attiva il cervello, non l'occhio che si sfoca."
    ],
    "warn": "La spiegazione del ritardo della fotocamera è quella data da chi divulga questo esperimento (Michael Bach, sito di illusioni ottiche), non da uno studio che ho letto per intero.",
-   "src": "Duffy e Lombroso, Nature 1968, https://doi.org/10.1038/2181074a0; Michael Bach, Visual Phenomena and Optical Illusions; Wikipedia, Saccadic masking"
+   "src": "Duffy e Lombroso, Nature 1968, https://doi.org/10.1038/2181074a0; Michael Bach, Visual Phenomena and Optical Illusions; Wikipedia, Saccadic masking",
+   "scene": "A casa o in un bagno di un locale, con un amico davanti allo specchio: 'guarda i tuoi occhi, passa da uno all'altro, hai visto muoversi qualcosa?' Poi lo guardi tu e glielo racconti: tu li vedi, lui no."
   },
   {
    "id": "wow-placebo-dichiarato",
@@ -39,7 +40,8 @@
     "Il gruppo di controllo aveva lo stesso tipo di rapporto con il medico, quindi la differenza non è solo 'essere seguiti'."
    ],
    "warn": "Un solo centro, 80 persone, sintomi riferiti dai pazienti, solo colon irritabile. Non dire che un placebo cura le malattie: dillo come prova che il contesto cambia come stai.",
-   "src": "According to PubMed: Kaptchuk et al., PLoS One 2010, https://doi.org/10.1371/journal.pone.0015591"
+   "src": "According to PubMed: Kaptchuk et al., PLoS One 2010, https://doi.org/10.1371/journal.pone.0015591",
+   "scene": "A cena, quando qualcuno dice che 'sono tutte suggestioni': racconti lo studio senza dire l'esito e gli fai scommettere se sono migliorati o no."
   },
   {
    "id": "wow-guardia-notturna",
@@ -60,7 +62,8 @@
     "Nelle sessioni successive l'asimmetria non c'era più."
    ],
    "warn": "È un'interpretazione degli autori (ipotesi della guardia notturna), basata su sessioni di laboratorio. Uno studio successivo (2019) ha visto lo stesso schema nel sonno NREM ma non una asimmetria uguale nel sonno REM.",
-   "src": "According to PubMed: Tamaki et al., Curr Biol 2016, https://doi.org/10.1016/j.cub.2016.02.063; Tamaki e Sasaki, Front Neurosci 2019, https://doi.org/10.3389/fnins.2019.01161"
+   "src": "According to PubMed: Tamaki et al., Curr Biol 2016, https://doi.org/10.1016/j.cub.2016.02.063; Tamaki e Sasaki, Front Neurosci 2019, https://doi.org/10.3389/fnins.2019.01161",
+   "scene": "In vacanza o in hotel con la tua ragazza o gli amici, la mattina dopo la prima notte: 'sapete perché avete dormito male? Metà del vostro cervello ha fatto il turno di guardia.'"
   },
   {
    "id": "wow-risata-amici",
@@ -79,7 +82,8 @@
     "Una replica (Royal Society Open Science, 2020) ha mostrato che 1-3 secondi di risata insieme informano sull'amicizia meglio di un parlato sovrapposto più lungo."
    ],
    "warn": "Il caso sarebbe 50%: la precisione è bassa, quindi presentalo come qualcosa che l'orecchio coglie, non come una lettura infallibile.",
-   "src": "According to PubMed: Bryant et al., PNAS 2016, https://doi.org/10.1073/pnas.1524993113; Bryant et al., R Soc Open Sci 2020, https://doi.org/10.1098/rsos.201092"
+   "src": "According to PubMed: Bryant et al., PNAS 2016, https://doi.org/10.1073/pnas.1524993113; Bryant et al., R Soc Open Sci 2020, https://doi.org/10.1098/rsos.201092",
+   "scene": "In compagnia, quando qualcuno ride insieme a un altro: 'scommetto che da due secondi di risata registrata capisco se sono amici'. Funziona meglio se prima hai fatto ascoltare clip vere a occhi chiusi."
   },
   {
    "id": "wow-pupille",
@@ -98,7 +102,8 @@
     "L'imitazione della dilatazione prediceva la fiducia solo verso partner del proprio gruppo, non l'imitazione della costrizione."
    ],
    "warn": "I volti erano virtuali, in un gioco di fiducia: non dimostra che puoi leggere le persone dalle pupille nella vita reale. Non usarlo come lettura sicura.",
-   "src": "According to PubMed: Kret et al., Psychol Sci 2015, https://doi.org/10.1177/0956797615588306"
+   "src": "According to PubMed: Kret et al., Psychol Sci 2015, https://doi.org/10.1177/0956797615588306",
+   "scene": "Al tavolo di un bar con luce non troppo bassa, mentre parlate di fiducia o di chi vi sta simpatico. Racconti il gioco di fiducia e dici che le pupille sono un segnale sociale. Non fare lettura di pupille a nessuno come fosse un fatto."
   },
   {
    "id": "wow-cervelli-sincronizzati",
@@ -118,7 +123,8 @@
     "Più area dove l'ascoltatore anticipava, più comprensione: r = 0,75, p < 0,01."
    ],
    "warn": "Una sola storia e 11 ascoltatori. La correlazione con il coupling totale era r = 0,54 con p < 0,07, non significativa a soglia classica. Dillo come studio pionieristico, non come legge.",
-   "src": "According to PubMed: Stephens, Silbert, Hasson, PNAS 2010, https://doi.org/10.1073/pnas.1008662107; PMC2922522"
+   "src": "According to PubMed: Stephens, Silbert, Hasson, PNAS 2010, https://doi.org/10.1073/pnas.1008662107; PMC2922522",
+   "scene": "Con la persona a cui tieni, quando parlate di sentirsi capiti: 'sai che quando ci capiamo davvero il tuo cervello si muove come il mio, e in alcune aree anticipa?'"
   },
   {
    "id": "wow-solletico",
@@ -139,7 +145,8 @@
     "Lo stesso meccanismo sembra alterato in persone con allucinazioni uditive o esperienze di passività."
    ],
    "warn": "È una rassegna di studi, non un singolo esperimento. Il ruolo del cervelletto è descritto come 'evidenza che suggerisce'.",
-   "src": "According to PubMed: Blakemore, Wolpert, Frith, Neuroreport 2000, https://doi.org/10.1097/00001756-200008030-00002"
+   "src": "According to PubMed: Blakemore, Wolpert, Frith, Neuroreport 2000, https://doi.org/10.1097/00001756-200008030-00002",
+   "scene": "Con amici o con una persona con cui c'è confidenza: 'provate a farvi il solletico da soli'. Ridi, poi spieghi il motivo. Il corpo a corpo funziona più delle parole."
   },
   {
    "id": "wow-faccia-voto",
@@ -159,7 +166,94 @@
     "L'effetto era specifico alla competenza, non alla simpatia o all'attrattiva."
    ],
    "warn": "Sono correlazioni su elezioni statunitensi. Non vuol dire che la faccia determini il voto: dice che un giudizio istantaneo sul volto anticipa come andrà. Ancora meno vale per giudicare chi hai davanti.",
-   "src": "Todorov et al., Science 2005, https://doi.org/10.1126/science.1110589; Princeton University news, 9 giugno 2005"
+   "src": "Todorov et al., Science 2005, https://doi.org/10.1126/science.1110589; Princeton University news, 9 giugno 2005",
+   "scene": "Con gli amici davanti a una foto di due candidati o due sconosciuti: 'in un secondo, chi vi sembra più competente?' Poi racconti lo studio e la percentuale."
+  },
+  {
+   "id": "wow-bouba-kiki",
+   "kind": "mentalismo",
+   "title": "Indovino quale parola scegli prima che tu risponda",
+   "say": "Ti disegno due forme: una a nuvola e una a stella spigolosa. Una si chiama bouba, l'altra kiki. Scommetto che sai già quale è quale.",
+   "scene": "A tavola con un foglio e una penna. Disegni una forma morbida e una a punte, dici i due nomi e fai scegliere a ognuno in silenzio, scrivendo su un tovagliolo. Poi leggi i risultati: quasi tutti uguali.",
+   "steps": [
+    "Disegna una forma curva e una a punte.",
+    "Dì: 'una è bouba, l'altra kiki. Scrivete su un foglietto quale è quale, senza parlare.'",
+    "Raccogli i foglietti: la grande maggioranza avrà scritto bouba per la forma curva e kiki per quella a punte.",
+    "Spiega: i suoni 'b' e 'o' danno l'idea di morbido, 'k' e 'i' di duro."
+   ],
+   "why": "Il cervello associa in modo non arbitrario certi suoni a certe forme. Gli studiosi lo chiamano effetto bouba/kiki, un caso di simbolismo fonetico.",
+   "facts": [
+    "Köhler, nel 1929, riferì dell'esperimento a Tenerife con le parole 'takete' e 'baluba'.",
+    "Ramachandran e Hubbard (2001) lo ripeterono con 'bouba' e 'kiki' su studenti americani e parlanti tamil in India: tra il 95% e il 98% scelse la forma curva come bouba.",
+    "Il fenomeno è stato replicato in molte lingue."
+   ],
+   "warn": "Il 95-98% è la cifra riportata dalle fonti divulgative per lo studio del 2001; a casa con amici può uscire meno. Alcune lingue lo mostrano più forte di altre.",
+   "src": "Wikipedia, Bouba/kiki effect; Il Post, 2019; Northwestern University (Marian), 2023"
+  },
+  {
+   "id": "wow-peso-grandezza",
+   "kind": "trucco",
+   "title": "Due scatole dello stesso peso: una sembra molto più pesante",
+   "say": "Sollevale tutte e due. Sono uguali, pesano esattamente uguale. Ma il tuo cervello giura che la piccola è più pesante.",
+   "scene": "Con amici in cucina o in salotto. Prendi due scatole una grande e una piccola, riempile fino allo stesso peso (tienilo segreto) e fai dire quale è più pesante. Poi le pesi sulla bilancia della cucina.",
+   "steps": [
+    "Procurati due scatole di dimensioni diverse (una grande, una piccola).",
+    "Riempile fino ad avere lo stesso peso, controllando con una bilancia da cucina.",
+    "Fai sollevare prima una poi l'altra e chiedi quale pesa di più.",
+    "Quasi tutti diranno la più piccola. Fai pesare le due scatole davanti a loro."
+   ],
+   "why": "Il cervello si aspetta che le cose grandi pesino di più: confronta l'aspettativa con la sensazione e interpreta la differenza come 'è più pesante del previsto'.",
+   "facts": [
+    "La prima dimostrazione sperimentale è di Charpentier (1891).",
+    "Tra due oggetti con la stessa massa, il più piccolo tende a sembrare il più pesante.",
+    "Il fenomeno persiste anche quando il modo di sollevare viene corretto, quindi non dipende solo da quanta forza usi.",
+    "Esistono varianti simili con il materiale: il metallo sembra più leggero del legno a parità di peso."
+   ],
+   "warn": "Funziona con quasi tutti, ma non è matematico. Se i due oggetti sono molto simili la differenza si sente meno.",
+   "src": "Percept Psychophys 1999, https://doi.org/10.3758/bf03213127; Percept Mot Skills 2012, https://doi.org/10.2466/24.22.27.PMS.115.4.120-141; Wikipedia, Size-weight illusion"
+  },
+  {
+   "id": "wow-ponte",
+   "kind": "frase",
+   "title": "Gli uomini sul ponte che tremava chiamarono più spesso lei",
+   "say": "Se vuoi che qualcuno ti trovi attraente, portalo prima in un posto che gli fa battere il cuore. Il cervello confonde la paura con l'attrazione.",
+   "scene": "Con amici o con la tua ragazza, parlando di primi appuntamenti o di montagne russe: 'sai perché l'attrazione cresce dopo una cosa che spaventa?' Racconti la storia del ponte.",
+   "steps": [
+    "Racconta la scena: due ponti sullo stesso fiume, uno alto e traballante, uno basso e solido.",
+    "Una intervistatrice fermava gli uomini subito dopo il ponte e dava il suo numero per eventuali domande.",
+    "Chi aveva attraversato quello alto chiamò più spesso.",
+    "Spiega: il cuore batte forte, e il cervello attribuisce l'eccitazione alla persona che ha davanti."
+   ],
+   "why": "Si chiama misattribuzione dell'attivazione: l'agitazione fisica causata da un fatto (la paura) viene etichettata come attrazione verso la persona presente.",
+   "facts": [
+    "Studio di Dutton e Aron (1974) al ponte sospeso di Capilano (Vancouver).",
+    "Con un intervistatore uomo al posto della donna non si ottenevano gli stessi risultati.",
+    "Gli autori hanno assunto che sul ponte alto l'attivazione fosse maggiore, ma non l'hanno misurata."
+   ],
+   "warn": "Gli autori non hanno misurato l'agitazione fisica, e gli uomini non erano assegnati a caso: scelsero loro quale ponte attraversare. Dillo come ipotesi con una storia famosa, non come regola per far innamorare qualcuno.",
+   "src": "Dutton e Aron, J Pers Soc Psychol 1974 (testo scaricabile dal corso di psicologia di Masaryk University); Penn State, PSYCH 425; Wikipedia, Misattribution of arousal"
+  },
+  {
+   "id": "wow-pendolo",
+   "kind": "trucco",
+   "title": "Faccio muovere un pendolo con il pensiero (e la scienza lo spiega)",
+   "say": "Tieni il filo fermo e pensa a un cerchio. Non muovere la mano. Guarda cosa fa il pendolo.",
+   "scene": "Una sera con amici, con un anello appeso a un filo. Fai tenere il filo a ognuno e dai istruzioni solo mentali: 'pensa a un cerchio', poi 'pensa a una linea'. Alla fine spieghi che il movimento è tuo, non dello spirito.",
+   "steps": [
+    "Appendi un oggetto pesante a un filo di 20-30 centimetri, un anello o una chiave.",
+    "Fai tenere il filo con due dita, il gomito appoggiato al tavolo.",
+    "Dì: 'pensa a un cerchio senza muovere la mano'. Il pendolo comincia a girare.",
+    "Poi: 'pensa a un movimento avanti e indietro'. Cambia direzione.",
+    "Spiega il meccanismo: sono micromovimenti involontari della mano, amplificati dal filo."
+   ],
+   "why": "È l'effetto ideomotorio: pensare a un movimento attiva i muscoli in modo così leggero che non te ne accorgi, e il pendolo lo amplifica. Lo stesso meccanismo c'è dietro tavolette spiritiche e bacchette da rabdomante.",
+   "facts": [
+    "Descritto dal chimico Chevreul nell'Ottocento.",
+    "Gauchou e colleghi (Consciousness and Cognition, 2012) hanno confrontato le risposte date a voce con quelle date muovendo una tavoletta ouija: con la tavoletta l'accuratezza era più alta (65%) sulle domande di cultura generale.",
+    "Uno studio del 2019 con motion capture ha mostrato che l'effetto compare quando le dita oscillano a una frequenza vicina a quella di risonanza del pendolo."
+   ],
+   "warn": "Il 65% è con una tavoletta ouija e domande a risposta sì/no, non con il pendolo. Non promettere che il pendolo 'sappia' le risposte.",
+   "src": "Gauchou et al., Conscious Cogn 2012, https://doi.org/10.1016/j.concog.2012.01.016; Olson et al., Neurosci Conscious 2017, https://doi.org/10.1093/nc/nix014; Wikipedia, Ideomotor phenomenon"
   }
  ]
 }
