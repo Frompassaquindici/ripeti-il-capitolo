@@ -1,180 +1,165 @@
 {
- "v": 1,
+ "v": 2,
  "cards": [
   {
-   "id": "wow-punto-cieco",
+   "id": "wow-occhi-specchio",
    "kind": "trucco",
-   "title": "Il pallino che sparisce davanti ai tuoi occhi",
-   "say": "Chiudi l'occhio sinistro e guarda la croce. Adesso avvicina o allontana il foglio. Il pallino sparisce, e il tuo cervello inventa quello che ci mette al posto.",
+   "title": "Non puoi vedere i tuoi occhi muoversi allo specchio",
+   "say": "Guardati allo specchio e passa lo sguardo da un occhio all'altro. Non vedi mai il movimento. Chi ti sta accanto lo vede benissimo.",
    "steps": [
-    "Su un foglio disegna una croce a sinistra e, a 8-10 centimetri sulla destra, un pallino pieno.",
-    "Fai chiudere l'occhio sinistro e fissare la croce con il destro.",
-    "Fai muovere lentamente il foglio avanti e indietro, senza spostare lo sguardo dalla croce.",
-    "A una certa distanza il pallino sparisce. Se spostano lo sguardo, ricompare."
+    "Fai mettere la persona a circa 20 centimetri da uno specchio.",
+    "Falle guardare alternativamente il suo occhio sinistro e il destro.",
+    "Chiedile cosa vede: gli occhi sembrano fermi, come se si fossero teletrasportati.",
+    "Ora mettiti di fronte a lei e sposta lo sguardo tra i suoi due occhi: lei vede il tuo movimento chiaramente.",
+    "Variante: faglielo rifare filmandosi con la fotocamera frontale. Sullo schermo il movimento si vede."
    ],
-   "why": "Nel punto in cui il nervo ottico esce dall'occhio, il disco ottico, non ci sono fotorecettori. Lì la retina non vede niente. Non te ne accorgi perché il cervello riempie il buco con ciò che c'è intorno.",
+   "why": "Il cervello spegne la vista un attimo prima e durante ogni movimento rapido dell'occhio (saccade), per evitare che il mondo sembri sfocato e tremolante a ogni spostamento dello sguardo. Si chiama soppressione saccadica. Nello specchio non c'è ritardo, quindi la soppressione copre proprio il movimento. Lo schermo del telefono ha un lieve ritardo: mostra il movimento quando la soppressione è già finita.",
    "facts": [
-    "Con due occhi aperti non si nota: le due zone cieche non coincidono, e l'altro occhio copre il buco.",
-    "Anche con un occhio solo non vedi un buco nero: il cervello 'riempie' con lo sfondo."
+    "Il fenomeno è noto dal 1898: Erdmann e Dodge notarono che un osservatore non vede mai il movimento dei propri occhi.",
+    "Duffy e Lombroso (Nature, 1968) hanno mostrato attività elettrica che indica la soppressione già prima che parta il movimento, quindi la attiva il cervello, non l'occhio che si sfoca."
    ],
-   "warn": "Funziona con quasi tutti. Se qualcuno porta occhiali o ha problemi alla vista può servire più tempo.",
-   "src": "Britannica (voce blind spot); Hanover College, Psychology Demonstrations; Scientific American, Mind the Gap"
+   "warn": "La spiegazione del ritardo della fotocamera è quella data da chi divulga questo esperimento (Michael Bach, sito di illusioni ottiche), non da uno studio che ho letto per intero.",
+   "src": "Duffy e Lombroso, Nature 1968, https://doi.org/10.1038/2181074a0; Michael Bach, Visual Phenomena and Optical Illusions; Wikipedia, Saccadic masking"
   },
   {
-   "id": "wow-numero-sette",
+   "id": "wow-placebo-dichiarato",
+   "kind": "frase",
+   "title": "Il placebo funziona anche se ti dicono che è un placebo",
+   "say": "Hanno dato a dei pazienti pillole di zucchero dicendo chiaramente che erano pillole di zucchero. Sono migliorati lo stesso, più di quelli lasciati senza niente.",
+   "steps": [
+    "Racconta lo studio senza dire subito l'esito: pazienti con colon irritabile, pillole inerti, spiegazione onesta.",
+    "Fai indovinare all'interlocutore se è migliorato qualcuno.",
+    "Rivela: il gruppo con placebo dichiarato è migliorato di più del gruppo senza trattamento, dopo 21 giorni.",
+    "Chiudi: 'l'effetto non nasce dall'inganno, nasce dal rituale e dall'aspettativa'."
+   ],
+   "why": "Il placebo non ha bisogno di mentire: il contesto di cura (la pillola, le parole, l'attenzione di chi ti cura) basta a modificare i sintomi soggettivi.",
+   "facts": [
+    "Studio di Kaptchuk e colleghi (PLoS One, 2010): 80 pazienti con sindrome del colon irritabile, tre settimane.",
+    "Miglioramento globale a 21 giorni: 5,0 con placebo dichiarato contro 3,9 senza trattamento (p = 0,002).",
+    "Il gruppo di controllo aveva lo stesso tipo di rapporto con il medico, quindi la differenza non è solo 'essere seguiti'."
+   ],
+   "warn": "Un solo centro, 80 persone, sintomi riferiti dai pazienti, solo colon irritabile. Non dire che un placebo cura le malattie: dillo come prova che il contesto cambia come stai.",
+   "src": "According to PubMed: Kaptchuk et al., PLoS One 2010, https://doi.org/10.1371/journal.pone.0015591"
+  },
+  {
+   "id": "wow-guardia-notturna",
+   "kind": "frase",
+   "title": "Dormire in un posto nuovo: metà cervello fa il turno di guardia",
+   "say": "La prima notte in un letto nuovo dormi male perché metà del tuo cervello resta di guardia. Non è nervosismo: è un sistema di sorveglianza.",
+   "steps": [
+    "Parti da una cosa che tutti hanno vissuto: 'la prima notte in hotel dormi male, vero?'",
+    "Spiega che in laboratorio la prima notte un emisfero dormiva meno profondamente dell'altro.",
+    "Aggiungi: i suoni insoliti sentiti dall'emisfero più vigile svegliavano di più e facevano rispondere più in fretta.",
+    "Chiudi: 'la seconda notte l'asimmetria spariva'."
+   ],
+   "why": "Secondo gli autori, il cervello tiene un emisfero come 'guardia notturna' quando l'ambiente è sconosciuto e potenzialmente pericoloso.",
+   "facts": [
+    "Studio di Tamaki e colleghi (Current Biology, 2016): la prima sessione di sonno in laboratorio mostrava una asimmetria di profondità del sonno tra emisferi nella rete della modalità predefinita (DMN).",
+    "Più era forte l'asimmetria, più ci voleva ad addormentarsi.",
+    "Suoni anomali ascoltati dall'emisfero meno addormentato causavano più risvegli e risposte comportamentali più rapide.",
+    "Nelle sessioni successive l'asimmetria non c'era più."
+   ],
+   "warn": "È un'interpretazione degli autori (ipotesi della guardia notturna), basata su sessioni di laboratorio. Uno studio successivo (2019) ha visto lo stesso schema nel sonno NREM ma non una asimmetria uguale nel sonno REM.",
+   "src": "According to PubMed: Tamaki et al., Curr Biol 2016, https://doi.org/10.1016/j.cub.2016.02.063; Tamaki e Sasaki, Front Neurosci 2019, https://doi.org/10.3389/fnins.2019.01161"
+  },
+  {
+   "id": "wow-risata-amici",
    "kind": "mentalismo",
-   "title": "Indovinare il numero che qualcuno pensa",
-   "say": "Pensa un numero da 0 a 9, il primo che ti viene. Non dirmelo. Scommetto che hai pensato 7.",
+   "title": "Capire da una risata se due persone sono amiche o si sono appena conosciute",
+   "say": "Mi basta sentire due secondi di risata insieme, senza vederli, per capire se sono amici o si sono appena incontrati.",
    "steps": [
-    "Chiedi: 'pensa il primo numero che ti viene in mente tra 0 e 9'. Non dire 'a caso' né fare esempi.",
-    "Prima di fargli dire il numero, dichiara con calma che è il 7.",
-    "Se non è il 7, hai già un'uscita pronta: 'succede a 7 persone su 10, tu sei di quelle strane'.",
-    "Combinalo con una seconda previsione, perché una sola cosa non basta."
+    "Registra, con il permesso, una risata condivisa tra due amici e una tra due sconosciuti (anche pochi secondi).",
+    "Fai ascoltare le clip senza contesto e fai indovinare chi è amico.",
+    "Dì cosa guardare: una risata spontanea, emotivamente innescata, è diversa da una di cortesia.",
+    "Spiega che il livello di accuratezza è modesto ma costante, anche tra culture lontane."
    ],
-   "why": "Il 7 non è casuale: se chiedi un numero da 0 a 9, la gente lo sceglie molto più spesso di quanto farebbe il caso.",
+   "why": "La risata che nasce da un'emozione vera ha una dinamica della voce diversa da quella controllata, e chi ascolta la coglie senza accorgersene.",
    "facts": [
-    "Nello studio di Kubovy e Psotka, tra le persone fermate per strada, il 28% sceglieva il 7 con un intervallo da 0 a 9. Con dieci numeri, il caso ne darebbe il 10%.",
-    "Mettendo l'intervallo da 6 a 15, il 7 scendeva al 17%.",
-    "Il 28% vale per l'intervallo 0-9: indovini circa una volta su tre o quattro, non sempre."
+    "Bryant e colleghi (PNAS, 2016): 966 partecipanti di 24 società distinguevano amici da sconosciuti in una risata condivisa con una precisione del 53-67%.",
+    "Una replica (Royal Society Open Science, 2020) ha mostrato che 1-3 secondi di risata insieme informano sull'amicizia meglio di un parlato sovrapposto più lungo."
    ],
-   "warn": "Non è un trucco sicuro: sbagli più spesso di quanto indovini. Funziona come intrattenimento a probabilità, non come potere. Meglio dirlo scherzando che promettere di leggere la mente.",
-   "src": "Kubovy e Psotka, J Exp Psychol Hum Percept Perform 1976 (circa 28% con 0-9, 17% con 6-15)"
+   "warn": "Il caso sarebbe 50%: la precisione è bassa, quindi presentalo come qualcosa che l'orecchio coglie, non come una lettura infallibile.",
+   "src": "According to PubMed: Bryant et al., PNAS 2016, https://doi.org/10.1073/pnas.1524993113; Bryant et al., R Soc Open Sci 2020, https://doi.org/10.1098/rsos.201092"
   },
   {
-   "id": "wow-barnum",
+   "id": "wow-pupille",
    "kind": "mentalismo",
-   "title": "Leggere il carattere di chiunque con frasi che valgono per tutti",
-   "say": "Sei una persona che con gli altri sembra sicura, ma dentro ha momenti di dubbio. Hai ancora molte capacità che non hai usato.",
+   "title": "Le tue pupille copiano quelle dell'altro, e questo cambia quanto ti fidi",
+   "say": "Ti fidi di più di chi ha le pupille che si dilatano. E le tue pupille copiano quelle dell'altro senza che tu lo sappia.",
    "steps": [
-    "Costruisci 4 o 5 frasi positive e vaghe, che valgono per quasi tutti. Per esempio: bisogno di essere apprezzato, capacità non sfruttate, dubbi nascosti.",
-    "Mescola una frase mezza critica ('a volte sei troppo severo con te stesso') a due positive: sembra onesto.",
-    "Dillo guardandolo, con tono sicuro e senza fretta, e aspetta il suo cenno di assenso.",
-    "Quando dice 'è vero', non spiegare niente: chiedi 'in che momento è successo l'ultima volta?' e fatti dare i dettagli da lui."
+    "Spiega che le pupille non reagiscono solo alla luce: si dilatano con l'attenzione e l'interesse.",
+    "Racconta il gioco: i partecipanti dovevano decidere quanti soldi affidare a un partner virtuale.",
+    "Rivela l'esito: davano più fiducia a chi aveva pupille che si dilatavano, meno a chi le restringeva.",
+    "Aggiungi che le pupille di chi guardava imitavano quelle del partner."
    ],
-   "why": "È l'effetto Forer, o Barnum: le persone accettano descrizioni generiche come se fossero scritte per loro. Il cervello cerca da solo gli esempi che le confermano.",
+   "why": "Gli autori propongono che l'imitazione delle pupille sia un segnale sociale che favorisce la fiducia dentro il gruppo.",
    "facts": [
-    "Nel classico esperimento di Forer, gli studenti davano alla stessa descrizione un voto medio di 4,26 su 5 per accuratezza, senza sapere che era uguale per tutti.",
-    "Il risultato è stato replicato molte volte con valori simili."
+    "Studio di Kret, Fischer e De Dreu (Psychological Science, 2015) con partner virtuali con pupille che si dilatavano, restavano ferme o si restringevano.",
+    "L'imitazione della dilatazione prediceva la fiducia solo verso partner del proprio gruppo, non l'imitazione della costrizione."
    ],
-   "warn": "Lo puoi usare per mostrare il meccanismo, non per ingannare: dillo a chi hai davanti alla fine. È anche il motivo per cui un test di personalità che 'ci azzecca' non dimostra niente.",
-   "src": "Forer, 1949 (voto medio 4,26), citato da Skeptic's Dictionary e Wikipedia"
+   "warn": "I volti erano virtuali, in un gioco di fiducia: non dimostra che puoi leggere le persone dalle pupille nella vita reale. Non usarlo come lettura sicura.",
+   "src": "According to PubMed: Kret et al., Psychol Sci 2015, https://doi.org/10.1177/0956797615588306"
   },
   {
-   "id": "wow-porta",
+   "id": "wow-cervelli-sincronizzati",
    "kind": "frase",
-   "title": "Metà delle persone non si accorge che cambi interlocutore",
-   "say": "Sai che in un esperimento hanno cambiato la persona con cui parlavi, nel mezzo di una conversazione, e metà della gente non se n'è accorta?",
+   "title": "Quando ti capiscono, il loro cervello fa quello che fa il tuo",
+   "say": "Se mi stai capendo, il tuo cervello sta copiando il mio, e per alcune aree lo anticipa. Se non capisci, la sincronia sparisce.",
    "steps": [
-    "Racconta la scena: uno sconosciuto chiede indicazioni a un passante.",
-    "Due persone con una porta passano in mezzo e coprono la vista. Dietro la porta, chi chiedeva indicazioni se ne va e un altro prende il suo posto.",
-    "Chiedi all'ascoltatore: 'tu te ne saresti accorto?' La risposta quasi sempre è sì.",
-    "Chiudi: 'la metà no, e non è distrazione. Vediamo meno di quanto crediamo.'"
+    "Racconta l'esperimento: una persona racconta una storia in uno scanner, altri la ascoltano nello scanner.",
+    "Dì cosa hanno trovato: l'attività del cervello di chi ascolta segue quella di chi parla,.",
+    "Aggiungi il dettaglio più forte: in alcune aree il cervello di chi ascolta anticipa quello di chi parla.",
+    "Chiudi: 'più si anticipa, meglio si capisce. E se la comunicazione fallisce, la sincronia sparisce'."
    ],
-   "why": "Si chiama cecità al cambiamento. Il cervello non registra tutti i dettagli della scena: tiene il significato, e finché quello non cambia, molte differenze passano inosservate.",
+   "why": "Parlare e ascoltare attivano aree allineate: la comunicazione funziona quando i due cervelli si accoppiano.",
    "facts": [
-    "Nello studio di Simons e Levin (1998) solo la metà dei pedestri si è accorta della sostituzione.",
-    "I due sperimentatori avevano abiti, altezza e voce diversi.",
-    "La maggior parte delle persone crede che si accorgerebbe del cambio: non è così."
+    "Stephens, Silbert e Hasson (PNAS, 2010): una persona ha raccontato una storia non preparata; 11 ascoltatori l'hanno ascoltata in fMRI.",
+    "Il coupling spariva quando i partecipanti non riuscivano a comunicare.",
+    "Più area dove l'ascoltatore anticipava, più comprensione: r = 0,75, p < 0,01."
    ],
-   "warn": "I partecipanti erano passanti di un campus universitario. Il risultato dipende anche dal gruppo sociale: chi si sentiva parte dello stesso gruppo dello sperimentatore se ne accorgeva di più.",
-   "src": "Simons e Levin, Psychonomic Bulletin & Review 1998; APA Monitor; Univ. of Illinois"
+   "warn": "Una sola storia e 11 ascoltatori. La correlazione con il coupling totale era r = 0,54 con p < 0,07, non significativa a soglia classica. Dillo come studio pionieristico, non come legge.",
+   "src": "According to PubMed: Stephens, Silbert, Hasson, PNAS 2010, https://doi.org/10.1073/pnas.1008662107; PMC2922522"
   },
   {
-   "id": "wow-choice-blindness",
+   "id": "wow-solletico",
    "kind": "frase",
-   "title": "Spieghi con ragioni una scelta che non hai mai fatto",
-   "say": "Ti hanno dato la foto che non avevi scelto, e tu hai spiegato con calma perché ti piaceva di più.",
+   "title": "Non puoi farti il solletico perché il cervello ti spoilera la sensazione",
+   "say": "Non puoi farti il solletico da solo perché il tuo cervello sa già cosa stai per sentire e abbassa il volume.",
    "steps": [
-    "Racconta l'esperimento: a ognuno mostrano due volti e chiedono di scegliere il più attraente.",
-    "Con un gesto da prestigiatore, gli consegnano la foto che NON aveva scelto e gli chiedono di spiegare perché l'aveva scelta.",
-    "Molti non si accorgono dello scambio e danno ragioni dettagliate e convinte.",
-    "Concludi: 'a volte spieghiamo le scelte dopo, non prima. Il nostro racconto arriva dopo la scelta.'"
+    "Chiedilo diretto: 'perché non riesci a farti il solletico?' Quasi nessuno lo sa.",
+    "Spiega: quando muovi la mano, il cervello calcola in anticipo la sensazione che ne uscirà.",
+    "Se la sensazione prevista coincide con quella reale, la riduce. Se è un altro a toccarti, non può prevederla.",
+    "Aggiungi: quando previsione e realtà si scostano, anche il tocco che fai da solo diventa più 'solleticante'."
    ],
-   "why": "Gli autori lo chiamano choice blindness: le persone non notano la differenza tra ciò che volevano e ciò che hanno ottenuto, ma offrono comunque ragioni introspettive su una scelta che non hanno fatto.",
+   "why": "Un modello interno del movimento (forward model) prevede le conseguenze sensoriali dei tuoi comandi motori e le attenua.",
    "facts": [
-    "Studio pubblicato su Science nel 2005 da Johansson, Hall, Sikström e Olsson, con coppie di volti da valutare per attrattiva.",
-    "Uno studio successivo degli stessi autori ha trovato pochissime differenze tra le ragioni date nelle prove manipolate e in quelle normali."
+    "Blakemore, Wolpert e Frith (Neuroreport, 2000): la corteccia somatosensoriale e il cingolo anteriore si attivano meno con il tocco prodotto da sé che con lo stesso tocco prodotto da altri.",
+    "Più aumenta la discrepanza tra previsione e feedback, meno attenuazione e più solletico.",
+    "Le evidenze indicano un ruolo del cervelletto nel generare la previsione.",
+    "Lo stesso meccanismo sembra alterato in persone con allucinazioni uditive o esperienze di passività."
    ],
-   "warn": "Il trucco funziona per scelte senza una forte preferenza (due volti simili). Non è detto che regga per decisioni importanti.",
-   "src": "Johansson et al., Science 2005; Johansson et al., Consciousness and Cognition 2006"
+   "warn": "È una rassegna di studi, non un singolo esperimento. Il ruolo del cervelletto è descritto come 'evidenza che suggerisce'.",
+   "src": "According to PubMed: Blakemore, Wolpert, Frith, Neuroreport 2000, https://doi.org/10.1097/00001756-200008030-00002"
   },
   {
-   "id": "wow-mano-gomma",
-   "kind": "trucco",
-   "title": "Far sentire a qualcuno una mano di gomma come la sua",
-   "say": "Tieni la mano nascosta e guarda questa mano di gomma. Tra poco sentirai che il tocco arriva da lì.",
-   "steps": [
-    "Fai sedere la persona a un tavolo. Metti uno schermo (anche un libro aperto) che le nasconda la mano sinistra.",
-    "Davanti a lei, dove sarebbe la sua mano, metti una mano finta, tipo guanto riempito, e copri il polso con una manica.",
-    "Con due pennelli piccoli accarezza insieme, allo stesso ritmo, la sua mano nascosta e quella finta, mentre lei guarda solo quella finta.",
-    "Dopo circa 20-30 secondi, molti sentono il tocco sulla mano finta. A quel punto colpisci la mano finta con un dito: sobbalzano."
-   ],
-   "why": "Il cervello unisce vista, tatto e posizione del corpo. Se vista e tatto concordano, la vista vince sulla posizione reale e la mano finta viene 'assimilata' al corpo.",
-   "facts": [
-    "Descritto da Botvinick e Cohen su Nature nel 1998: i partecipanti dicevano di sentire il tocco del pennello visto, come se la mano finta lo avesse sentito.",
-    "Se i tocchi non sono sincronizzati, l'illusione non compare.",
-    "Anche la reazione del cervello cambia: nella versione sincrona si attiva la corteccia premotoria, secondo Ehrsson e colleghi (2004)."
-   ],
-   "warn": "Non funziona su tutti con la stessa forza. Serve che i due tocchi siano davvero sincroni e la persona guardi solo la mano finta.",
-   "src": "Botvinick e Cohen, Nature 1998; Scientific American, The Phantom Hand; JoVE; Ehrsson et al. 2004"
-  },
-  {
-   "id": "wow-occhi-bugia",
-   "kind": "mito",
-   "title": "Guardare in alto a destra NON vuol dire che mente",
-   "say": "Ti hanno detto che se uno guarda in alto a destra sta mentendo? È una leggenda: l'hanno testata, e non funziona.",
-   "steps": [
-    "Chiedi all'interlocutore: 'secondo te, se uno guarda in alto a destra mente?' La maggioranza dirà di sì.",
-    "Racconta che in tre studi non hanno trovato nessun legame tra la direzione dello sguardo e la bugia.",
-    "Aggiungi: persino chi conosceva la regola non scopriva meglio le bugie.",
-    "Chiudi: 'se vuoi capire se uno mente, guarda i cambiamenti rispetto al suo comportamento normale, non una direzione dello sguardo'."
-   ],
-   "why": "L'idea nasce dalla programmazione neuro-linguistica (NLP). Wiseman e colleghi l'hanno messa alla prova su volontari che mentivano o dicevano il vero, e su conferenze stampa di persone che mentivano o dicevano il vero.",
-   "facts": [
-    "Studio 1: i movimenti oculari di chi mentiva e di chi diceva il vero non seguivano lo schema NLP.",
-    "Studio 2: un gruppo informato della regola e uno no non differivano nel riconoscere le bugie.",
-    "Studio 3: neppure nelle conferenze stampa ad alta visibilità si trovavano differenze."
-   ],
-   "warn": "Questo smonta un solo segnale, non dice che non si può capire nulla da una persona. Il resto del tuo lavoro sulla lettura delle persone resta valido.",
-   "src": "Wiseman et al., PLoS One 2012, The eyes don't have it"
-  },
-  {
-   "id": "wow-trasparenza",
+   "id": "wow-faccia-voto",
    "kind": "frase",
-   "title": "Credi che si veda che sei nervoso, ma non si vede",
-   "say": "Quando sei nervoso pensi che tutti lo notino. È un'illusione: ci si accorge molto meno di quanto credi.",
+   "title": "Un secondo sulla faccia di un candidato predice chi vince",
+   "say": "Hanno mostrato per un secondo la foto di due candidati e la gente ha previsto chi avrebbe vinto le elezioni, senza sapere niente di loro.",
    "steps": [
-    "Usalo con chi ha ansia da parlare in pubblico o da primo incontro.",
-    "Spiega: chi mente, o prova disgusto, pensa di 'trapelare' più di quanto fa davvero.",
-    "Dai la regola: 'da dentro senti tutto, da fuori si vede una frazione'.",
-    "Fai un controllo pratico: fatti registrare mentre parli e riguarda il video con il tuo nervosismo in mente. Ne vedrai molto meno di quanto sentivi."
+    "Racconta: la gente giudicava due foto in bianco e nero, un secondo, escludendo chi riconosceva i candidati.",
+    "Dì la domanda: 'chi sembra più competente?'",
+    "Rivela: il candidato giudicato più competente vinceva nel 71,6% delle gare per il Senato.",
+    "Aggiungi che solo il giudizio di competenza prediceva l'esito."
    ],
-   "why": "Si chiama illusione di trasparenza: partiamo dalla nostra esperienza interna e correggiamo troppo poco quando proviamo a metterci nei panni dell'altro.",
+   "why": "Giudichiamo la competenza dai volti in modo rapido e automatico, e questo influenza decisioni che crediamo razionali.",
    "facts": [
-    "Lo studio di Gilovich, Savitsky e Medvec (1998) ha mostrato che chi mente o prova disgusto sopravvaluta quanto la cosa si veda dall'esterno."
+    "Todorov e colleghi (Science, 2005): previsione corretta nel 71,6% delle elezioni per il Senato USA 2000, 2002 e 2004.",
+    "Alla Camera, il candidato più competente di faccia vinceva il 66,8% delle volte in 600 gare.",
+    "L'effetto era specifico alla competenza, non alla simpatia o all'attrattiva."
    ],
-   "warn": "Non vuol dire che non si veda mai: vuol dire che si vede meno di quanto si pensa. L'applicazione al nervosismo in pubblico è una lettura mia.",
-   "src": "Gilovich, Savitsky, Medvec, J Pers Soc Psychol 1998"
-  },
-  {
-   "id": "wow-nome",
-   "kind": "frase",
-   "title": "In una stanza rumorosa senti il tuo nome, ma solo una persona su tre",
-   "say": "Chi riesce a sentire il proprio nome in mezzo a una conversazione che non ascolta? Meno di quanto pensi: circa uno su tre.",
-   "steps": [
-    "Racconta l'effetto cocktail party: a una festa ti concentri su una persona e senti il tuo nome detto dall'altra parte della stanza.",
-    "Poi ribalta: 'tutti pensano che succeda a tutti, ma in laboratorio solo circa un terzo se ne accorge'.",
-    "Aggiungi il dettaglio: chi ha una memoria di lavoro più alta lo nota di meno, perché filtra meglio ciò che non ascolta.",
-    "Usalo in pratica: se vuoi attirare l'attenzione di qualcuno, il nome funziona, ma non è garantito."
-   ],
-   "why": "Il nome è uno stimolo molto importante e può 'bucare' la concentrazione. Ma capita solo ad alcune persone, e dipende da quanto bene il cervello tiene fuori il resto.",
-   "facts": [
-    "Moray nel 1959 trovò che il 33% sentiva il proprio nome nel canale ignorato. Wood e Cowan nel 1995 trovarono il 34,6%.",
-    "Una replica preregistrata di Röer e Cowan ha trovato il 35%.",
-    "Conway e colleghi (2001): notava il proprio nome il 65% di chi aveva una memoria di lavoro bassa contro il 20% di chi l'aveva alta."
-   ],
-   "warn": "Sono esperimenti con ascolto di due messaggi diversi, in laboratorio: per una festa vera i numeri possono cambiare.",
-   "src": "Conway, Cowan, Bunting, Psychon Bull Rev 2001; Röer e Cowan 2021 (PMC8908911)"
+   "warn": "Sono correlazioni su elezioni statunitensi. Non vuol dire che la faccia determini il voto: dice che un giudizio istantaneo sul volto anticipa come andrà. Ancora meno vale per giudicare chi hai davanti.",
+   "src": "Todorov et al., Science 2005, https://doi.org/10.1126/science.1110589; Princeton University news, 9 giugno 2005"
   }
  ]
 }
