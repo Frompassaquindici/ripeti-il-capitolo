@@ -663,7 +663,7 @@ function seedWow(){try{let done=lsj("rc_seeded",[]),ch=false;const now=Date.now(
   S.chapters.push({id:c.id,kind:"wow",book:"Wow",author:WOWK[c.kind]||"",chapter:c.title,confidence:1,transcript:"",summary:c.say,images:[],phrases:[c.say],quotes:[],deep,concepts:[],data:[].concat(c.facts||[],c.src?["Fonte: "+c.src]:[]),unclear:[],createdAt:now,
    questions:qs(c).map((x,n)=>({id:"q"+n,q:x.q,ideal:x.ideal,step:0,due:now+INT[0]*DAY,last:0,tries:0}))})});
  if(ch){S.chapters.sort((a,b)=>b.createdAt-a.createdAt);Store._persist();localStorage.setItem("rc_seeded",JSON.stringify(done));if(["home","library"].includes(S.view))render()}}catch(e){}}
-const WOWK={trucco:"Trucco",mentalismo:"Mentalismo",frase:"Frase",mito:"Mito smontato"};
+const WOWK={storia:"Storia",trucco:"Trucco",mentalismo:"Mentalismo",frase:"Frase",mito:"Mito smontato"};
 let WOW=[];try{WOW=JSON.parse(localStorage.getItem("rc_wow")||"[]")}catch(e){}
 async function loadWow(){try{const r=await fetch("wow.json",{cache:"no-store"});if(!r.ok)return;const j=await r.json();
  if(Array.isArray(j.cards)&&j.cards.length){WOW=j.cards;seedWow();try{localStorage.setItem("rc_wow",JSON.stringify(WOW))}catch(e){}if(S.view==="wow")render()}}catch(e){}}
@@ -671,7 +671,7 @@ V.wow=()=>{const f=S.wowF||"tutti",L=WOW.filter(c=>f==="tutti"||c.kind===f);
  const li=a=>(a||[]).map(x=>`<li>${esc(x)}</li>`).join("");
  return `<div class="top"><div><h1>Wow</h1><div class="sub nocap">Da fare con le persone a cui tieni. Tutto verificato</div></div></div>
  <div class="stack">
- <div style="display:flex;gap:8px;flex-wrap:wrap">${["tutti","trucco","mentalismo","frase","mito"].map(k=>`<button class="pill sm ${f===k?"":"ghost"}" data-act="wowf" data-v="${k}">${k==="tutti"?"Tutti":WOWK[k]}</button>`).join("")}</div>
+ <div style="display:flex;gap:8px;flex-wrap:wrap">${["tutti","storia","trucco","mentalismo","frase","mito"].map(k=>`<button class="pill sm ${f===k?"":"ghost"}" data-act="wowf" data-v="${k}">${k==="tutti"?"Tutti":WOWK[k]}</button>`).join("")}</div>
  ${L.length?"":`<div class="card muted">Nessuna scheda ancora.</div>`}
  ${L.map(c=>`<details class="card"><summary style="display:block;color:var(--fg);font-weight:400;min-height:0;list-style:none"><span class="tag">${esc(WOWK[c.kind]||c.kind)}</span><div style="font-weight:600;font-size:17px;margin-top:8px">${esc(c.title)}</div></summary>
   <div class="stack" style="gap:10px;margin-top:12px">

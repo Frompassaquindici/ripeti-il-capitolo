@@ -1,259 +1,164 @@
 {
- "v": 3,
+ "v": 4,
  "cards": [
   {
-   "id": "wow-occhi-specchio",
-   "kind": "trucco",
-   "title": "Non puoi vedere i tuoi occhi muoversi allo specchio",
-   "say": "Guardati allo specchio e passa lo sguardo da un occhio all'altro. Non vedi mai il movimento. Chi ti sta accanto lo vede benissimo.",
+   "id": "wow-cieco-che-vede",
+   "kind": "storia",
+   "title": "Un uomo cieco per davvero schiva gli ostacoli senza saperlo",
+   "say": "Aveva perso tutta la corteccia visiva. Cieco clinico, nessuna esperienza di vedere. Hanno messo ostacoli in un corridoio e li ha evitati tutti, senza sapere perché.",
+   "scene": "A cena, quando si parla di coscienza o di istinto: racconti il caso senza il finale e chiedi 'secondo voi cosa è successo?'. Poi il finale. Funziona perché tutti pensano che vedere voglia dire sapere di vedere.",
    "steps": [
-    "Fai mettere la persona a circa 20 centimetri da uno specchio.",
-    "Falle guardare alternativamente il suo occhio sinistro e il destro.",
-    "Chiedile cosa vede: gli occhi sembrano fermi, come se si fossero teletrasportati.",
-    "Ora mettiti di fronte a lei e sposta lo sguardo tra i suoi due occhi: lei vede il tuo movimento chiaramente.",
-    "Variante: faglielo rifare filmandosi con la fotocamera frontale. Sullo schermo il movimento si vede."
+    "Racconta chi è: un medico, due ictus in successione, entrambe le cortecce visive distrutte.",
+    "Dì che i test dicono che è cieco su tutto il campo visivo e che lui non ha nessuna sensazione di vedere.",
+    "Descrivi la prova: un corridoio lungo con ostacoli messi in mezzo.",
+    "Rivela: li ha evitati, girando intorno, e c'è il video.",
+    "Chiudi: 'vuol dire che una parte del cervello vede e agisce per noi senza dircelo'."
    ],
-   "why": "Il cervello spegne la vista un attimo prima e durante ogni movimento rapido dell'occhio (saccade), per evitare che il mondo sembri sfocato e tremolante a ogni spostamento dello sguardo. Si chiama soppressione saccadica. Nello specchio non c'è ritardo, quindi la soppressione copre proprio il movimento. Lo schermo del telefono ha un lieve ritardo: mostra il movimento quando la soppressione è già finita.",
+   "why": "Esistono vie visive più antiche, fuori dalla corteccia visiva principale, che guidano il movimento senza darti l'esperienza cosciente di vedere. Si chiama blindsight (visione cieca).",
    "facts": [
-    "Il fenomeno è noto dal 1898: Erdmann e Dodge notarono che un osservatore non vede mai il movimento dei propri occhi.",
-    "Duffy e Lombroso (Nature, 1968) hanno mostrato attività elettrica che indica la soppressione già prima che parta il movimento, quindi la attiva il cervello, non l'occhio che si sfoca."
+    "Studio di de Gelder e colleghi, Current Biology 2008, sul paziente TN.",
+    "Imaging funzionale e anatomico mostrava che TN non ha corteccia visiva funzionante.",
+    "Ha percorso un lungo corridoio con ostacoli evitandoli e girandoci intorno, ripreso in video.",
+    "Gli autori scrivono che le vie extra-striate sostengono abilità visuo-spaziali sofisticate senza consapevolezza percettiva, come già visto nelle scimmie."
    ],
-   "warn": "La spiegazione del ritardo della fotocamera è quella data da chi divulga questo esperimento (Michael Bach, sito di illusioni ottiche), non da uno studio che ho letto per intero.",
-   "src": "Duffy e Lombroso, Nature 1968, https://doi.org/10.1038/2181074a0; Michael Bach, Visual Phenomena and Optical Illusions; Wikipedia, Saccadic masking",
-   "scene": "A casa o in un bagno di un locale, con un amico davanti allo specchio: 'guarda i tuoi occhi, passa da uno all'altro, hai visto muoversi qualcosa?' Poi lo guardi tu e glielo racconti: tu li vedi, lui no."
+   "warn": "È un caso singolo, un paziente rarissimo (blindsight in entrambi gli emisferi). Non vuol dire che tutti i ciechi vedano senza saperlo.",
+   "src": "de Gelder et al., Current Biology 2008, https://doi.org/10.1016/j.cub.2008.11.002; Università di Maastricht e Eindhoven (abstract); The Scientist"
   },
   {
-   "id": "wow-placebo-dichiarato",
+   "id": "wow-coma-risponde",
+   "kind": "storia",
+   "title": "Pazienti dati per vegetativi rispondono sì o no immaginando",
+   "say": "Su 54 pazienti considerati in stato vegetativo o di minima coscienza, cinque riuscivano a controllare l'attività del cervello a comando. Uno ha risposto sì o no a delle domande.",
+   "scene": "Una sera tranquilla con persone con cui puoi parlare di cose pesanti, non a una festa. Parti dalla domanda 'come fai a sapere se qualcuno è cosciente?' e arrivi al dato: il 40% di errori nella diagnosi.",
+   "steps": [
+    "Chiedi: 'se una persona non si muove né parla, come capisci se è cosciente?'",
+    "Dì che i medici sbagliavano la diagnosi in circa il 40% dei casi.",
+    "Racconta il metodo: chiedere al paziente di immaginare due cose diverse mentre il cervello è in risonanza.",
+    "Rivela: 5 su 54 ce la facevano; due non mostravano nessun segno alla visita; uno ha risposto sì o no alle domande.",
+    "Chiudi dicendo che dietro a un corpo fermo può esserci una persona che ascolta."
+   ],
+   "why": "Immaginare un compito attiva aree cerebrali specifiche. Se un paziente senza risposte comportamentali attiva quelle aree a comando, c'è consapevolezza anche senza movimento.",
+   "facts": [
+    "Monti e colleghi, New England Journal of Medicine 2010: 54 pazienti in due centri, Cambridge e Liegi.",
+    "Il tasso di errore diagnostico nei disturbi della coscienza è circa il 40%.",
+    "5 pazienti su 54 sapevano modulare volontariamente l'attività cerebrale.",
+    "In 2 di questi nessun comportamento volontario era visibile alla visita clinica.",
+    "Un paziente ha risposto sì o no alle domande durante la risonanza, ma al letto non è stato possibile comunicare."
+   ],
+   "warn": "Solo 5 su 54: la grande maggioranza non rispondeva. Non dire che i pazienti in stato vegetativo sono spesso coscienti.",
+   "src": "According to PubMed: Monti et al., N Engl J Med 2010, https://doi.org/10.1056/NEJMoa0905370"
+  },
+  {
+   "id": "wow-pianto-accento",
    "kind": "frase",
-   "title": "Il placebo funziona anche se ti dicono che è un placebo",
-   "say": "Hanno dato a dei pazienti pillole di zucchero dicendo chiaramente che erano pillole di zucchero. Sono migliorati lo stesso, più di quelli lasciati senza niente.",
+   "title": "I neonati piangono con l'accento della lingua della mamma",
+   "say": "Già nei primi giorni di vita il pianto di un neonato francese sale, quello di un neonato tedesco scende. Imparano la melodia della lingua prima di nascere.",
+   "scene": "Con amici che hanno figli o con la tua ragazza parlando di figli o di lingue. Basta una frase: 'sapete che i neonati piangono con la melodia della lingua che sentivano in pancia?'",
    "steps": [
-    "Racconta lo studio senza dire subito l'esito: pazienti con colon irritabile, pillole inerti, spiegazione onesta.",
-    "Fai indovinare all'interlocutore se è migliorato qualcuno.",
-    "Rivela: il gruppo con placebo dichiarato è migliorato di più del gruppo senza trattamento, dopo 21 giorni.",
-    "Chiudi: 'l'effetto non nasce dall'inganno, nasce dal rituale e dall'aspettativa'."
+    "Spiega che il feto sente la voce della madre nell'ultimo trimestre e memorizza la melodia del linguaggio.",
+    "Racconta lo studio: 30 neonati francesi e 30 tedeschi, registrati mentre piangevano.",
+    "Dì il risultato: i francesi producevano più pianti con melodia che sale, i tedeschi con melodia che scende.",
+    "Collega: la lingua materna si impara dal ritmo e dalla melodia prima ancora che dalle parole."
    ],
-   "why": "Il placebo non ha bisogno di mentire: il contesto di cura (la pillola, le parole, l'attenzione di chi ti cura) basta a modificare i sintomi soggettivi.",
+   "why": "Il feto sente soprattutto la melodia del parlato (la prosodia) attraverso il corpo della madre e questa lascia una traccia che influenza come il neonato produce suoni.",
    "facts": [
-    "Studio di Kaptchuk e colleghi (PLoS One, 2010): 80 pazienti con sindrome del colon irritabile, tre settimane.",
-    "Miglioramento globale a 21 giorni: 5,0 con placebo dichiarato contro 3,9 senza trattamento (p = 0,002).",
-    "Il gruppo di controllo aveva lo stesso tipo di rapporto con il medico, quindi la differenza non è solo 'essere seguiti'."
+    "Mampe, Friederici, Christophe e Wermke (Current Biology, 2009): 30 neonati francesi e 30 tedeschi.",
+    "I francesi preferivano pianti con contorno melodico crescente, i tedeschi con contorno decrescente.",
+    "Gli autori parlano di influenza della prosodia circostante sul pianto, forse tramite apprendimento vocale su predisposizioni biologiche."
    ],
-   "warn": "Un solo centro, 80 persone, sintomi riferiti dai pazienti, solo colon irritabile. Non dire che un placebo cura le malattie: dillo come prova che il contesto cambia come stai.",
-   "src": "According to PubMed: Kaptchuk et al., PLoS One 2010, https://doi.org/10.1371/journal.pone.0015591",
-   "scene": "A cena, quando qualcuno dice che 'sono tutte suggestioni': racconti lo studio senza dire l'esito e gli fai scommettere se sono migliorati o no."
+   "warn": "Mostra un'influenza della melodia, non che i neonati 'parlino' una lingua. Studio su due lingue, 60 neonati.",
+   "src": "According to PubMed: Mampe et al., Curr Biol 2009, https://doi.org/10.1016/j.cub.2009.09.064"
   },
   {
-   "id": "wow-guardia-notturna",
-   "kind": "frase",
-   "title": "Dormire in un posto nuovo: metà cervello fa il turno di guardia",
-   "say": "La prima notte in un letto nuovo dormi male perché metà del tuo cervello resta di guardia. Non è nervosismo: è un sistema di sorveglianza.",
+   "id": "wow-lacrime-testosterone",
+   "kind": "storia",
+   "title": "Annusare le lacrime di una donna abbassa il testosterone di un uomo",
+   "say": "Lacrime senza odore. Gli uomini non sentivano niente, ma dopo averle annusate il loro testosterone scendeva.",
+   "scene": "In compagnia, con la voce bassa e l'aria da divulgatore: 'vi dico una cosa che sembra inventata. Le lacrime hanno un segnale chimico che agisce sul cervello degli uomini.'",
    "steps": [
-    "Parti da una cosa che tutti hanno vissuto: 'la prima notte in hotel dormi male, vero?'",
-    "Spiega che in laboratorio la prima notte un emisfero dormiva meno profondamente dell'altro.",
-    "Aggiungi: i suoni insoliti sentiti dall'emisfero più vigile svegliavano di più e facevano rispondere più in fretta.",
-    "Chiudi: 'la seconda notte l'asimmetria spariva'."
+    "Racconta l'idea di partenza: nei topi le lacrime sono un segnale chimico, quindi hanno controllato negli umani.",
+    "Dì il metodo: lacrime raccolte da donne e legate a emozioni negative, senza odore percepibile.",
+    "Rivela l'effetto: gli uomini che le annusavano trovavano meno attraenti i volti femminili.",
+    "Aggiungi: calo dell'eccitazione, misure fisiologiche e livelli di testosterone più bassi; la risonanza mostrava meno attività nelle aree dell'eccitazione sessuale.",
+    "Chiudi: 'e non se ne accorgevano'."
    ],
-   "why": "Secondo gli autori, il cervello tiene un emisfero come 'guardia notturna' quando l'ambiente è sconosciuto e potenzialmente pericoloso.",
+   "why": "Gli autori propongono che le lacrime umane agiscano come chemosegnale: informazioni che passano per l'olfatto senza essere percepite come odore.",
    "facts": [
-    "Studio di Tamaki e colleghi (Current Biology, 2016): la prima sessione di sonno in laboratorio mostrava una asimmetria di profondità del sonno tra emisferi nella rete della modalità predefinita (DMN).",
-    "Più era forte l'asimmetria, più ci voleva ad addormentarsi.",
-    "Suoni anomali ascoltati dall'emisfero meno addormentato causavano più risvegli e risposte comportamentali più rapide.",
-    "Nelle sessioni successive l'asimmetria non c'era più."
+    "Gelstein e colleghi (Science, 2011), Weizmann Institute.",
+    "Lacrime di emozione negativa raccolte da donne e annusate da uomini, senza odore consapevole.",
+    "Effetti: minore attrattiva attribuita ai volti, minore eccitazione dichiarata e fisiologica, testosterone più basso.",
+    "La risonanza ha mostrato meno attività nelle aree legate all'eccitazione sessuale."
    ],
-   "warn": "È un'interpretazione degli autori (ipotesi della guardia notturna), basata su sessioni di laboratorio. Uno studio successivo (2019) ha visto lo stesso schema nel sonno NREM ma non una asimmetria uguale nel sonno REM.",
-   "src": "According to PubMed: Tamaki et al., Curr Biol 2016, https://doi.org/10.1016/j.cub.2016.02.063; Tamaki e Sasaki, Front Neurosci 2019, https://doi.org/10.3389/fnins.2019.01161",
-   "scene": "In vacanza o in hotel con la tua ragazza o gli amici, la mattina dopo la prima notte: 'sapete perché avete dormito male? Metà del vostro cervello ha fatto il turno di guardia.'"
+   "warn": "Solo uomini che annusano lacrime di donne, in laboratorio. Non è provato che accada nella vita reale e non dice nulla su cosa 'significhi' piangere davanti a qualcuno. La parola 'feromone' è discussa.",
+   "src": "According to PubMed: Gelstein et al., Science 2011, https://doi.org/10.1126/science.1198331"
   },
   {
-   "id": "wow-risata-amici",
+   "id": "wow-bugia-54",
+   "kind": "mito",
+   "title": "Siamo bravi a scoprire le bugie quanto una monetina",
+   "say": "In 206 studi e quasi 25.000 persone, chi prova a capire se qualcuno mente indovina il 54%. Il caso è 50%.",
+   "scene": "Con amici che si credono dei rilevatori di bugie, o con la tua ragazza: lo dici con tranquillità e poi spieghi che se vuoi capire se uno mente non basta guardarlo.",
+   "steps": [
+    "Chiedi a tutti: 'quanto pensate di indovinare quando qualcuno mente?'",
+    "Fai dire un numero. Poi rivela: 54%.",
+    "Aggiungi il dettaglio: riconosciamo il 47% delle bugie e il 61% delle verità, cioè ci fidiamo di più di quanto dovremmo.",
+    "Dì dove aiuta: si scoprono un po' meglio le bugie dalla voce che da ciò che si vede."
+   ],
+   "why": "Gli autori propongono un doppio standard: giudichiamo le bugie degli altri più severamente delle nostre. E quando chi parla ha motivazione a essere creduto, appare più sospetto.",
+   "facts": [
+    "Bond e DePaulo (2006): meta-analisi di 206 documenti con 24.483 giudici.",
+    "Precisione media 54% nel distinguere lie e truth in tempo reale, senza strumenti né addestramento.",
+    "Il 47% delle bugie viene classificato come tali, il 61% delle verità come non bugie.",
+    "Si è più accurati con i segnali udibili che con quelli visibili.",
+    "Le persone tendono a considerare onesti i loro interlocutori."
+   ],
+   "warn": "È una media su persone qualsiasi che giudicano in tempo reale, senza strumenti né addestramento. Non dimostra che nessuno sia bravo, dice che a occhio non basta.",
+   "src": "According to PubMed: Bond e DePaulo, Pers Soc Psychol Rev 2006, https://doi.org/10.1207/s15327957pspr1003_2"
+  },
+  {
+   "id": "wow-sudore-paura",
    "kind": "mentalismo",
-   "title": "Capire da una risata se due persone sono amiche o si sono appena conosciute",
-   "say": "Mi basta sentire due secondi di risata insieme, senza vederli, per capire se sono amici o si sono appena incontrati.",
+   "title": "La paura passa per il sudore e ti fa fare la faccia spaventata",
+   "say": "Hanno fatto annusare il sudore di persone spaventate a degli sconosciuti. Non sentivano nessun odore, ma la loro faccia diventava spaventata.",
+   "scene": "Con persone che amano le cose strane: racconti il risultato e usi la frase 'il tuo corpo sa cosa prova l'altro prima di te'. Va detto come studio, non come potere.",
    "steps": [
-    "Registra, con il permesso, una risata condivisa tra due amici e una tra due sconosciuti (anche pochi secondi).",
-    "Fai ascoltare le clip senza contesto e fai indovinare chi è amico.",
-    "Dì cosa guardare: una risata spontanea, emotivamente innescata, è diversa da una di cortesia.",
-    "Spiega che il livello di accuratezza è modesto ma costante, anche tra culture lontane."
+    "Spiega la tesi: gli stati emotivi di chi invia vengono trasmessi a chi riceve tramite sostanze chimiche.",
+    "Racconta il metodo: sudore raccolto da persone in stati emotivi diversi (paura e disgusto) e fatto annusare ad altre persone, in doppio cieco.",
+    "Dì cosa è successo: il sudore di paura produceva espressioni di paura, aumento dell'annusare e dell'esplorazione con gli occhi.",
+    "Con il sudore di disgusto: espressione di disgusto e riduzione di annusare ed esplorare.",
+    "Chiudi: 'comunicazione senza che nessuno se ne accorga'."
    ],
-   "why": "La risata che nasce da un'emozione vera ha una dinamica della voce diversa da quella controllata, e chi ascolta la coglie senza accorgersene.",
+   "why": "Secondo gli autori, i processi che il mittente vive in un certo stato emotivo vengono trasmessi al ricevente tramite chemiosegnali, creando una corrispondenza a più livelli tra i due.",
    "facts": [
-    "Bryant e colleghi (PNAS, 2016): 966 partecipanti di 24 società distinguevano amici da sconosciuti in una risata condivisa con una precisione del 53-67%.",
-    "Una replica (Royal Society Open Science, 2020) ha mostrato che 1-3 secondi di risata insieme informano sull'amicizia meglio di un parlato sovrapposto più lungo."
+    "de Groot, Smeets, Kaldewaij, Duijndam e Semin (Psychological Science, 2012), esperimento in doppio cieco.",
+    "Chemosegnali di paura: espressione facciale di paura, più sniff e più scansione visiva.",
+    "Chemosegnali di disgusto: espressione di disgusto, meno sniff, meno sensibilità nel rilevare un bersaglio e meno scansione.",
+    "Gli effetti avvenivano fuori dalla consapevolezza."
    ],
-   "warn": "Il caso sarebbe 50%: la precisione è bassa, quindi presentalo come qualcosa che l'orecchio coglie, non come una lettura infallibile.",
-   "src": "According to PubMed: Bryant et al., PNAS 2016, https://doi.org/10.1073/pnas.1524993113; Bryant et al., R Soc Open Sci 2020, https://doi.org/10.1098/rsos.201092",
-   "scene": "In compagnia, quando qualcuno ride insieme a un altro: 'scommetto che da due secondi di risata registrata capisco se sono amici'. Funziona meglio se prima hai fatto ascoltare clip vere a occhi chiusi."
+   "warn": "Un solo esperimento di laboratorio. Non vuol dire che puoi 'sentire' la paura di chi hai davanti o usarla come trucco.",
+   "src": "According to PubMed: de Groot et al., Psychol Sci 2012, https://doi.org/10.1177/0956797612445317"
   },
   {
-   "id": "wow-pupille",
-   "kind": "mentalismo",
-   "title": "Le tue pupille copiano quelle dell'altro, e questo cambia quanto ti fidi",
-   "say": "Ti fidi di più di chi ha le pupille che si dilatano. E le tue pupille copiano quelle dell'altro senza che tu lo sappia.",
+   "id": "wow-flashbulb-challenger",
+   "kind": "storia",
+   "title": "Ricordi benissimo dov'eri quando è successo. Probabilmente è sbagliato.",
+   "say": "Ti ricordi esattamente dov'eri, con chi, cosa facevi. Sei sicurissimo. In uno studio famoso molti, anni dopo, raccontavano una storia diversa, con la stessa sicurezza.",
+   "scene": "A cena con un amico, parlando di ricordi: 'dimmi dov'eri l'11 settembre'. Poi gli racconti lo studio del Challenger, dove le persone hanno cambiato versione senza accorgersene.",
    "steps": [
-    "Spiega che le pupille non reagiscono solo alla luce: si dilatano con l'attenzione e l'interesse.",
-    "Racconta il gioco: i partecipanti dovevano decidere quanti soldi affidare a un partner virtuale.",
-    "Rivela l'esito: davano più fiducia a chi aveva pupille che si dilatavano, meno a chi le restringeva.",
-    "Aggiungi che le pupille di chi guardava imitavano quelle del partner."
+    "Chiedi a una persona dove era durante un evento importante e cosa stava facendo.",
+    "Fai notare quanto è sicura e quanti dettagli ricorda.",
+    "Racconta lo studio: studenti intervistati il giorno dopo il disastro del Challenger (1986), poi di nuovo dopo due anni e mezzo.",
+    "Rivela: molti raccontavano una storia diversa da quella del giorno dopo, ma con sicurezza alta.",
+    "Chiudi: 'la sicurezza non è un indicatore di verità'."
    ],
-   "why": "Gli autori propongono che l'imitazione delle pupille sia un segnale sociale che favorisce la fiducia dentro il gruppo.",
+   "why": "Il ricordo vivido non è una fotografia: viene ricostruito ogni volta e gli errori non sono casuali. La vividezza e la sicurezza non dicono se il ricordo è fedele.",
    "facts": [
-    "Studio di Kret, Fischer e De Dreu (Psychological Science, 2015) con partner virtuali con pupille che si dilatavano, restavano ferme o si restringevano.",
-    "L'imitazione della dilatazione prediceva la fiducia solo verso partner del proprio gruppo, non l'imitazione della costrizione."
+    "Neisser e Harsch (1992): studenti intervistati il giorno dopo il disastro del Challenger (1986) e di nuovo dopo circa due anni e mezzo.",
+    "Molte versioni cambiavano, per esempio dove e da chi avevano saputo la notizia, ma la sicurezza restava alta.",
+    "Talarico e Rubin (Psychological Science, 2003), sull'11 settembre: ciò che caratterizza i ricordi flashbulb è la sicurezza, non la coerenza nel tempo."
    ],
-   "warn": "I volti erano virtuali, in un gioco di fiducia: non dimostra che puoi leggere le persone dalle pupille nella vita reale. Non usarlo come lettura sicura.",
-   "src": "According to PubMed: Kret et al., Psychol Sci 2015, https://doi.org/10.1177/0956797615588306",
-   "scene": "Al tavolo di un bar con luce non troppo bassa, mentre parlate di fiducia o di chi vi sta simpatico. Racconti il gioco di fiducia e dici che le pupille sono un segnale sociale. Non fare lettura di pupille a nessuno come fosse un fatto."
-  },
-  {
-   "id": "wow-cervelli-sincronizzati",
-   "kind": "frase",
-   "title": "Quando ti capiscono, il loro cervello fa quello che fa il tuo",
-   "say": "Se mi stai capendo, il tuo cervello sta copiando il mio, e per alcune aree lo anticipa. Se non capisci, la sincronia sparisce.",
-   "steps": [
-    "Racconta l'esperimento: una persona racconta una storia in uno scanner, altri la ascoltano nello scanner.",
-    "Dì cosa hanno trovato: l'attività del cervello di chi ascolta segue quella di chi parla,.",
-    "Aggiungi il dettaglio più forte: in alcune aree il cervello di chi ascolta anticipa quello di chi parla.",
-    "Chiudi: 'più si anticipa, meglio si capisce. E se la comunicazione fallisce, la sincronia sparisce'."
-   ],
-   "why": "Parlare e ascoltare attivano aree allineate: la comunicazione funziona quando i due cervelli si accoppiano.",
-   "facts": [
-    "Stephens, Silbert e Hasson (PNAS, 2010): una persona ha raccontato una storia non preparata; 11 ascoltatori l'hanno ascoltata in fMRI.",
-    "Il coupling spariva quando i partecipanti non riuscivano a comunicare.",
-    "Più area dove l'ascoltatore anticipava, più comprensione: r = 0,75, p < 0,01."
-   ],
-   "warn": "Una sola storia e 11 ascoltatori. La correlazione con il coupling totale era r = 0,54 con p < 0,07, non significativa a soglia classica. Dillo come studio pionieristico, non come legge.",
-   "src": "According to PubMed: Stephens, Silbert, Hasson, PNAS 2010, https://doi.org/10.1073/pnas.1008662107; PMC2922522",
-   "scene": "Con la persona a cui tieni, quando parlate di sentirsi capiti: 'sai che quando ci capiamo davvero il tuo cervello si muove come il mio, e in alcune aree anticipa?'"
-  },
-  {
-   "id": "wow-solletico",
-   "kind": "frase",
-   "title": "Non puoi farti il solletico perché il cervello ti spoilera la sensazione",
-   "say": "Non puoi farti il solletico da solo perché il tuo cervello sa già cosa stai per sentire e abbassa il volume.",
-   "steps": [
-    "Chiedilo diretto: 'perché non riesci a farti il solletico?' Quasi nessuno lo sa.",
-    "Spiega: quando muovi la mano, il cervello calcola in anticipo la sensazione che ne uscirà.",
-    "Se la sensazione prevista coincide con quella reale, la riduce. Se è un altro a toccarti, non può prevederla.",
-    "Aggiungi: quando previsione e realtà si scostano, anche il tocco che fai da solo diventa più 'solleticante'."
-   ],
-   "why": "Un modello interno del movimento (forward model) prevede le conseguenze sensoriali dei tuoi comandi motori e le attenua.",
-   "facts": [
-    "Blakemore, Wolpert e Frith (Neuroreport, 2000): la corteccia somatosensoriale e il cingolo anteriore si attivano meno con il tocco prodotto da sé che con lo stesso tocco prodotto da altri.",
-    "Più aumenta la discrepanza tra previsione e feedback, meno attenuazione e più solletico.",
-    "Le evidenze indicano un ruolo del cervelletto nel generare la previsione.",
-    "Lo stesso meccanismo sembra alterato in persone con allucinazioni uditive o esperienze di passività."
-   ],
-   "warn": "È una rassegna di studi, non un singolo esperimento. Il ruolo del cervelletto è descritto come 'evidenza che suggerisce'.",
-   "src": "According to PubMed: Blakemore, Wolpert, Frith, Neuroreport 2000, https://doi.org/10.1097/00001756-200008030-00002",
-   "scene": "Con amici o con una persona con cui c'è confidenza: 'provate a farvi il solletico da soli'. Ridi, poi spieghi il motivo. Il corpo a corpo funziona più delle parole."
-  },
-  {
-   "id": "wow-faccia-voto",
-   "kind": "frase",
-   "title": "Un secondo sulla faccia di un candidato predice chi vince",
-   "say": "Hanno mostrato per un secondo la foto di due candidati e la gente ha previsto chi avrebbe vinto le elezioni, senza sapere niente di loro.",
-   "steps": [
-    "Racconta: la gente giudicava due foto in bianco e nero, un secondo, escludendo chi riconosceva i candidati.",
-    "Dì la domanda: 'chi sembra più competente?'",
-    "Rivela: il candidato giudicato più competente vinceva nel 71,6% delle gare per il Senato.",
-    "Aggiungi che solo il giudizio di competenza prediceva l'esito."
-   ],
-   "why": "Giudichiamo la competenza dai volti in modo rapido e automatico, e questo influenza decisioni che crediamo razionali.",
-   "facts": [
-    "Todorov e colleghi (Science, 2005): previsione corretta nel 71,6% delle elezioni per il Senato USA 2000, 2002 e 2004.",
-    "Alla Camera, il candidato più competente di faccia vinceva il 66,8% delle volte in 600 gare.",
-    "L'effetto era specifico alla competenza, non alla simpatia o all'attrattiva."
-   ],
-   "warn": "Sono correlazioni su elezioni statunitensi. Non vuol dire che la faccia determini il voto: dice che un giudizio istantaneo sul volto anticipa come andrà. Ancora meno vale per giudicare chi hai davanti.",
-   "src": "Todorov et al., Science 2005, https://doi.org/10.1126/science.1110589; Princeton University news, 9 giugno 2005",
-   "scene": "Con gli amici davanti a una foto di due candidati o due sconosciuti: 'in un secondo, chi vi sembra più competente?' Poi racconti lo studio e la percentuale."
-  },
-  {
-   "id": "wow-bouba-kiki",
-   "kind": "mentalismo",
-   "title": "Indovino quale parola scegli prima che tu risponda",
-   "say": "Ti disegno due forme: una a nuvola e una a stella spigolosa. Una si chiama bouba, l'altra kiki. Scommetto che sai già quale è quale.",
-   "scene": "A tavola con un foglio e una penna. Disegni una forma morbida e una a punte, dici i due nomi e fai scegliere a ognuno in silenzio, scrivendo su un tovagliolo. Poi leggi i risultati: quasi tutti uguali.",
-   "steps": [
-    "Disegna una forma curva e una a punte.",
-    "Dì: 'una è bouba, l'altra kiki. Scrivete su un foglietto quale è quale, senza parlare.'",
-    "Raccogli i foglietti: la grande maggioranza avrà scritto bouba per la forma curva e kiki per quella a punte.",
-    "Spiega: i suoni 'b' e 'o' danno l'idea di morbido, 'k' e 'i' di duro."
-   ],
-   "why": "Il cervello associa in modo non arbitrario certi suoni a certe forme. Gli studiosi lo chiamano effetto bouba/kiki, un caso di simbolismo fonetico.",
-   "facts": [
-    "Köhler, nel 1929, riferì dell'esperimento a Tenerife con le parole 'takete' e 'baluba'.",
-    "Ramachandran e Hubbard (2001) lo ripeterono con 'bouba' e 'kiki' su studenti americani e parlanti tamil in India: tra il 95% e il 98% scelse la forma curva come bouba.",
-    "Il fenomeno è stato replicato in molte lingue."
-   ],
-   "warn": "Il 95-98% è la cifra riportata dalle fonti divulgative per lo studio del 2001; a casa con amici può uscire meno. Alcune lingue lo mostrano più forte di altre.",
-   "src": "Wikipedia, Bouba/kiki effect; Il Post, 2019; Northwestern University (Marian), 2023"
-  },
-  {
-   "id": "wow-peso-grandezza",
-   "kind": "trucco",
-   "title": "Due scatole dello stesso peso: una sembra molto più pesante",
-   "say": "Sollevale tutte e due. Sono uguali, pesano esattamente uguale. Ma il tuo cervello giura che la piccola è più pesante.",
-   "scene": "Con amici in cucina o in salotto. Prendi due scatole una grande e una piccola, riempile fino allo stesso peso (tienilo segreto) e fai dire quale è più pesante. Poi le pesi sulla bilancia della cucina.",
-   "steps": [
-    "Procurati due scatole di dimensioni diverse (una grande, una piccola).",
-    "Riempile fino ad avere lo stesso peso, controllando con una bilancia da cucina.",
-    "Fai sollevare prima una poi l'altra e chiedi quale pesa di più.",
-    "Quasi tutti diranno la più piccola. Fai pesare le due scatole davanti a loro."
-   ],
-   "why": "Il cervello si aspetta che le cose grandi pesino di più: confronta l'aspettativa con la sensazione e interpreta la differenza come 'è più pesante del previsto'.",
-   "facts": [
-    "La prima dimostrazione sperimentale è di Charpentier (1891).",
-    "Tra due oggetti con la stessa massa, il più piccolo tende a sembrare il più pesante.",
-    "Il fenomeno persiste anche quando il modo di sollevare viene corretto, quindi non dipende solo da quanta forza usi.",
-    "Esistono varianti simili con il materiale: il metallo sembra più leggero del legno a parità di peso."
-   ],
-   "warn": "Funziona con quasi tutti, ma non è matematico. Se i due oggetti sono molto simili la differenza si sente meno.",
-   "src": "Percept Psychophys 1999, https://doi.org/10.3758/bf03213127; Percept Mot Skills 2012, https://doi.org/10.2466/24.22.27.PMS.115.4.120-141; Wikipedia, Size-weight illusion"
-  },
-  {
-   "id": "wow-ponte",
-   "kind": "frase",
-   "title": "Gli uomini sul ponte che tremava chiamarono più spesso lei",
-   "say": "Se vuoi che qualcuno ti trovi attraente, portalo prima in un posto che gli fa battere il cuore. Il cervello confonde la paura con l'attrazione.",
-   "scene": "Con amici o con la tua ragazza, parlando di primi appuntamenti o di montagne russe: 'sai perché l'attrazione cresce dopo una cosa che spaventa?' Racconti la storia del ponte.",
-   "steps": [
-    "Racconta la scena: due ponti sullo stesso fiume, uno alto e traballante, uno basso e solido.",
-    "Una intervistatrice fermava gli uomini subito dopo il ponte e dava il suo numero per eventuali domande.",
-    "Chi aveva attraversato quello alto chiamò più spesso.",
-    "Spiega: il cuore batte forte, e il cervello attribuisce l'eccitazione alla persona che ha davanti."
-   ],
-   "why": "Si chiama misattribuzione dell'attivazione: l'agitazione fisica causata da un fatto (la paura) viene etichettata come attrazione verso la persona presente.",
-   "facts": [
-    "Studio di Dutton e Aron (1974) al ponte sospeso di Capilano (Vancouver).",
-    "Con un intervistatore uomo al posto della donna non si ottenevano gli stessi risultati.",
-    "Gli autori hanno assunto che sul ponte alto l'attivazione fosse maggiore, ma non l'hanno misurata."
-   ],
-   "warn": "Gli autori non hanno misurato l'agitazione fisica, e gli uomini non erano assegnati a caso: scelsero loro quale ponte attraversare. Dillo come ipotesi con una storia famosa, non come regola per far innamorare qualcuno.",
-   "src": "Dutton e Aron, J Pers Soc Psychol 1974 (testo scaricabile dal corso di psicologia di Masaryk University); Penn State, PSYCH 425; Wikipedia, Misattribution of arousal"
-  },
-  {
-   "id": "wow-pendolo",
-   "kind": "trucco",
-   "title": "Faccio muovere un pendolo con il pensiero (e la scienza lo spiega)",
-   "say": "Tieni il filo fermo e pensa a un cerchio. Non muovere la mano. Guarda cosa fa il pendolo.",
-   "scene": "Una sera con amici, con un anello appeso a un filo. Fai tenere il filo a ognuno e dai istruzioni solo mentali: 'pensa a un cerchio', poi 'pensa a una linea'. Alla fine spieghi che il movimento è tuo, non dello spirito.",
-   "steps": [
-    "Appendi un oggetto pesante a un filo di 20-30 centimetri, un anello o una chiave.",
-    "Fai tenere il filo con due dita, il gomito appoggiato al tavolo.",
-    "Dì: 'pensa a un cerchio senza muovere la mano'. Il pendolo comincia a girare.",
-    "Poi: 'pensa a un movimento avanti e indietro'. Cambia direzione.",
-    "Spiega il meccanismo: sono micromovimenti involontari della mano, amplificati dal filo."
-   ],
-   "why": "È l'effetto ideomotorio: pensare a un movimento attiva i muscoli in modo così leggero che non te ne accorgi, e il pendolo lo amplifica. Lo stesso meccanismo c'è dietro tavolette spiritiche e bacchette da rabdomante.",
-   "facts": [
-    "Descritto dal chimico Chevreul nell'Ottocento.",
-    "Gauchou e colleghi (Consciousness and Cognition, 2012) hanno confrontato le risposte date a voce con quelle date muovendo una tavoletta ouija: con la tavoletta l'accuratezza era più alta (65%) sulle domande di cultura generale.",
-    "Uno studio del 2019 con motion capture ha mostrato che l'effetto compare quando le dita oscillano a una frequenza vicina a quella di risonanza del pendolo."
-   ],
-   "warn": "Il 65% è con una tavoletta ouija e domande a risposta sì/no, non con il pendolo. Non promettere che il pendolo 'sappia' le risposte.",
-   "src": "Gauchou et al., Conscious Cogn 2012, https://doi.org/10.1016/j.concog.2012.01.016; Olson et al., Neurosci Conscious 2017, https://doi.org/10.1093/nc/nix014; Wikipedia, Ideomotor phenomenon"
+   "warn": "Gli studi non dicono che tutti i ricordi emotivi siano sbagliati: dicono che la sicurezza non basta a garantirne la precisione.",
+   "src": "Neisser e Harsch 1992 (in Winograd e Neisser, Affect and accuracy in recall, Cambridge University Press); Talarico e Rubin, Psychol Sci 2003; Craik e Jacoby, Memory (MIT Press)"
   }
  ]
 }
