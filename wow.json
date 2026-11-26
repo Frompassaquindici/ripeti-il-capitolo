@@ -1,5 +1,5 @@
 {
- "v": 4,
+ "v": 5,
  "cards": [
   {
    "id": "wow-cieco-che-vede",
@@ -159,6 +159,72 @@
    ],
    "warn": "Gli studi non dicono che tutti i ricordi emotivi siano sbagliati: dicono che la sicurezza non basta a garantirne la precisione.",
    "src": "Neisser e Harsch 1992 (in Winograd e Neisser, Affect and accuracy in recall, Cambridge University Press); Talarico e Rubin, Psychol Sci 2003; Craik e Jacoby, Memory (MIT Press)"
+  },
+  {
+   "id": "wow-terzo-cartoncino",
+   "kind": "mentalismo",
+   "title": "Metti 4 carte in fila e fagliene scegliere una. Quasi sempre prende la stessa.",
+   "say": "Ti dico io quale carta scegli. Anzi, l'ho già scritta qui. Mettine quattro coperte in fila e spingine avanti una, senza pensarci.",
+   "scene": "Siete a casa con amici o con la tua ragazza. Scrivi un nome di carta su un foglio e lo piegi. Metti quattro carte coperte in fila davanti a loro: 'spingine una verso di te, la prima che ti viene'. Quasi sempre è la terza da sinistra, quella che avevi scritto.",
+   "steps": [
+    "Scegli la carta che vuoi forzare e mettila per terza da sinistra di chi guarda, tra quattro carte coperte in fila orizzontale.",
+    "Prima scrivi la previsione su un foglio e piegalo, lasciandolo sul tavolo.",
+    "Dì: 'spingine avanti una, senza pensarci troppo'. Non indicare niente.",
+    "Se spinge la terza da sinistra, apri il foglio. Se no, usa un'altra uscita: gira quella scelta e fai un'altra battuta.",
+    "Fallo una volta sola per persona: la seconda volta non funziona."
+   ],
+   "why": "Con poche carte in fila la gente tende a scegliere quella più comoda da raggiungere. Non lo sa e si sente libera lo stesso.",
+   "facts": [
+    "Esperimento 1: 100 persone, 55% ha scelto la carta bersaglio (la terza da sinistra su quattro). Per caso sarebbe il 25%.",
+    "Esperimento 2: 48% in totale. Con la scelta fatta in modo implicito il 60%, con la scelta dichiarata esplicitamente il 36%.",
+    "I maghi intervistati (91) pensavano che l'avrebbe scelta il 57%.",
+    "Chi sceglieva la carta bersaglio non si sentiva meno libero degli altri."
+   ],
+   "warn": "Non funziona sempre: nel migliore dei casi circa sei persone su dieci. Servono un'uscita di riserva e un po' di faccia tosta. I campioni vengono da un solo campus universitario e quasi tutti usavano la mano destra.",
+   "src": "Studio sulla position force, Psychological Research (2020), https://doi.org/10.1007/s00426-020-01350-z"
+  },
+  {
+   "id": "wow-tre-di-quadri",
+   "kind": "mentalismo",
+   "title": "Una carta scelta da soli, dopo una chiacchierata. E nessuno sa dire perché.",
+   "say": "Esiste un esperimento in cui una carta viene scelta quasi da soli, dopo una chiacchierata, e chi la sceglie giura di essere stato libero. E non sa dire perché.",
+   "scene": "A cena racconti questo studio e poi chiedi a un amico: 'ti è mai capitato di scegliere qualcosa e non saper dire perché?'. Fai notare che chi era influenzato non lo sapeva.",
+   "steps": [
+    "Racconta che i ricercatori hanno usato un trucco da mago: parole e gesti inseriti in una conversazione normale per portare la scelta verso la tre di quadri.",
+    "Dì che molti scelsero proprio quella carta, sentendosi liberi e in controllo.",
+    "Aggiungi: anche chi era stato influenzato di solito non sapeva dire il motivo.",
+    "Chiudi chiedendo all'amico quante delle sue scelte di oggi abbia davvero deciso lui."
+   ],
+   "why": "Le parole e i gesti che hai usato prima agiscono senza che lo sappiano. Il ricercatore parla di influenza inconsapevole su una scelta con molte alternative.",
+   "facts": [
+    "Pailhès e Kuhn (PNAS, 2020): la tecnica si chiama mental priming force e usa indizi verbali e non verbali per portare alla tre di quadri.",
+    "Molti partecipanti hanno scelto la carta bersaglio dicendo di sentirsi liberi e in controllo.",
+    "Anche quelli influenzati di solito non sapevano dire perché avessero scelto quella carta."
+   ],
+   "warn": "Qui racconti lo studio, non esegui il trucco: la tecnica esatta non l'ho potuta leggere, quindi non la propongo. Non ho verificato la percentuale.",
+   "src": "Pailhès e Kuhn, PNAS 2020, https://doi.org/10.1073/pnas.2000682117"
+  },
+  {
+   "id": "wow-forzatura-cieca",
+   "kind": "mentalismo",
+   "title": "Anche quando ti metto la carta in mano, mi dici di averla scelta liberamente.",
+   "say": "Sei sicuro di aver scelto liberamente? Dimmelo da uno a dieci. Poi ti faccio vedere che ti avevo già deciso la carta.",
+   "scene": "Dopo un gioco di carte chiedi a chi l'ha fatto quanto si è sentito libero. Poi gli racconti lo studio: davano lo stesso punteggio sia alla carta scelta davvero sia a quella forzata.",
+   "steps": [
+    "Fai scegliere una carta con una forzatura qualsiasi.",
+    "Subito dopo chiedi: 'da uno a dieci, quanto ti sei sentito libero?'.",
+    "Rivela che la carta era quella decisa da te.",
+    "Racconta lo studio: gli spettatori davano punteggi simili alla carta forzata e a una scelta libera, anche quando il mago porgeva la carta.",
+    "Chiudi: 'non sappiamo distinguere una scelta libera da una guidata'."
+   ],
+   "why": "La sensazione di libertà non è un segnale affidabile: dipende da come si sente la persona, non da come è stata guidata.",
+   "facts": [
+    "Shalom e colleghi (PLoS One, 2013): spettatori di uno spettacolo dal vivo hanno dato punteggi comparabili alla carta forzata e a qualsiasi altra carta, anche nella forzatura classica in cui il mago porge la carta.",
+    "Un esperimento di laboratorio ha mostrato cambiamenti modesti nei resoconti soggettivi anche con fattori che cambiavano molto la scelta.",
+    "La dilatazione della pupilla era un indicatore sia degli aspetti soggettivi sia di quelli oggettivi della scelta."
+   ],
+   "warn": "Funziona meglio come storia dopo un gioco, non da sola. Non dire percentuali: non le ho verificate.",
+   "src": "Shalom et al., PLoS One 2013, https://doi.org/10.1371/journal.pone.0058254"
   }
  ]
 }
